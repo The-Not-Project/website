@@ -4,7 +4,7 @@ type HeaderBackgroundProps = { $position: number };
 
 type NavBarProps = { $transparency: boolean };
 
-type RadarOverlayProps = { $shrink: boolean };
+type RadarDescriptionProps = { $shrink: boolean };
 
 export const Header = styled.header`
   display: block;
@@ -90,7 +90,7 @@ export const RadarSection = styled.section`
   overflow: hidden;
 `;
 
-export const RadarOverlay = styled.div<RadarOverlayProps>`
+export const RadarDescription = styled.div<RadarDescriptionProps>`
   display: flex;
   width: ${({ $shrink }) => ($shrink ? '50%' : '100%')};
   align-items: center;

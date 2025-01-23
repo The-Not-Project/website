@@ -6,7 +6,7 @@ import {
   Header,
   HeaderBackground,
   NavBar,
-  RadarOverlay,
+  RadarDescription,
   RadarPhoto,
   RadarSection,
 } from './page.styles';
@@ -66,10 +66,10 @@ export default function Page() {
         <div className='center-title'>Unbridled Stories, Untamed Voices.</div>
       </Header>
       <RadarSection>
-        <RadarOverlay $shrink={homePageState.overlayShrink} ref={radarRef}>
+        <RadarDescription $shrink={homePageState.overlayShrink} ref={radarRef}>
           <p>Our Radar</p>
           <div className='overlay'></div>
-        </RadarOverlay>
+        </RadarDescription>
         <RadarPhoto />
       </RadarSection>
     </>
