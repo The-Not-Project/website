@@ -13,7 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Not Project"
+  title: "The Not Project",
+  
 };
 
 export default function RootLayout({
