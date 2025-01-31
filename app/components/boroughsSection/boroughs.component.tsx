@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import {
-  DiscoverMoreSection,
+  BoroughsSectionContainer,
   SVGContainer,
   Background,
 } from './boroughs.styles';
 import MySVG from './svg';
 
-export default function Discover() {
+export default function Boroughs() {
   
     const summaries = [
       {
@@ -84,7 +84,7 @@ export default function Discover() {
   
   
     return (
-      <DiscoverMoreSection $activeIndex={activeBoroughIndex} key={`text-${hoverKey}`}>
+      <BoroughsSectionContainer $activeIndex={activeBoroughIndex} key={`text-${hoverKey}`}>
         <Background $activeIndex={activeBoroughIndex} $url={delayedUrl} key={`bg-${hoverKey}`}/>
         <h1>Which Borough speaks to you?</h1>
         <div className='description'>
@@ -96,6 +96,6 @@ export default function Discover() {
         <SVGContainer $activeIndex={activeBoroughIndex}>
           <MySVG />
         </SVGContainer>
-      </DiscoverMoreSection>
+      </BoroughsSectionContainer>
     );
   }

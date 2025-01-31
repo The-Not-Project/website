@@ -1,16 +1,7 @@
 import styled from 'styled-components';
 
-type SVGProps = {
-  $hovered: boolean;
-  $nthChild: number;
-};
 
-type BGProps = {
-  $url: number;
-  $hovered: boolean;
-};
-
-export const DiscoverMoreSection = styled.section<{ $activeIndex: number }>`
+export const BoroughsSectionContainer = styled.section<{ $activeIndex: number }>`
   height: 100vh;
   position: relative;
   color: white;

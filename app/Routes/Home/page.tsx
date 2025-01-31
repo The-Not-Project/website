@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import RadarCard from '@/app/components/radarCard/radarCard.component';
 import Header from '@/app/components/homepageHeader/homepageHeader.component';
 import Footer from '@/app/components/footer/footer.component';
-import Discover from '@/app/components/boroughsSection/boroughs.component';
+import Boroughs from '@/app/components/boroughsSection/boroughs.component';
 
 export default function Page() {
   const [homePageState, setHomePageState] = useState({
@@ -49,7 +49,7 @@ export default function Page() {
         overlayShrink={homePageState.overlayShrink}
         radarRef={radarRef as React.RefObject<HTMLDivElement>}
       />
-      <Discover />
+      <Boroughs />
     <Footer />
     </>
   );
