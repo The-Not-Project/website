@@ -18,10 +18,10 @@ body {
 @keyframes fadepulsatefast {
 
   50% {
-    filter: grayscale(90%) brightness(50%) blur(1000px);
+    filter: grayscale(50%) brightness(50%) blur(1000px);
   }
   100% {
-    filter: grayscale(90%);
+    filter: grayscale(50%);
   }
 }
 
