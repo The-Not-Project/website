@@ -41,14 +41,22 @@ export const BoroughsSectionContainer = styled.section<{ $activeIndex: number }>
 `;
 
 export const Background = styled.div<{ $activeIndex: number; $url: number }>`
-  background: ${({ $url }) =>
-    `url('/media/boroughsCards/${$url}.jpg') no-repeat center center/cover`};
+
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  filter: grayscale(90%);
+
+  .background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${({ $url }) => `url('/media/boroughsCards/${$url}.jpg') no-repeat center center/cover`};
+    filter: grayscale(50%);
+  }
   &::after {
     content: '';
     position: absolute;
