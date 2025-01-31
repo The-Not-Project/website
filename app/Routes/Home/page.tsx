@@ -1,15 +1,9 @@
 'use client';
-import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import {
-  DonateButton,
-  Header,
-  HeaderBackground,
-  NavBar,
-  RadarDescription,
-  RadarPhoto,
-  RadarSection,
-} from './page.styles';
+import RadarCard from '@/app/components/radarCard/radarCard.component';
+import Header from '@/app/components/homepageHeader/homepageHeader.component';
+import Footer from '@/app/components/footer/footer.component';
+import Discover from '@/app/components/boroughsSection/boroughs.component';
 
 export default function Page() {
   const [homePageState, setHomePageState] = useState({
@@ -37,7 +31,7 @@ export default function Page() {
     const isVisible =
       top + elementVisibleHeight <= window.innerHeight && bottom >= 0;
 
-    setHomePageState((prev) => ({
+    setHomePageState(prev => ({
       ...prev,
       backgroundPosition: offset,
       transparency: newTransparency,
@@ -47,31 +41,16 @@ export default function Page() {
 
   return (
     <>
-      <Header>
-        <HeaderBackground $position={homePageState.backgroundPosition} />
-        <NavBar $transparency={homePageState.transparency}>
-            <Image
-              src='/media/logo.png'
-              alt='The Not Project Logo'
-              width={120}
-              height={68}
-              priority
-            />
-          <div className='title-lg'>THE NOT PROJECT</div>
-          <DonateButton $transparency={homePageState.transparency}>
-            DONATE
-          </DonateButton>
-        </NavBar>
-        <div className='quote'>“Not who they expected, exactly who I am”</div>
-        <div className='center-title'>Unbridled Stories, Untamed Voices.</div>
-      </Header>
-      <RadarSection>
-        <RadarDescription $shrink={homePageState.overlayShrink} ref={radarRef}>
-          <p>Our Radar</p>
-          <div className='overlay'></div>
-        </RadarDescription>
-        <RadarPhoto />
-      </RadarSection>
+      <Header
+        backgroundPosition={homePageState.backgroundPosition}
+        transparency={homePageState.transparency}
+      />
+      <RadarCard
+        overlayShrink={homePageState.overlayShrink}
+        radarRef={radarRef as React.RefObject<HTMLDivElement>}
+      />
+      <Discover />
+    <Footer />
     </>
   );
 }

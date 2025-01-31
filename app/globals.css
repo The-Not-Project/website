@@ -1,10 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+:root {
+  --bg-color: hsl(36, 47%, 95%);
+}
+
 * {
   font-family: 'Oswald', sans-serif;
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: #ccc;
+  background: var(--bg-color);
+}
+
+@keyframes fadepulsatefast {
+
+  50% {
+    filter: grayscale(90%) brightness(50%) blur(1000px);
+  }
+  100% {
+    filter: grayscale(90%);
+  }
+}
+
+@keyframes fadepulsateslow {
+
+  33% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
