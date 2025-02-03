@@ -87,12 +87,10 @@ export default function Boroughs() {
     <BoroughsSectionContainer
       $activeIndex={activeBoroughIndex}
       key={`text-${hoverKey}`}
-      onClick={() => alert("Doesn't do anything yet, fool.")}
     >
       <Background
         $activeIndex={activeBoroughIndex}
         $url={delayedUrl}
-        key={`bg-${hoverKey}`}
       >
         <div className='background-image' />
       </Background>
@@ -101,8 +99,8 @@ export default function Boroughs() {
         <h2>{delayedSummary.borough}</h2>
         <p>{delayedSummary.description}</p>
       </div>
-      <SVGContainer $activeIndex={activeBoroughIndex}>
-        <MySVG />
+      <SVGContainer $activeIndex={activeBoroughIndex} onClick={() => alert("Doesn't do anything yet, fool.")}>
+          <MySVG />
       </SVGContainer>
     </BoroughsSectionContainer>
   );

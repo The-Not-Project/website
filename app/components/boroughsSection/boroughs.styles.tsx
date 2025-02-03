@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-
-export const BoroughsSectionContainer = styled.section<{ $activeIndex: number }>`
+export const BoroughsSectionContainer = styled.section<{
+  $activeIndex: number;
+}>`
   height: 100vh;
   position: relative;
   color: white;
@@ -36,12 +37,10 @@ export const BoroughsSectionContainer = styled.section<{ $activeIndex: number }>
       `
         animation: fadepulsateslow 1s;
       `}
-
-}
+  }
 `;
 
 export const Background = styled.div<{ $activeIndex: number; $url: number }>`
-
   position: absolute;
   top: 0;
   left: 0;
@@ -54,7 +53,8 @@ export const Background = styled.div<{ $activeIndex: number; $url: number }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background: ${({ $url }) => `url('/media/boroughsCards/${$url}.jpg') no-repeat center center/cover`};
+    background: ${({ $url }) =>
+      `url('/media/boroughsCards/${$url}.jpg') no-repeat center center/cover`};
     filter: grayscale(50%);
   }
   &::after {
@@ -64,7 +64,7 @@ export const Background = styled.div<{ $activeIndex: number; $url: number }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(var(--bg-color), transparent) 100%;
+    background: linear-gradient(var(--bg-color), transparent);
   }
   ${({ $activeIndex }) =>
     $activeIndex !== -1 &&
@@ -78,6 +78,7 @@ export const SVGContainer = styled.div<{ $activeIndex: number }>`
   position: absolute;
   right: 10%;
   bottom: 10%;
+  overflow: visible;
 
   svg {
     height: 100%;
