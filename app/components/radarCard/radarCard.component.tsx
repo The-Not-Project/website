@@ -1,18 +1,15 @@
+'use client'
+
+import useRadarVisibility from "@/app/hooks/useRadarVisibility";
 import { RadarDescription, RadarPhoto, RadarCardContainer } from "./radarCard.styles";
 
+export default function RadarCard() {
 
-type RadarCardProps = {
-  overlayShrink: boolean;
-  radarRef: React.RefObject<HTMLDivElement>;
-}
-
-export default function RadarCard({overlayShrink, radarRef}: RadarCardProps) {
-
-
+  const {ref, isVisible} = useRadarVisibility({threshold: 0.9});
     return (
         <>
         <RadarCardContainer>
-        <RadarDescription $shrink={overlayShrink} ref={radarRef}>
+        <RadarDescription $isVisible={isVisible} ref={ref}>
           <h2 className='title'>A Story Title</h2>
           <p className='summary'>
           “A summary either written by us or AI generated using a language

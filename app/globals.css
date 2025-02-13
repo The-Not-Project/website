@@ -13,6 +13,7 @@
 
 body {
   background: var(--bg-color);
+  overflow: overlay;
 }
 
 @keyframes fadepulsatefast {

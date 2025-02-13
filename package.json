@@ -9,10 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "15.1.4",
+    "@auth0/nextjs-auth0": "^3.6.0",
+    "@prisma/client": "^6.3.1",
+    "@reduxjs/toolkit": "^2.5.1",
+    "axios": "^1.7.9",
+    "next": "^15.1.7",
+    "next-auth": "^4.24.11",
+    "openai": "^4.82.0",
+    "pinata": "^1.10.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
+    "react-intersection-observer": "^9.15.1",
+    "react-redux": "^9.2.0",
+    "react-spinners": "^0.15.0",
     "styled-components": "^6.1.14"
   },
   "devDependencies": {
@@ -23,6 +33,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
+    "prisma": "^6.3.1",
     "scss": "^0.2.4",
     "typescript": "^5"
   }

@@ -6,9 +6,9 @@ export const HeaderContainer = styled.header`
   display: block;
   height: 100dvh;
   color: white;
-
   position: relative;
   text-shadow: 0 0 20px black;
+  padding-top: 80px;
 
   .quote {
     position: absolute;

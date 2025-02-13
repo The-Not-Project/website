@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-type RadarDescriptionProps = { $shrink: boolean };
+type RadarDescriptionProps = { $isVisible: boolean };
 
 
 export const RadarCardContainer = styled.section`
@@ -19,7 +19,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   justify-content: center;
   text-align: center;
   color: white;
-  width: ${({ $shrink }) => ($shrink ? '50%' : '100%')};
+  width: ${({ $isVisible }) => ($isVisible ? '50%' : '100%')};
   height: 100%;
   position: relative;
   transition: 0.3s ease-out;
@@ -29,7 +29,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     font-size: 3rem;
     transition: 0.3s ease-out;
     transition-delay: 0.5s;
-    opacity: ${({ $shrink }) => ($shrink ? '1' : '0')};
+    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
   }
 
   .summary {
@@ -37,7 +37,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     font-style: italic;
     transition: 0.3s ease-out;
     transition-delay: 0.5s;
-    opacity: ${({ $shrink }) => ($shrink ? '1' : '0')};
+    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
   }
 
   .author {
@@ -46,7 +46,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     font-size: 1.5rem;
     transition: 0.3s ease-out;
     transition-delay: 0.5s;
-    opacity: ${({ $shrink }) => ($shrink ? '1' : '0')};
+    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
   }
 
   .overlay {
@@ -58,7 +58,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     width: 100%;
     height: 100%;
     transition: 0.3s ease-out;
-    opacity: ${({ $shrink }) => ($shrink ? '0' : '1')};
+    opacity: ${({ $isVisible }) => ($isVisible ? '0' : '1')};
 
     &::after {
       content: 'Our Radar';
