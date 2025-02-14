@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 :root {
-  --bg-color: hsl(36, 47%, 95%);
+  --bg-color: #f8f3ec;
 }
 
 * {

@@ -1,23 +1,15 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Oswald } from 'next/font/google';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
 import { createUser, getUser } from './script';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
-
 export const metadata: Metadata = {
   title: 'The Not Project',
 };
+
+const oswald = Oswald({ weight: '400', subsets: ['latin'] });
 
 export default async function RootLayout({
   children,
@@ -35,9 +27,10 @@ export default async function RootLayout({
       await createUser(formData);
     }
   }
+
   return (
     <html lang='en'>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={oswald.className}>
         <UserProvider>
           <main>{children}</main>
         </UserProvider>
