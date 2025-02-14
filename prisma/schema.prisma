@@ -19,6 +19,8 @@ model User {
   lastName  String
   email     String  @unique
   stories   Story[]
+
+  @@map("user")
 }
 
 model Story {
@@ -32,6 +34,8 @@ model Story {
   media      Media[]
   createdAt  DateTime        @default(now())
   updatedAt  DateTime        @updatedAt
+
+  @@map("story")
 }
 
 model Category {
@@ -39,6 +43,8 @@ model Category {
   name        String          @unique
   description String
   stories     StoryCategory[]
+
+  @@map("category")
 }
 
 model StoryCategory {
@@ -48,6 +54,8 @@ model StoryCategory {
   category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@id([storyId, categoryId])
+
+  @@map("storycategory")
 }
 
 model Media {
@@ -56,4 +64,6 @@ model Media {
   story       Story   @relation(fields: [storyId], references: [id])
   storyId     String
   isThumbnail Boolean
+
+  @@map("media")
 }
