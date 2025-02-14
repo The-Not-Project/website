@@ -6,7 +6,7 @@ export const AdminContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin: 200px auto;
+  margin: 100px auto;
   align-items: center;
   .admin-content {
     width: 100%;
