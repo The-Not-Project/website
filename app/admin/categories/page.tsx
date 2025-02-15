@@ -1,18 +1,17 @@
-// components/categories/categories.component.tsx
 'use client';
 import { useServerActions } from '@/app/contexts/server-actions';
-import { useEffect, useState } from 'react';
 import { Category } from '@/app/types/types';
 import { PageSection, SectionTitle } from '../components/shared/Section';
-import { Table } from '../components/shared/Table';
 import { Button, ButtonsContainer } from '../components/shared/Button';
 import Popup from '../components/popup/popup.component';
 import { FormLabel, FormInput } from '../components/shared/Form';
-import LoadingPage from '../components/loadingPage/loadingPage.component';
+import CategoriesTable from '../components/categoriesTable/categoriesTable.component';
+import { useState, useCallback, useEffect } from 'react';
 
 export default function Categories() {
-  const { getCategories, createCategory, deleteCategory, editCategory } =
+  const { createCategory, editCategory, getCategories, deleteCategory } =
     useServerActions();
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [popupState, setPopupState] = useState({
@@ -21,22 +20,26 @@ export default function Categories() {
     category: null as Category | null,
   });
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      setIsLoading(true);
-      try {
-        const categories = await getCategories();
-        setCategories(categories);
-      } catch (error) {
-        console.error('Failed to fetch categories:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchCategories();
-  }, []);
+  const fetchCategories = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const data = await getCategories();
+      setCategories(data);
+    } catch (error) {
+      console.error('Failed to fetch categories:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [getCategories]);
 
-  const handleCreateOrEdit = async (event: React.FormEvent<HTMLFormElement>) => {
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  const handleCreateOrEdit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
     event.preventDefault();
     const form = event.currentTarget as HTMLFormElement;
     const data = new FormData(form);
@@ -47,8 +50,7 @@ export default function Categories() {
       } else {
         await createCategory(data);
       }
-      const updatedCategories = await getCategories();
-      setCategories(updatedCategories);
+      await fetchCategories(); // Refresh the list after mutation
       setPopupState({
         ...popupState,
         showPopup: false,
@@ -60,57 +62,19 @@ export default function Categories() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure?')) {
-      try {
-        await deleteCategory(id);
-        const updatedCategories = await getCategories();
-        setCategories(updatedCategories);
-      } catch (error) {
-        console.error('Failed to delete category:', error);
-      }
-    }
-  };
-
-  if (isLoading) {
-    return <LoadingPage />;
-  }
-
   return (
     <PageSection>
       <SectionTitle>Categories</SectionTitle>
-      <Table>
-        <thead>
-          <tr>
-            <th>Category</th>
-            <th>Description</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.map(category => (
-            <tr key={category.id}>
-              <td>{category.name}</td>
-              <td>{category.description}</td>
-              <td className='justify-right'>
-                <ButtonsContainer>
-                  <Button
-                    onClick={() =>
-                      setPopupState({ showPopup: true, edit: true, category })
-                    }
-                  >
-                    Edit
-                  </Button>
-                  <Button onClick={() => handleDelete(category.id)}>
-                    Delete
-                  </Button>
-                </ButtonsContainer>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
 
+      <CategoriesTable
+        categories={categories}
+        isLoading={isLoading}
+        setPopupState={setPopupState}
+        onDelete={async id => {
+          await deleteCategory(id);
+          await fetchCategories();
+        }}
+      />
       <Button
         className='cornered'
         onClick={() =>

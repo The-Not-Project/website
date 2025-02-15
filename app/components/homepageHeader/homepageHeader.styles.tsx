@@ -27,19 +27,24 @@ export const HeaderContainer = styled.header`
   }
 `;
 
-export const HeaderBackground = styled.div.attrs<HeaderBackgroundProps>(
-  props => ({
-    style: {
-      backgroundPositionY: `${props.$position}px`,
-    },
-  })
-)`
+export const HeaderBackground = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url('/media/loop-gif.gif') no-repeat center center/cover;
-  background-attachment: fixed;
   translate: 0;
+  overflow: hidden;
+`;
+
+export const HeaderVideo = styled.video.attrs<HeaderBackgroundProps>(
+  props => ({
+    style: {
+      translate: `0 ${props.$position}px`,
+    },
+  })
+)`
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 `;

@@ -1,4 +1,3 @@
-// app/admin/layout.tsx
 import { ServerActionsProvider } from '@/app/contexts/server-actions';
 import { getSession } from '@auth0/nextjs-auth0';
 import { isUserAdmin } from '../actions/isUserAdmin';
@@ -12,6 +11,7 @@ import {
   editCategory,
   getUser,
   createStory,
+  getStories
 } from '../script';
 import { AdminContainer } from './components/shared/layout.styles';
 
@@ -36,6 +36,7 @@ export default async function AdminLayout({
       editCategory={editCategory}
       deleteCategory={deleteCategory}
       createStory={createStory}
+      getStories={getStories}
     >
       <AdminContainer>
         <div className='admin-content'>

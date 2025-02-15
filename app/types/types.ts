@@ -16,7 +16,21 @@ export type Story = {
   id: string;
   content: string;
   borough: string;
-  authorId: string;
+  author: Author;
+  categories: Category[];
+  media: Media[];
   createdAt: Date;
-  updatedAt: Date;
 };
+
+export type Media = {
+  id: string;
+  url: string;
+  storyId: string;
+  isThumbnail: boolean;
+};
+
+type Author = {
+  id: string;
+  firstName: string;
+  lastName: string;
+}

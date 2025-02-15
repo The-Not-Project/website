@@ -29,7 +29,7 @@ export const FormTextArea = styled.textarea`
   display: block;
   margin-block: 4px 15px;
   min-height: 300px;
-  width: 100%;
+  width: 700px;
   max-width: 100%;
   text-indent: 5px;
   font-size: 1.2rem;

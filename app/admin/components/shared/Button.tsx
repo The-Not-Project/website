@@ -1,7 +1,5 @@
-// components/shared/Button.tsx
-'use client';
-
 import styled from 'styled-components';
+import { FaXmark } from 'react-icons/fa6';
 
 export const ButtonsContainer = styled.div`
   display: flex;
@@ -33,5 +31,21 @@ export const Button = styled.button`
   &.cornered {
     display: block;
     margin: 20px 10px 0 auto;
+  }
+`;
+
+export const CloseButton = styled(FaXmark)`
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  cursor: pointer;
+  font-size: 2rem;
+  padding: 5px;
+  color: #4b4b4b;
+  border-radius: 20px;
+  transition: all.2s;
+
+  &:hover {
+    background: #e6e6e6;
   }
 `;

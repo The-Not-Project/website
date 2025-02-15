@@ -13,8 +13,10 @@ background-color: rgba(0, 0, 0, 0.4);
 export const Popup = styled.div`
   position: absolute;
   background-color: #f7f7f7;
-  width: max-content;
+  width: min-content;
   height: max-content;
+  max-height: 90%;
+  overflow-y: overlay;
   left: 50%;
   top: 50%;
   translate: -50% -50%;

@@ -32,7 +32,7 @@ export default async function RootLayout({
     <html lang='en'>
       <body className={oswald.className}>
         <UserProvider>
-          <main>{children}</main>
+          {children}
         </UserProvider>
       </body>
     </html>

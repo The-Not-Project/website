@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { getSession } from '@auth0/nextjs-auth0';
-import { User } from './types/types';
+import { Story, User } from './types/types';
 import { redirect } from 'next/navigation';
 
 const globalPrisma = global as unknown as {
@@ -196,6 +196,32 @@ export async function createStory(formData: FormData) {
       },
     });
   }
+}
 
-  return newStory;
+export async function getStories(): Promise<Story[]> {
+  'use server';
+
+  const stories = await prisma.story.findMany({
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+      media: true,
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+    },
+  });
+
+  return stories.map((story) => ({
+    ...story,
+    categories: story.categories.map((sc) => sc.category),
+    media: story.media.map((m) => ({ ...m, id: m.id.toString() })),
+  }));
 }

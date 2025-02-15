@@ -1,5 +1,5 @@
 import { LoadingContainer } from "./loadingPage.styles";
-import {HashLoader as Spinner} from'react-spinners'
+import {BarLoader as Spinner} from'react-spinners'
 
 export default function LoadingPage() {
     return (
