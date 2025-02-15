@@ -22,7 +22,7 @@ import type { Story as StoryType } from '@/app/types/types';
 
 export default function StoriesForm() {
   const [submitting, setSubmitting] = useState(false);
-  const { createStory, getStories, deleteStory } = useServerActions();
+  const { createStory, getStories, deleteStory, editStory } = useServerActions();
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [stories, setStories] = useState<StoryType[]>([]);
@@ -51,13 +51,18 @@ export default function StoriesForm() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget as HTMLFormElement;
+    const formData = new FormData(form);
     selectedCategories.forEach(category => {
       formData.append('categories', category.id);
     });
 
     try {
-      await createStory(formData);
+      if (popupState.edit && popupState.story) {
+        await editStory(popupState.story.id, formData);
+      } else {
+        await createStory(formData);
+      }
       alert('Story created successfully!');
     } catch (error) {
       console.error(error);

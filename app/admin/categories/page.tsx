@@ -6,7 +6,7 @@ import { Button, ButtonsContainer } from '../components/shared/Button';
 import Popup from '../components/popup/popup.component';
 import { FormLabel, FormInput } from '../components/shared/Form';
 import CategoriesTable from '../components/categoriesTable/categoriesTable.component';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, FormEvent } from 'react';
 
 export default function Categories() {
   const { createCategory, editCategory, getCategories, deleteCategory } =
@@ -38,7 +38,7 @@ export default function Categories() {
   }, [fetchCategories]);
 
   const handleCreateOrEdit = async (
-    event: React.FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
     const form = event.currentTarget as HTMLFormElement;

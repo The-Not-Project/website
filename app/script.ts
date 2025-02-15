@@ -290,3 +290,55 @@ export async function deleteStory(id: string) {
     },
   });
 };
+
+export async function editStory(id: string, formData: FormData) {
+  'use server';
+
+  const title = formData.get('title')?.toString();
+  const content = formData.get('content')?.toString();
+  const borough = formData.get('borough')?.toString();
+
+  const categoryIds = formData.getAll('categories').map(val => val.toString());
+
+  if (!title || !content || !borough) {
+    throw new Error('Missing required story fields');
+  }
+
+  await prisma.story.update({
+    where: {
+      id,
+    },
+    data: {
+      title,
+      content,
+      borough,
+    },
+  });
+
+  await deleteStoryCategories(id);
+
+  for (const catId of categoryIds) {
+    await prisma.storyCategory.create({
+      data: {
+        storyId: id,
+        categoryId: catId,
+      },
+    });
+  }
+
+  const files = formData
+    .getAll('files')
+    .filter(file => file instanceof File && file.size > 0) as File[];
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i] as File;
+    const url = await uploadFileToPinata(file);
+    await prisma.media.create({
+      data: {
+        url,
+        storyId: id,
+        isThumbnail: i === 0,
+      },
+    });
+  }
+}
