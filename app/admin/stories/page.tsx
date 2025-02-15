@@ -3,7 +3,7 @@
 
 import { useServerActions } from '@/app/contexts/server-actions';
 import { Category, Story } from '@/app/types/types';
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { PageSection, SectionTitle } from '../components/shared/Section';
 import Popup from '../components/popup/popup.component';
 import {
@@ -18,18 +18,30 @@ import FileInputContainer from '@/app/admin/components/fileInput/fileInput.compo
 import CategoriesSearch from '../components/categoriesSearch/categoriesSearch.component';
 import { CloseButton } from '../components/shared/Button';
 import StoriesList from '../components/storiesList/storiesList.component';
+import type { Story as StoryType } from '@/app/types/types';
 
 export default function StoriesForm() {
   const [submitting, setSubmitting] = useState(false);
-  const { createStory } = useServerActions();
+  const { createStory, getStories, deleteStory } = useServerActions();
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [stories, setStories] = useState<StoryType[]>([]);
+  const [additionalFiles, setAdditionalFiles] = useState<string[]>([]);
   const [popupState, setPopupState] = useState({
     showPopup: false,
     edit: false,
     story: null as Story | null,
   });
 
-  const [additionalFiles, setAdditionalFiles] = useState<string[]>([]);
+  const fetchStories = async () => {
+    setIsLoading(true);
+    const stories = await getStories();
+    setStories(stories);
+    setIsLoading(false);
+  };
+  useEffect(() => {
+    fetchStories();
+  }, []);
 
   const handleAddFile = () => {
     const newId = (additionalFiles.length + 1).toString();
@@ -52,16 +64,28 @@ export default function StoriesForm() {
       alert('There was an error creating the story.');
     } finally {
       setSubmitting(false);
+      setPopupState({ ...popupState, showPopup: false });
+      await fetchStories();
     }
   };
 
   return (
     <PageSection>
       <SectionTitle>Stories</SectionTitle>
-      <StoriesList />
+      <StoriesList
+        isLoading={isLoading}
+        stories={stories}
+        setPopupState={setPopupState}
+        onDelete={async id => {
+          await deleteStory(id);
+          await fetchStories();
+        }}
+      />
       {popupState.showPopup && (
         <Popup>
-          <CloseButton onClick={() => setPopupState({...popupState, showPopup: false})}/>
+          <CloseButton
+            onClick={() => setPopupState({ ...popupState, showPopup: false })}
+          />
           <SectionTitle>Create a Story</SectionTitle>
           <form onSubmit={handleSubmit}>
             <FormLabel htmlFor='title'>Title</FormLabel>

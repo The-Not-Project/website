@@ -221,29 +221,27 @@ export async function getStories(): Promise<Story[]> {
     },
   });
 
-  // Generate signed URLs for each media item
   const storiesWithSignedUrls = await Promise.all(
-    stories.map(async (story) => {
+    stories.map(async story => {
       const mediaWithUrls = await Promise.all(
-        story.media.map(async (media) => {
+        story.media.map(async media => {
           try {
-            // Generate fresh signed URL using stored CID
             const signedUrl = await pinata.gateways.createSignedURL({
-              cid: media.url, // This should be the CID stored in your database
-              expires: 3600 // 1 hour expiration (adjust as needed)
+              cid: media.url,
+              expires: 3600,
             });
 
             return {
               ...media,
               id: media.id.toString(),
-              url: signedUrl // Replace CID with fresh signed URL
+              url: signedUrl,
             };
           } catch (error) {
             console.error('Error generating signed URL:', error);
             return {
               ...media,
               id: media.id.toString(),
-              url: '/fallback-image.jpg' // Add error handling
+              url: '/fallback-image.jpg',
             };
           }
         })
@@ -251,7 +249,7 @@ export async function getStories(): Promise<Story[]> {
 
       return {
         ...story,
-        categories: story.categories.map((sc) => sc.category),
+        categories: story.categories.map(sc => sc.category),
         media: mediaWithUrls,
       };
     })
@@ -259,3 +257,36 @@ export async function getStories(): Promise<Story[]> {
 
   return storiesWithSignedUrls;
 }
+
+async function deleteMedia(id: string) {
+  'use server';
+
+  await prisma.media.deleteMany({
+    where: {
+      storyId: id,
+    },
+  });
+};
+
+async function deleteStoryCategories(id: string) {
+  'use server';
+
+  await prisma.storyCategory.deleteMany({
+    where: {
+      storyId: id,
+    },
+  });
+}
+
+export async function deleteStory(id: string) {
+  'use server';
+
+  await deleteMedia(id);
+  await deleteStoryCategories(id);
+
+  await prisma.story.delete({
+    where: {
+      id,
+    },
+  });
+};

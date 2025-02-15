@@ -12,6 +12,7 @@ type ServerActions = {
   editCategory: (id: string, data: FormData) => Promise<void>;
   createStory: (data: FormData) => Promise<void>;
   getStories: () => Promise<Story[]>;
+  deleteStory: (id: string) => Promise<void>;
 };
 
 const ServerActionsContext = createContext<ServerActions | null>(null);

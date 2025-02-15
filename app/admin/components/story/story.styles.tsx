@@ -15,5 +15,14 @@ export const StoryImageContainer = styled.img`
 export const StoryContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+`;
+
+export const ActionsContainer = styled.div`
+
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding-right: 10px;
 `;

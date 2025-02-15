@@ -50,7 +50,7 @@ export default function Categories() {
       } else {
         await createCategory(data);
       }
-      await fetchCategories(); // Refresh the list after mutation
+      await fetchCategories(); 
       setPopupState({
         ...popupState,
         showPopup: false,
