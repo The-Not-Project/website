@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import { getSession } from '@auth0/nextjs-auth0';
 import { Story, User } from './types/types';
 import { redirect } from 'next/navigation';
+import { pinata } from './utils/config';
 
 const globalPrisma = global as unknown as {
   prisma: PrismaClient | undefined;
@@ -201,6 +202,7 @@ export async function createStory(formData: FormData) {
 export async function getStories(): Promise<Story[]> {
   'use server';
 
+  // Fetch stories with relations
   const stories = await prisma.story.findMany({
     include: {
       categories: {
@@ -219,9 +221,41 @@ export async function getStories(): Promise<Story[]> {
     },
   });
 
-  return stories.map((story) => ({
-    ...story,
-    categories: story.categories.map((sc) => sc.category),
-    media: story.media.map((m) => ({ ...m, id: m.id.toString() })),
-  }));
+  // Generate signed URLs for each media item
+  const storiesWithSignedUrls = await Promise.all(
+    stories.map(async (story) => {
+      const mediaWithUrls = await Promise.all(
+        story.media.map(async (media) => {
+          try {
+            // Generate fresh signed URL using stored CID
+            const signedUrl = await pinata.gateways.createSignedURL({
+              cid: media.url, // This should be the CID stored in your database
+              expires: 3600 // 1 hour expiration (adjust as needed)
+            });
+
+            return {
+              ...media,
+              id: media.id.toString(),
+              url: signedUrl // Replace CID with fresh signed URL
+            };
+          } catch (error) {
+            console.error('Error generating signed URL:', error);
+            return {
+              ...media,
+              id: media.id.toString(),
+              url: '/fallback-image.jpg' // Add error handling
+            };
+          }
+        })
+      );
+
+      return {
+        ...story,
+        categories: story.categories.map((sc) => sc.category),
+        media: mediaWithUrls,
+      };
+    })
+  );
+
+  return storiesWithSignedUrls;
 }
