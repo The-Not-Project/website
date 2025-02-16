@@ -258,7 +258,7 @@ export async function getStories(): Promise<Story[]> {
   return storiesWithSignedUrls;
 }
 
-async function deleteMedia(id: string) {
+export async function deleteMedia(id: string) {
   'use server';
 
   await prisma.media.deleteMany({
@@ -266,7 +266,7 @@ async function deleteMedia(id: string) {
       storyId: id,
     },
   });
-};
+}
 
 async function deleteStoryCategories(id: string) {
   'use server';
@@ -289,7 +289,7 @@ export async function deleteStory(id: string) {
       id,
     },
   });
-};
+}
 
 export async function editStory(id: string, formData: FormData) {
   'use server';
@@ -329,6 +329,10 @@ export async function editStory(id: string, formData: FormData) {
   const files = formData
     .getAll('files')
     .filter(file => file instanceof File && file.size > 0) as File[];
+
+  if (files.length > 0) {
+    await deleteMedia(id);
+  }
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i] as File;

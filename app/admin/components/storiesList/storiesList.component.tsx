@@ -25,7 +25,7 @@ export default function StoriesList({isLoading, stories, onDelete, setPopupState
   return (
     <StoriesContainer>
       {stories.map((story, index) => (
-        <Story key={index} story={story} onDelete={onDelete} />
+        <Story key={index} story={story} onDelete={onDelete} setPopupState={setPopupState}/>
       ))}
     </StoriesContainer>
   );

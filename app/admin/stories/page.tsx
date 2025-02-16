@@ -22,7 +22,9 @@ import type { Story as StoryType } from '@/app/types/types';
 
 export default function StoriesForm() {
   const [submitting, setSubmitting] = useState(false);
-  const { createStory, getStories, deleteStory, editStory } = useServerActions();
+  const [replaceMedia, setReplaceMedia] = useState(false);
+  const { createStory, getStories, deleteStory, editStory } =
+    useServerActions();
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [stories, setStories] = useState<StoryType[]>([]);
@@ -48,7 +50,7 @@ export default function StoriesForm() {
     setAdditionalFiles(prev => [...prev, newId]);
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleCreateOrEdit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
     const form = event.currentTarget as HTMLFormElement;
@@ -89,16 +91,37 @@ export default function StoriesForm() {
       {popupState.showPopup && (
         <Popup>
           <CloseButton
-            onClick={() => setPopupState({ ...popupState, showPopup: false })}
+            onClick={() => {
+              setPopupState({ ...popupState, showPopup: false })
+              setReplaceMedia(false);
+            }}
           />
-          <SectionTitle>Create a Story</SectionTitle>
-          <form onSubmit={handleSubmit}>
+          <SectionTitle>
+            {popupState.edit ? 'Edit story' : 'Create a new story'}
+          </SectionTitle>
+          <form onSubmit={handleCreateOrEdit}>
             <FormLabel htmlFor='title'>Title</FormLabel>
-            <FormInput type='text' id='title' name='title' required />
+            <FormInput
+              type='text'
+              id='title'
+              name='title'
+              required
+              defaultValue={popupState.story?.title || ''}
+            />
             <FormLabel htmlFor='content'>Content</FormLabel>
-            <FormTextArea id='content' name='content' required></FormTextArea>
+            <FormTextArea
+              id='content'
+              name='content'
+              required
+              defaultValue={popupState.story?.content || ''}
+            />
             <FormLabel htmlFor='borough'>Borough</FormLabel>
-            <FormSelect id='borough' name='borough' required>
+            <FormSelect
+              id='borough'
+              name='borough'
+              required
+              defaultValue={popupState.story?.borough}
+            >
               <option value='brooklyn'>Brooklyn</option>
               <option value='manhattan'>Manhattan</option>
               <option value='bronx'>Bronx</option>
@@ -108,30 +131,66 @@ export default function StoriesForm() {
             <FormLabel htmlFor='categories'>Categories</FormLabel>
 
             <CategoriesSearch
-              selectedCategories={selectedCategories}
+              selectedCategories={
+                popupState.story?.categories || selectedCategories
+              }
               setSelectedCategories={setSelectedCategories}
             />
+            {popupState.story && !replaceMedia ? (
+              <>
+                <FormLabel>Thumbnail</FormLabel>
+                <img
+                  src={
+                    popupState.story?.media.find(
+                      media => media.isThumbnail == true
+                    )?.url
+                  }
+                />
+                {popupState.story?.media.filter(
+                  media => media.isThumbnail == false
+                ).length > 0 && (
+                  <>
+                    <FormLabel>Additional media</FormLabel>
+                    {popupState.story?.media
+                      .filter(media => media.isThumbnail == false)
+                      .map(media => (
+                        <img key={media.id} src={media.url} />
+                      ))}
+                  </>
+                )}
+                <Button type='button' onClick={() => setReplaceMedia(true)}>Replace</Button>
+              </>
+            ) : (
+              <>
+                <FileInputContainer id='thumbnail' />
+                {additionalFiles.map(index => (
+                  <FileInputContainer key={index} id={index.toString()} />
+                ))}
+                <Button
+                  type='button'
+                  className='inverted block'
+                  onClick={handleAddFile}
+                >
+                  Add images
+                </Button>
+              </>
+            )}
 
-            <FileInputContainer id='thumbnail' />
-            {additionalFiles.map(index => (
-              <FileInputContainer key={index} id={index.toString()} />
-            ))}
-            <Button
-              type='button'
-              className='inverted block'
-              onClick={handleAddFile}
-            >
-              Add images
-            </Button>
             <CreateStoryButton type='submit' disabled={submitting}>
-              {submitting ? 'Submitting...' : 'Create Story'}
+              {submitting
+                ? 'Uploading...'
+                : popupState.edit
+                ? 'Save'
+                : 'Create'}
             </CreateStoryButton>
           </form>
         </Popup>
       )}
       <Button
         className='cornered'
-        onClick={() => setPopupState({ ...popupState, showPopup: true })}
+        onClick={() =>
+          setPopupState({ edit: false, showPopup: true, story: null })
+        }
       >
         Add
       </Button>

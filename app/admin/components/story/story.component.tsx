@@ -10,9 +10,14 @@ import { Button } from '../shared/Button';
 type StoryProps = {
   story: StoryType;
   onDelete: (id: string) => Promise<void>;
+  setPopupState: (popupState: {
+    showPopup: boolean;
+    edit: boolean;
+    story: StoryType | null;
+  }) => void;
 };
 
-export default function Story({ story, onDelete }: StoryProps) {
+export default function Story({ story, onDelete, setPopupState }: StoryProps) {
   const date = new Date(story.createdAt).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -40,7 +45,12 @@ export default function Story({ story, onDelete }: StoryProps) {
         <p>Created At {date}</p>
       </StoryContentContainer>
       <ActionsContainer>
-        <Button className='inverted'>Edit</Button>
+        <Button
+          className='inverted'
+          onClick={() => setPopupState({ showPopup: true, edit: true, story })}
+        >
+          Edit
+        </Button>
         <Button onClick={() => handleDelete(story.id)}>Delete</Button>
       </ActionsContainer>
     </StoryContainer>
