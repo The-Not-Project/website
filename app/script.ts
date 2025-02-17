@@ -225,14 +225,16 @@ export async function getStories(): Promise<Story[]> {
       const mediaWithUrls = await Promise.all(
         story.media.map(async media => {
           try {
-            const signedUrl = await pinata.gateways.createSignedURL({
-              cid: media.url,
-              expires: 3600,
-            }).optimizeImage({
-              width: 400,
-              height: 265,
-              format: 'webp',
-            });
+            const signedUrl = await pinata.gateways
+              .createSignedURL({
+                cid: media.url,
+                expires: 3600,
+              })
+              .optimizeImage({
+                width: 400,
+                height: 265,
+                format: 'webp',
+              });
 
             return {
               ...media,
@@ -304,13 +306,15 @@ export async function getFilteredStories(filters: Filters): Promise<Story[]> {
       const mediaWithUrls = await Promise.all(
         story.media.map(async media => {
           try {
-            const signedUrl = await pinata.gateways.createSignedURL({
-              cid: media.url,
-              expires: 3600,
-            }).optimizeImage({
-              width: 400,
-              height: 265,
-            });
+            const signedUrl = await pinata.gateways
+              .createSignedURL({
+                cid: media.url,
+                expires: 3600,
+              })
+              .optimizeImage({
+                width: 400,
+                height: 265,
+              });
 
             return {
               ...media,
@@ -410,6 +414,18 @@ export async function deleteStory(id: string) {
 
 export async function deleteMedia(id: string) {
   'use server';
+
+  const mediaIds = await prisma.media.findMany({
+    where: {
+      storyId: id,
+    },
+    select: {
+      url: true,
+    },
+  });
+  const urls = mediaIds.map(media => media.url);
+  
+  await pinata.files.delete(['bafkreicbh73f442wngpsryl7ay2kd7qmedsceg4ckbmhslgs4r3e5btifm']);
 
   await prisma.media.deleteMany({
     where: {

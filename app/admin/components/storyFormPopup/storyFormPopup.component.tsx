@@ -4,12 +4,7 @@
 import { useState, FormEvent } from 'react';
 import { Category, Story } from '@/app/types/types';
 import Popup from '../popup/popup.component';
-import {
-  FormInput,
-  FormLabel,
-  FormTextArea,
-  FormSelect,
-} from '../shared/Form';
+import { FormInput, FormLabel, FormTextArea, FormSelect } from '../shared/Form';
 import { Button, CloseButton } from '../shared/Button';
 import FileInputContainer from '@/app/admin/components/fileInput/fileInput.component';
 import CategoriesSearch from '../categoriesSearch/categoriesSearch.component';
@@ -47,7 +42,7 @@ export default function StoryFormPopup({
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
-    
+
     const formData = new FormData(event.currentTarget);
     selectedCategories.forEach(category => {
       formData.append('categories', category.id);
@@ -62,20 +57,25 @@ export default function StoryFormPopup({
       onSubmitSuccess();
     } catch (error) {
       console.error(error);
-      alert(`There was an error ${isEditing ? 'updating' : 'creating'} the story.`);
+      alert(
+        `There was an error ${isEditing ? 'updating' : 'creating'} the story.`
+      );
     } finally {
       setSubmitting(false);
     }
   };
 
   const handleAddFile = () => {
-    setAdditionalFiles(prev => [...prev, Date.now().toString()]);
+    setAdditionalFiles(prev => [
+      ...prev,
+      (additionalFiles.length + 1).toString(),
+    ]);
   };
 
   function capitalizeWords(str: string) {
     return str
-      .split(' ') 
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) 
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
 
@@ -84,34 +84,34 @@ export default function StoryFormPopup({
   return (
     <Popup>
       <CloseButton onClick={onClose} />
-      <SectionTitle>{isEditing ? 'Edit Story' : 'Create New Story'}</SectionTitle>
-      
-      <form onSubmit={handleSubmit}>
-        <FormLabel htmlFor="title">Title</FormLabel>
-        <FormInput
-          name="title"
-          required
-          defaultValue={story?.title || ''}
-        />
+      <SectionTitle>
+        {isEditing ? 'Edit Story' : 'Create New Story'}
+      </SectionTitle>
 
-        <FormLabel htmlFor="content">Content</FormLabel>
+      <form onSubmit={handleSubmit}>
+        <FormLabel htmlFor='title'>Title</FormLabel>
+        <FormInput name='title' required defaultValue={story?.title || ''} />
+
+        <FormLabel htmlFor='content'>Content</FormLabel>
         <FormTextArea
-          name="content"
+          name='content'
           required
           defaultValue={story?.content || ''}
         />
 
-        <FormLabel htmlFor="borough">Borough</FormLabel>
+        <FormLabel htmlFor='borough'>Borough</FormLabel>
         <FormSelect
-          name="borough"
+          name='borough'
           required
           defaultValue={story?.borough || 'brooklyn'}
         >
-          {['brooklyn', 'manhattan', 'bronx', 'queens', 'staten island'].map(borough => (
-            <option key={borough} value={borough}>
-              {capitalizeWords(borough)}
-            </option>
-          ))}
+          {['brooklyn', 'manhattan', 'bronx', 'queens', 'staten island'].map(
+            borough => (
+              <option key={borough} value={borough}>
+                {capitalizeWords(borough)}
+              </option>
+            )
+          )}
         </FormSelect>
 
         <FormLabel>Categories</FormLabel>
@@ -122,17 +122,34 @@ export default function StoryFormPopup({
 
         {story && !replaceMedia ? (
           <>
-            <FormLabel>Current Media</FormLabel>
+            <FormLabel>Thumbnail</FormLabel>
             <StoryImageContainer
               src={story.media.find(m => m.isThumbnail)?.url || ''}
               width={150}
               height={100}
-              alt="Story Image"
+              alt='Story Image'
               quality={100} // 100 = lossless
             />
+            {story.media.length > 1 && (
+              <>
+              <FormLabel>Additional Media</FormLabel>
+                {story.media
+                  .filter(m => !m.isThumbnail)
+                  .map(media => (
+                    <StoryImageContainer
+                      key={media.id}
+                      src={media.url}
+                      width={150}
+                      height={100}
+                      alt='Story Image'
+                      quality={100} // 100 = lossless
+                    />
+                  ))}
+              </>
+            )}
             <Button
-              type="button"
-              className="block inverted"
+              type='button'
+              className='block inverted'
               onClick={() => setReplaceMedia(true)}
             >
               Replace Media
@@ -140,13 +157,13 @@ export default function StoryFormPopup({
           </>
         ) : (
           <>
-            <FileInputContainer id="thumbnail" />
+            <FileInputContainer id='thumbnail' />
             {additionalFiles.map(id => (
               <FileInputContainer key={id} id={id} />
             ))}
             <Button
-              type="button"
-              className="inverted block"
+              type='button'
+              className='inverted block'
               onClick={handleAddFile}
             >
               Add More Images
@@ -154,7 +171,7 @@ export default function StoryFormPopup({
           </>
         )}
 
-        <CreateStoryButton type="submit" disabled={submitting}>
+        <CreateStoryButton type='submit' disabled={submitting}>
           {submitting ? 'Saving...' : isEditing ? 'Save' : 'Create Story'}
         </CreateStoryButton>
       </form>
