@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // reactStrictMode: false,
   compiler: {
     styledComponents: true,
   },
@@ -9,6 +8,16 @@ const nextConfig: NextConfig = {
     serverActions: {
       bodySizeLimit: "10mb"
     },
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "gray-certain-lungfish-417.mypinata.cloud",
+        port: "",
+        pathname: "/files/**",
+      },
+    ]
   }
 };
 

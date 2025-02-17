@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { CategoriesInput, CategoriesList, CategoriesSearchContainer, SelectedCategory } from "./categoriesSearch.styles";
-import { FaXmark as IconClose, FaUpload as IconUpload } from 'react-icons/fa6';
+import { FaXmark as IconClose } from 'react-icons/fa6';
 import { useServerActions } from "@/app/contexts/server-actions";
 import { Category } from "@/app/types/types";
 
@@ -14,7 +14,7 @@ export default function CategoriesSearch({ selectedCategories, setSelectedCatego
       const { getCategories } = useServerActions();
 
       const [categories, setCategories] = useState<Category[]>([]);
-      const [searchTerm, setSearchTerm] = useState('');
+      const [searchTerm, setSearchTerm] = useState('');      
 
         useEffect(() => {
           const fetchCategories = async () => {
@@ -23,7 +23,6 @@ export default function CategoriesSearch({ selectedCategories, setSelectedCatego
               setCategories(categories);
             } catch (error) {
               console.error('Failed to fetch categories:', error);
-            } finally {
             }
           };
           fetchCategories();
@@ -36,12 +35,12 @@ export default function CategoriesSearch({ selectedCategories, setSelectedCatego
       );
     
       const addCategory = (category: Category) => {
-        setSelectedCategories(prev => [...prev, category]);
+        setSelectedCategories([...selectedCategories, category]);
         setSearchTerm('');
       };
     
       const removeCategory = (categoryId: string) => {
-        setSelectedCategories(prev => prev.filter(cat => cat.id !== categoryId));
+        setSelectedCategories(selectedCategories.filter(cat => cat.id !== categoryId));
       };
   return (
     <CategoriesSearchContainer>

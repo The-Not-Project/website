@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 
 export const PopupContainer = styled.div`
-
-position: absolute;
-left: 0;
-top: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  margin: 0 !important;
 `;
 
 export const Popup = styled.div`
   position: absolute;
   background-color: #f7f7f7;
-  width: min-content;
+  width: min-content !important;
   height: max-content;
   max-height: 90%;
   overflow-y: overlay;

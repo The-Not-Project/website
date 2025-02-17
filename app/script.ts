@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { getSession } from '@auth0/nextjs-auth0';
-import { Story, User } from './types/types';
+import { Filters, Story, User } from './types/types';
 import { redirect } from 'next/navigation';
 import { pinata } from './utils/config';
 
@@ -202,7 +202,6 @@ export async function createStory(formData: FormData) {
 export async function getStories(): Promise<Story[]> {
   'use server';
 
-  // Fetch stories with relations
   const stories = await prisma.story.findMany({
     include: {
       categories: {
@@ -229,6 +228,10 @@ export async function getStories(): Promise<Story[]> {
             const signedUrl = await pinata.gateways.createSignedURL({
               cid: media.url,
               expires: 3600,
+            }).optimizeImage({
+              width: 400,
+              height: 265,
+              format: 'webp',
             });
 
             return {
@@ -258,37 +261,82 @@ export async function getStories(): Promise<Story[]> {
   return storiesWithSignedUrls;
 }
 
-export async function deleteMedia(id: string) {
+export async function getFilteredStories(filters: Filters): Promise<Story[]> {
   'use server';
 
-  await prisma.media.deleteMany({
+  const { search, boroughs, categories } = filters;
+
+  const stories = await prisma.story.findMany({
     where: {
-      storyId: id,
+      title: {
+        startsWith: search,
+      },
+      borough: {
+        in: boroughs.length > 0 ? boroughs : undefined,
+      },
+      categories: {
+        some: {
+          categoryId: {
+            in: categories.length > 0 ? categories : undefined,
+          },
+        },
+      },
+    },
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+      media: true,
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
     },
   });
-}
 
-async function deleteStoryCategories(id: string) {
-  'use server';
+  const storiesWithSignedUrls = await Promise.all(
+    stories.map(async story => {
+      const mediaWithUrls = await Promise.all(
+        story.media.map(async media => {
+          try {
+            const signedUrl = await pinata.gateways.createSignedURL({
+              cid: media.url,
+              expires: 3600,
+            }).optimizeImage({
+              width: 400,
+              height: 265,
+            });
 
-  await prisma.storyCategory.deleteMany({
-    where: {
-      storyId: id,
-    },
-  });
-}
+            return {
+              ...media,
+              id: media.id.toString(),
+              url: signedUrl,
+            };
+          } catch (error) {
+            console.error('Error generating signed URL:', error);
+            return {
+              ...media,
+              id: media.id.toString(),
+              url: '/fallback-image.jpg',
+            };
+          }
+        })
+      );
 
-export async function deleteStory(id: string) {
-  'use server';
+      return {
+        ...story,
+        categories: story.categories.map(sc => sc.category),
+        media: mediaWithUrls,
+      };
+    })
+  );
 
-  await deleteMedia(id);
-  await deleteStoryCategories(id);
-
-  await prisma.story.delete({
-    where: {
-      id,
-    },
-  });
+  return storiesWithSignedUrls;
 }
 
 export async function editStory(id: string, formData: FormData) {
@@ -345,4 +393,37 @@ export async function editStory(id: string, formData: FormData) {
       },
     });
   }
+}
+
+export async function deleteStory(id: string) {
+  'use server';
+
+  await deleteMedia(id);
+  await deleteStoryCategories(id);
+
+  await prisma.story.delete({
+    where: {
+      id,
+    },
+  });
+}
+
+export async function deleteMedia(id: string) {
+  'use server';
+
+  await prisma.media.deleteMany({
+    where: {
+      storyId: id,
+    },
+  });
+}
+
+async function deleteStoryCategories(id: string) {
+  'use server';
+
+  await prisma.storyCategory.deleteMany({
+    where: {
+      storyId: id,
+    },
+  });
 }

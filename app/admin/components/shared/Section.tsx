@@ -14,3 +14,18 @@ export const SectionTitle = styled.h2`
   line-height: 1.8rem;
   margin-bottom: 20px;
 `;
+
+export const StoriesSection = styled(PageSection)`
+  display: flex;
+  gap: 20px;
+  border: none;
+  padding: 0;
+  
+  div:first-child {
+    width: 25%;
+  }
+  div:nth-child(2) {
+    flex: 1;
+    margin-top: 10px;
+  }
+`

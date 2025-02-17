@@ -1,19 +1,20 @@
 'use client';
 
 import { createContext, useContext } from 'react';
-import { User, Category, Story } from '@/app/types/types';
+import { User, Category, Story, Filters } from '@/app/types/types';
 
 type ServerActions = {
   getUser: (id: string) => Promise<User | null>;
   UpdateUser: (data: FormData, user: User) => Promise<void>;
-  getCategories: () => Promise<Category[]>;
   createCategory: (data: FormData) => Promise<void>;
-  deleteCategory: (id: string) => Promise<void>;
+  getCategories: () => Promise<Category[]>;
   editCategory: (id: string, data: FormData) => Promise<void>;
+  deleteCategory: (id: string) => Promise<void>;
   createStory: (data: FormData) => Promise<void>;
   getStories: () => Promise<Story[]>;
-  deleteStory: (id: string) => Promise<void>;
+  getFilteredStories: (filters: Filters) => Promise<Story[]>;
   editStory: (id: string, data: FormData) => Promise<void>;
+  deleteStory: (id: string) => Promise<void>;
 };
 
 const ServerActionsContext = createContext<ServerActions | null>(null);

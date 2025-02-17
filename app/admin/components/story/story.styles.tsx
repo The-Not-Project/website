@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import styled from 'styled-components';
 
 export const StoryContainer = styled.li`
@@ -5,7 +6,7 @@ export const StoryContainer = styled.li`
   gap: 20px;
 `;
 
-export const StoryImageContainer = styled.img`
+export const StoryImageContainer = styled(Image)`
   height: 100px;
   width: 150px;
   object-fit: cover;

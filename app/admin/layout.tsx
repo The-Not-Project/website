@@ -14,6 +14,7 @@ import {
   getStories,
   deleteStory,
   editStory,
+  getFilteredStories
 } from '../script';
 import { AdminContainer } from './components/shared/layout.styles';
 
@@ -33,14 +34,15 @@ export default async function AdminLayout({
     <ServerActionsProvider
       getUser={getUser}
       UpdateUser={UpdateUser}
-      getCategories={getCategories}
       createCategory={createCategory}
+      getCategories={getCategories}
       editCategory={editCategory}
       deleteCategory={deleteCategory}
       createStory={createStory}
       getStories={getStories}
-      deleteStory={deleteStory}
+      getFilteredStories={getFilteredStories}
       editStory={editStory}
+      deleteStory={deleteStory}
     >
       <AdminContainer>
         <div className='admin-content'>

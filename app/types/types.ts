@@ -33,4 +33,10 @@ type Author = {
   id: string;
   firstName: string;
   lastName: string;
-}
+};
+
+export type Filters = {
+  search: string;
+  boroughs: string[];
+  categories: string[];
+};

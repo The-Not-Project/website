@@ -10,14 +10,10 @@ import { Button } from '../shared/Button';
 type StoryProps = {
   story: StoryType;
   onDelete: (id: string) => Promise<void>;
-  setPopupState: (popupState: {
-    showPopup: boolean;
-    edit: boolean;
-    story: StoryType | null;
-  }) => void;
+  onEdit: (story: StoryType) => void;
 };
 
-export default function Story({ story, onDelete, setPopupState }: StoryProps) {
+export default function Story({ story, onDelete, onEdit }: StoryProps) {
   const date = new Date(story.createdAt).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -38,17 +34,20 @@ export default function Story({ story, onDelete, setPopupState }: StoryProps) {
 
   return (
     <StoryContainer>
-      <StoryImageContainer src={url} />
+      <StoryImageContainer
+        src={url}
+        alt='Photo'
+        width={150}
+        height={100}
+        quality={100} // 100 = lossless
+      />
       <StoryContentContainer>
         <h2>{story.title}</h2>
         <p>By {`${story.author.firstName} ${story.author.lastName}`}</p>
         <p>Created At {date}</p>
       </StoryContentContainer>
       <ActionsContainer>
-        <Button
-          className='inverted'
-          onClick={() => setPopupState({ showPopup: true, edit: true, story })}
-        >
+        <Button className='inverted' onClick={() => onEdit(story)}>
           Edit
         </Button>
         <Button onClick={() => handleDelete(story.id)}>Delete</Button>

@@ -1,199 +1,144 @@
-// app/stories/page.tsx
 'use client';
 
 import { useServerActions } from '@/app/contexts/server-actions';
-import { Category, Story } from '@/app/types/types';
-import { useState, FormEvent, useEffect } from 'react';
-import { PageSection, SectionTitle } from '../components/shared/Section';
-import Popup from '../components/popup/popup.component';
+import { Category, Filters, Story } from '@/app/types/types';
+import { useState, useEffect, useCallback } from 'react';
 import {
-  FormInput,
-  FormLabel,
-  FormTextArea,
-  FormSelect,
-} from '../components/shared/Form';
-import { CreateStoryButton } from '../components/categoriesSearch/categoriesSearch.styles';
-import { Button } from '../components/shared/Button';
-import FileInputContainer from '@/app/admin/components/fileInput/fileInput.component';
-import CategoriesSearch from '../components/categoriesSearch/categoriesSearch.component';
-import { CloseButton } from '../components/shared/Button';
+  PageSection,
+  SectionTitle,
+  StoriesSection,
+} from '../components/shared/Section';
 import StoriesList from '../components/storiesList/storiesList.component';
-import type { Story as StoryType } from '@/app/types/types';
+import StoryFormPopup from '../components/storyFormPopup/storyFormPopup.component';
+import StoriesSearch from '../components/storiesSearch/storiesSearch.component';
+import { Button } from '../components/shared/Button';
 
-export default function StoriesForm() {
-  const [submitting, setSubmitting] = useState(false);
-  const [replaceMedia, setReplaceMedia] = useState(false);
-  const { createStory, getStories, deleteStory, editStory } =
+type FormState = {
+  isOpen: boolean;
+  isEditing: boolean;
+  currentStory: Story | null;
+  selectedCategories: Category[];
+}
+
+const defaultFilters = {
+  search: '',
+  boroughs: [],
+  categories: [],
+}
+
+export default function StoriesPage() {
+  const { createStory, getStories, deleteStory, editStory, getFilteredStories } =
     useServerActions();
-  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  const [stories, setStories] = useState<Story[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [stories, setStories] = useState<StoryType[]>([]);
-  const [additionalFiles, setAdditionalFiles] = useState<string[]>([]);
-  const [popupState, setPopupState] = useState({
-    showPopup: false,
-    edit: false,
-    story: null as Story | null,
+  const [formState, setFormState] = useState<FormState>({
+    isOpen: false,
+    isEditing: false,
+    currentStory: null,
+    selectedCategories: [],
   });
+  const [filters, setFilters] = useState<Filters>(defaultFilters);
 
-  const fetchStories = async () => {
+  const fetchStories = useCallback(async () => {
     setIsLoading(true);
-    const stories = await getStories();
-    setStories(stories);
-    setIsLoading(false);
-  };
-  useEffect(() => {
-    fetchStories();
-  }, []);
-
-  const handleAddFile = () => {
-    const newId = (additionalFiles.length + 1).toString();
-    setAdditionalFiles(prev => [...prev, newId]);
-  };
-
-  const handleCreateOrEdit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setSubmitting(true);
-    const form = event.currentTarget as HTMLFormElement;
-    const formData = new FormData(form);
-    selectedCategories.forEach(category => {
-      formData.append('categories', category.id);
-    });
-
     try {
-      if (popupState.edit && popupState.story) {
-        await editStory(popupState.story.id, formData);
-      } else {
-        await createStory(formData);
-      }
-      alert('Story created successfully!');
-    } catch (error) {
-      console.error(error);
-      alert('There was an error creating the story.');
+      const data = await getStories();
+      setStories(data);
     } finally {
-      setSubmitting(false);
-      setPopupState({ ...popupState, showPopup: false });
-      await fetchStories();
+      setIsLoading(false);
     }
+  }, [getStories]);
+
+  const fetchFilteredStories = useCallback(async (filters: Filters) => {
+    setIsLoading(true);
+    try {
+      const data = await getFilteredStories(filters);
+      setStories(data);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [getStories]);
+
+  useEffect(() => {
+    if (filters.search || filters.boroughs.length > 0 || filters.categories.length > 0) {
+      fetchFilteredStories(filters);
+    } else {
+      fetchStories();
+    }
+  }, [filters]);
+
+  const handleOpenCreate = () => {
+    setFormState({
+      isOpen: true,
+      isEditing: false,
+      currentStory: null,
+      selectedCategories: [],
+    });
+  };
+
+  const handleOpenEdit = (story: Story) => {
+    setFormState({
+      isOpen: true,
+      isEditing: true,
+      currentStory: story,
+      selectedCategories: story.categories,
+    });
+  };
+
+  const handleClosePopup = () => {
+    setFormState(prev => ({
+      ...prev,
+      isOpen: false,
+      currentStory: null,
+      selectedCategories: [],
+    }));
+  };
+
+  const handleSubmitSuccess = async () => {
+    await fetchStories();
+    handleClosePopup();
+  };
+
+  const handleDeleteStory = async (id: string) => {
+    await deleteStory(id);
+    await fetchStories();
   };
 
   return (
     <PageSection>
       <SectionTitle>Stories</SectionTitle>
-      <StoriesList
-        isLoading={isLoading}
-        stories={stories}
-        setPopupState={setPopupState}
-        onDelete={async id => {
-          await deleteStory(id);
-          await fetchStories();
-        }}
-      />
-      {popupState.showPopup && (
-        <Popup>
-          <CloseButton
-            onClick={() => {
-              setPopupState({ ...popupState, showPopup: false })
-              setReplaceMedia(false);
-            }}
+      <StoriesSection>
+        <StoriesSearch filters={filters} setFilters={setFilters}/>
+        <div>
+          <StoriesList
+            isLoading={isLoading}
+            stories={stories}
+            onEdit={handleOpenEdit}
+            onDelete={handleDeleteStory}
           />
-          <SectionTitle>
-            {popupState.edit ? 'Edit story' : 'Create a new story'}
-          </SectionTitle>
-          <form onSubmit={handleCreateOrEdit}>
-            <FormLabel htmlFor='title'>Title</FormLabel>
-            <FormInput
-              type='text'
-              id='title'
-              name='title'
-              required
-              defaultValue={popupState.story?.title || ''}
-            />
-            <FormLabel htmlFor='content'>Content</FormLabel>
-            <FormTextArea
-              id='content'
-              name='content'
-              required
-              defaultValue={popupState.story?.content || ''}
-            />
-            <FormLabel htmlFor='borough'>Borough</FormLabel>
-            <FormSelect
-              id='borough'
-              name='borough'
-              required
-              defaultValue={popupState.story?.borough}
-            >
-              <option value='brooklyn'>Brooklyn</option>
-              <option value='manhattan'>Manhattan</option>
-              <option value='bronx'>Bronx</option>
-              <option value='queens'>Queens</option>
-              <option value='staten island'>Staten Island</option>
-            </FormSelect>
-            <FormLabel htmlFor='categories'>Categories</FormLabel>
 
-            <CategoriesSearch
-              selectedCategories={
-                popupState.story?.categories || selectedCategories
-              }
-              setSelectedCategories={setSelectedCategories}
-            />
-            {popupState.story && !replaceMedia ? (
-              <>
-                <FormLabel>Thumbnail</FormLabel>
-                <img
-                  src={
-                    popupState.story?.media.find(
-                      media => media.isThumbnail == true
-                    )?.url
-                  }
-                />
-                {popupState.story?.media.filter(
-                  media => media.isThumbnail == false
-                ).length > 0 && (
-                  <>
-                    <FormLabel>Additional media</FormLabel>
-                    {popupState.story?.media
-                      .filter(media => media.isThumbnail == false)
-                      .map(media => (
-                        <img key={media.id} src={media.url} />
-                      ))}
-                  </>
-                )}
-                <Button type='button' onClick={() => setReplaceMedia(true)}>Replace</Button>
-              </>
-            ) : (
-              <>
-                <FileInputContainer id='thumbnail' />
-                {additionalFiles.map(index => (
-                  <FileInputContainer key={index} id={index.toString()} />
-                ))}
-                <Button
-                  type='button'
-                  className='inverted block'
-                  onClick={handleAddFile}
-                >
-                  Add images
-                </Button>
-              </>
-            )}
+          <StoryFormPopup
+            isOpen={formState.isOpen}
+            isEditing={formState.isEditing}
+            story={formState.currentStory}
+            selectedCategories={formState.selectedCategories}
+            onClose={handleClosePopup}
+            onSubmitSuccess={handleSubmitSuccess}
+            onCategoriesChange={(categories: Category[]) =>
+              setFormState(prev => ({
+                ...prev,
+                selectedCategories: categories,
+              }))
+            }
+            createStory={createStory}
+            editStory={editStory}
+          />
 
-            <CreateStoryButton type='submit' disabled={submitting}>
-              {submitting
-                ? 'Uploading...'
-                : popupState.edit
-                ? 'Save'
-                : 'Create'}
-            </CreateStoryButton>
-          </form>
-        </Popup>
-      )}
-      <Button
-        className='cornered'
-        onClick={() =>
-          setPopupState({ edit: false, showPopup: true, story: null })
-        }
-      >
-        Add
-      </Button>
+          <Button className='cornered' onClick={handleOpenCreate}>
+            Add
+          </Button>
+        </div>
+      </StoriesSection>
     </PageSection>
   );
 }
