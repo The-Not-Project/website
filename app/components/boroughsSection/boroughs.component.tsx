@@ -33,7 +33,7 @@ export default function Boroughs() {
     {
       borough: 'Staten Island',
       description:
-        'Staten Island is a borough of New York City, coextensive with Richmond County, in the U.S. state of New York. Located in the southwest portion of the city, the borough is separated from New Jersey by the Arthur Kill and the Kill Van Kull and from the rest of New York by New York Bay.',
+        'NYC’s underdog with heart. Where community runs deep, loyalty is everything, and pride stands taller than any skyline.',
     },
   ];
 
