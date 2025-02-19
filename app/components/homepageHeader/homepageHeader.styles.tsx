@@ -38,9 +38,9 @@ export const HeaderBackground = styled.div`
 `;
 
 export const HeaderVideo = styled.video.attrs<HeaderBackgroundProps>(
-  props => ({
+  ({ $position }) => ({
     style: {
-      translate: `0 ${props.$position}px`,
+      translate: `0 ${$position}px`,
     },
   })
 )`

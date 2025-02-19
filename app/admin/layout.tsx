@@ -14,9 +14,10 @@ import {
   getStories,
   deleteStory,
   editStory,
-  getFilteredStories
+  getFilteredStories,
 } from '../script';
 import { AdminContainer } from './components/shared/layout.styles';
+import Back from './components/backButton/backButton.component';
 
 export default async function AdminLayout({
   children,
@@ -30,21 +31,24 @@ export default async function AdminLayout({
     redirect('/');
   }
 
+  const groupedActions = {
+    getUser,
+    UpdateUser,
+    createCategory,
+    getCategories,
+    editCategory,
+    deleteCategory,
+    createStory,
+    getStories,
+    getFilteredStories,
+    editStory,
+    deleteStory,
+  };
+
   return (
-    <ServerActionsProvider
-      getUser={getUser}
-      UpdateUser={UpdateUser}
-      createCategory={createCategory}
-      getCategories={getCategories}
-      editCategory={editCategory}
-      deleteCategory={deleteCategory}
-      createStory={createStory}
-      getStories={getStories}
-      getFilteredStories={getFilteredStories}
-      editStory={editStory}
-      deleteStory={deleteStory}
-    >
+    <ServerActionsProvider {...groupedActions}>
       <AdminContainer>
+        <Back />
         <div className='admin-content'>
           <h1>The Not Project - Admin Page</h1>
           <NavBar />
