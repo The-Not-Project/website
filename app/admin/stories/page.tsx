@@ -122,16 +122,16 @@ export default function StoriesPage() {
             isEditing={formState.isEditing}
             story={formState.currentStory}
             selectedCategories={formState.selectedCategories}
-            onClose={handleClosePopup}
-            onSubmitSuccess={handleSubmitSuccess}
-            onCategoriesChange={(categories: Category[]) =>
+            onCloseAction={handleClosePopup}
+            onSubmitSuccessAction={handleSubmitSuccess}
+            onCategoriesChangeAction={(categories: Category[]) =>
               setFormState(prev => ({
                 ...prev,
                 selectedCategories: categories,
               }))
             }
-            createStory={createStory}
-            editStory={editStory}
+            createStoryAction={createStory}
+            editStoryAction={editStory}
           />
 
           <Button className='cornered' onClick={handleOpenCreate}>

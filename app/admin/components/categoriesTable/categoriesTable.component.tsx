@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Button, ButtonsContainer } from '../shared/Button';
 import { Table } from '../shared/Table';
 import { Category } from '@/app/types/types';
@@ -7,18 +6,14 @@ import LoadingPage from '../loadingPage/loadingPage.component';
 type CategoriesTableProps = {
   categories: Category[];
   isLoading: boolean;
-  setPopupState: (popupState: {
-    showPopup: boolean;
-    edit: boolean;
-    category: Category;
-  }) => void;
+  onEdit: (category: Category) => void;
   onDelete: (id: string) => Promise<void>;
 };
 
 export default function CategoriesTable({
   categories,
   isLoading,
-  setPopupState,
+  onEdit,
   onDelete,
 }: CategoriesTableProps) {
   const handleDelete = async (id: string) => {
@@ -51,13 +46,7 @@ export default function CategoriesTable({
             <td>{category.description}</td>
             <td className='justify-right'>
               <ButtonsContainer>
-                <Button
-                  onClick={() =>
-                    setPopupState({ showPopup: true, edit: true, category })
-                  }
-                >
-                  Edit
-                </Button>
+                <Button onClick={() => onEdit(category)}>Edit</Button>
                 <Button onClick={() => handleDelete(category.id)}>
                   Delete
                 </Button>

@@ -17,11 +17,11 @@ interface StoryFormPopupProps {
   isEditing: boolean;
   story: Story | null;
   selectedCategories: Category[];
-  onClose: () => void;
-  onSubmitSuccess: () => void;
-  onCategoriesChange: (categories: Category[]) => void;
-  createStory: (formData: FormData) => Promise<void>;
-  editStory: (id: string, formData: FormData) => Promise<void>;
+  onCloseAction: () => void;
+  onSubmitSuccessAction: () => void;
+  onCategoriesChangeAction: (categories: Category[]) => void;
+  createStoryAction: (formData: FormData) => Promise<void>;
+  editStoryAction: (id: string, formData: FormData) => Promise<void>;
 }
 
 export default function StoryFormPopup({
@@ -29,11 +29,11 @@ export default function StoryFormPopup({
   isEditing,
   story,
   selectedCategories,
-  onClose,
-  onSubmitSuccess,
-  onCategoriesChange,
-  createStory,
-  editStory,
+  onCloseAction,
+  onSubmitSuccessAction,
+  onCategoriesChangeAction,
+  createStoryAction,
+  editStoryAction,
 }: StoryFormPopupProps) {
   const [submitting, setSubmitting] = useState(false);
   const [replaceMedia, setReplaceMedia] = useState(false);
@@ -50,11 +50,11 @@ export default function StoryFormPopup({
 
     try {
       if (isEditing && story) {
-        await editStory(story.id, formData);
+        await editStoryAction(story.id, formData);
       } else {
-        await createStory(formData);
+        await createStoryAction(formData);
       }
-      onSubmitSuccess();
+      onSubmitSuccessAction();
     } catch (error) {
       console.error(error);
       alert(
@@ -83,7 +83,7 @@ export default function StoryFormPopup({
 
   return (
     <Popup>
-      <CloseButton onClick={onClose} />
+      <CloseButton onClick={onCloseAction} />
       <SectionTitle>
         {isEditing ? 'Edit Story' : 'Create New Story'}
       </SectionTitle>
@@ -117,7 +117,7 @@ export default function StoryFormPopup({
         <FormLabel>Categories</FormLabel>
         <CategoriesSearch
           selectedCategories={selectedCategories}
-          setSelectedCategories={onCategoriesChange}
+          setSelectedCategories={onCategoriesChangeAction}
         />
 
         {story && !replaceMedia ? (
