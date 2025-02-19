@@ -8,7 +8,7 @@ export const BoroughsSectionContainer = styled.section<{
   color: white;
   text-shadow: 0 0 20px hsl(0, 0%, 0%);
   h1 {
-    font-size: 5rem;
+    font-size: clamp(3rem, 5rem, 4vw);
     position: absolute;
     font-weight: 500;
     top: 10%;
@@ -23,13 +23,13 @@ export const BoroughsSectionContainer = styled.section<{
     text-align: center;
 
     h2 {
-      font-size: 4rem;
+      font-size: clamp(3rem, 5rem, 3.5vw);
       font-weight: 500;
       margin-bottom: 20px;
     }
 
     p {
-      font-size: 2rem;
+      font-size: clamp(1rem, 2rem, 2vw);
     }
 
     ${({ $activeIndex }) =>
@@ -74,15 +74,16 @@ export const Background = styled.div<{ $activeIndex: number; $url: number }>`
 `;
 
 export const SVGContainer = styled.div<{ $activeIndex: number }>`
-  height: 60%;
+  width: 30%;
+  max-width: 60vh;
   position: absolute;
-  right: 10%;
+  right: 5%;
   bottom: 10%;
   overflow: visible;
-
+  
   svg {
-    height: 100%;
-    width: auto;
+    height: auto;
+    width: 100%;
     z-index: 3;
     path {
       fill: hsl(36, 47%, 95%, 0.7);

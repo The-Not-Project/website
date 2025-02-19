@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const NavBarContainer = styled.nav`
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
+  justify-content: space-between;
   color: white;
   align-items: center;
   padding-inline: 40px;

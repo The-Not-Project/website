@@ -21,11 +21,20 @@ export const RecommendationsList = styled.div`
   display: flex;
   margin-block: 40px;
   justify-content: center;
+  width: fit-content;
   gap: 30px;
+  margin-inline: auto;
   flex-wrap: wrap;
+
+  div {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
 `;
 
-export const RecommendationCard = styled.div`
+export const RecommendationCard = styled.figure`
   width: 350px;
   img {
     border-radius: 2px;
