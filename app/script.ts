@@ -94,7 +94,7 @@ export async function createCategory(data: FormData) {
   });
 }
 
-export const deleteCategory = async (id: string) => {
+export async function deleteCategory(id: string) {
   'use server';
 
   await prisma.category.delete({
@@ -104,7 +104,7 @@ export const deleteCategory = async (id: string) => {
   });
 };
 
-export const editCategory = async (id: string, data: FormData) => {
+export async function editCategory(id: string, data: FormData) {
   'use server';
 
   const name = data.get('name');
@@ -220,47 +220,7 @@ export async function getStories(): Promise<Story[]> {
     },
   });
 
-  const storiesWithSignedUrls = await Promise.all(
-    stories.map(async story => {
-      const mediaWithUrls = await Promise.all(
-        story.media.map(async media => {
-          try {
-            const signedUrl = await pinata.gateways
-              .createSignedURL({
-                cid: media.url,
-                expires: 3600,
-              })
-              .optimizeImage({
-                width: 400,
-                height: 265,
-                format: 'webp',
-              });
-
-            return {
-              ...media,
-              id: media.id.toString(),
-              url: signedUrl,
-            };
-          } catch (error) {
-            console.error('Error generating signed URL:', error);
-            return {
-              ...media,
-              id: media.id.toString(),
-              url: '/fallback-image.jpg',
-            };
-          }
-        })
-      );
-
-      return {
-        ...story,
-        categories: story.categories.map(sc => sc.category),
-        media: mediaWithUrls,
-      };
-    })
-  );
-
-  return storiesWithSignedUrls;
+  return processStories(stories);
 }
 
 export async function getFilteredStories(filters: Filters): Promise<Story[]> {
@@ -301,46 +261,49 @@ export async function getFilteredStories(filters: Filters): Promise<Story[]> {
     },
   });
 
-  const storiesWithSignedUrls = await Promise.all(
-    stories.map(async story => {
-      const mediaWithUrls = await Promise.all(
-        story.media.map(async media => {
-          try {
-            const signedUrl = await pinata.gateways
-              .createSignedURL({
-                cid: media.url,
-                expires: 3600,
-              })
-              .optimizeImage({
-                width: 400,
-                height: 265,
-              });
+  return processStories(stories);
+}
 
-            return {
-              ...media,
-              id: media.id.toString(),
-              url: signedUrl,
-            };
-          } catch (error) {
-            console.error('Error generating signed URL:', error);
-            return {
-              ...media,
-              id: media.id.toString(),
-              url: '/fallback-image.jpg',
-            };
-          }
-        })
-      );
+async function processStories(stories: any[]): Promise<Story[]> {
+  return Promise.all(
+    stories.map(async story => {
+      const mediaWithUrls = await Promise.all(story.media.map(transformMedia));
 
       return {
         ...story,
-        categories: story.categories.map(sc => sc.category),
+        categories: story.categories.map((sc: { category: any }) => sc.category),
         media: mediaWithUrls,
       };
     })
   );
+}
 
-  return storiesWithSignedUrls;
+async function transformMedia(media: any): Promise<any> {
+  try {
+    const signedUrl = await pinata.gateways
+      .createSignedURL({
+        cid: media.url,
+        expires: 3600,
+      })
+      .optimizeImage({
+        width: 400,
+        height: 265,
+        format: 'webp',
+      });
+
+    return {
+      ...media,
+      id: media.id.toString(),
+      url: signedUrl,
+    };
+  } catch (error) {
+    console.error('Error generating signed URL:', error);
+    return {
+      ...media,
+      id: media.id.toString(),
+      url: '/fallback-image.jpg',
+    };
+  }
 }
 
 export async function editStory(id: string, formData: FormData) {
@@ -442,4 +405,59 @@ async function deleteStoryCategories(id: string) {
       storyId: id,
     },
   });
+}
+
+export async function getRecommendations() {
+  'use server';
+
+  const recommendedStoriesIds = await prisma.recommendation.findMany()
+
+  const recommendedStories = await prisma.story.findMany({
+    where: {
+      id: {
+        in: recommendedStoriesIds.map((rec) => rec.storyId),
+      },
+    },
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+      media: true,
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+    },
+  });
+
+  
+  
+
+  return processStories(recommendedStories);
+
+}
+
+export async function addRecommendation(id: string) {
+  'use server';
+
+  await prisma.recommendation.create({
+    data: {
+      storyId: id,
+    }
+  })
+}
+
+export async function removeRecommendation(id: string) {
+  'use server';
+
+  await prisma.recommendation.delete({
+    where: {
+      storyId: id,
+    }
+  })
 }

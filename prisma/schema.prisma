@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlserver"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -24,16 +24,17 @@ model User {
 }
 
 model Story {
-  id         String          @id @default(uuid())
-  title      String
-  borough    String
-  content    String          @db.Text
-  author     User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId   String
-  categories StoryCategory[]
-  media      Media[]
-  createdAt  DateTime        @default(now())
-  updatedAt  DateTime        @updatedAt
+  id             String          @id @default(uuid())
+  title          String
+  borough        String
+  content        String          @db.Text
+  author         User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId       String
+  categories     StoryCategory[]
+  media          Media[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  Recommendation Recommendation?
 
   @@map("story")
 }
@@ -65,4 +66,11 @@ model Media {
   isThumbnail Boolean
 
   @@map("media")
+}
+
+model Recommendation {
+  storyId String @id @unique
+  story   Story  @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@map("recommendations")
 }

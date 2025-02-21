@@ -39,7 +39,6 @@ export default function Story({ story, onDelete, onEdit }: StoryProps) {
         alt='Photo'
         width={150}
         height={100}
-        quality={100} // 100 = lossless
       />
       <StoryContentContainer>
         <h2>{story.title}</h2>

@@ -15,6 +15,9 @@ import {
   deleteStory,
   editStory,
   getFilteredStories,
+  getRecommendations,
+  addRecommendation,
+  removeRecommendation
 } from '../script';
 import { AdminContainer } from './components/shared/layout.styles';
 import Back from './components/backButton/backButton.component';
@@ -43,6 +46,9 @@ export default async function AdminLayout({
     getFilteredStories,
     editStory,
     deleteStory,
+    getRecommendations,
+    addRecommendation,
+    removeRecommendation
   };
 
   return (

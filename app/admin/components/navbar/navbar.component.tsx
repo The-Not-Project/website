@@ -8,36 +8,26 @@ import { NavBarContainer } from './navbar.styles';
 export default function NavBar() {
   const pathname = usePathname();
 
+  const paths = [
+    { href: '/admin/personal-info', label: 'Personal Info' },
+    { href: '/admin/categories', label: 'Categories' },
+    { href: '/admin/stories', label: 'Stories' },
+    { href: '/admin/recommendations', label: 'Recommendations' },
+  ];
+
   return (
     <NavBarContainer>
       <ul>
-        <li>
-          <Link
-            className={pathname === '/admin/personal-info' ? 'active' : ''}
-            href='/admin/personal-info'
-            title='Personal Info'
-          >
-            Personal Info
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={pathname === '/admin/categories' ? 'active' : ''}
-            href='/admin/categories'
-            title='Categories'
-          >
-            Categories
-          </Link>
-        </li>
-        <li>
-          <Link
-            className={pathname === '/admin/stories' ? 'active' : ''}
-            href='/admin/stories'
-            title='Stories'
-          >
-            Stories
-          </Link>
-        </li>
+        {paths.map((item) => (
+          <li key={item.href}>
+            <Link
+              className={pathname === item.href ? 'active' : ''}
+              href={item.href}
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
       </ul>
     </NavBarContainer>
   );

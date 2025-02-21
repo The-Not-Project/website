@@ -15,6 +15,9 @@ type ServerActions = {
   getFilteredStories: (filters: Filters) => Promise<Story[]>;
   editStory: (id: string, data: FormData) => Promise<void>;
   deleteStory: (id: string) => Promise<void>;
+  getRecommendations: () => Promise<Story[]>;
+  addRecommendation: (id: string) => Promise<void>;
+  removeRecommendation: (id: string) => Promise<void>;
 };
 
 const ServerActionsContext = createContext<ServerActions | null>(null);
