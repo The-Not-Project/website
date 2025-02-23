@@ -7,7 +7,8 @@ import {
   RecommendationsListContainer,
 } from './recommendationsList.styles';
 import LoadingPage from '../loadingPage/loadingPage.component';
-import {FaTrash as TrashCan} from 'react-icons/fa6'
+import { FaTrash as TrashCan } from 'react-icons/fa6';
+import { NoStoriesMessage } from '../storiesList/storiesList.styles';
 
 type RecommendationsListProps = {
   recommendations: Story[];
@@ -21,23 +22,27 @@ export default function RecommendationsList({
   isLoading,
 }: RecommendationsListProps) {
   if (isLoading) return <LoadingPage />;
-  if (!recommendations.length) return <div>No recommendations yet</div>;
+  if (!recommendations.length)
+    return <NoStoriesMessage>No recommendations found.</NoStoriesMessage>;
 
   return (
     <RecommendationsListContainer>
       {recommendations.map(rec => (
         <RecommendationContainer key={rec.id}>
-          <h3>{rec.title}</h3>
+          <h3>
+            {rec.title.slice(0, 18)}
+            {rec.title.length > 18 && '...'}
+          </h3>
           <h4>By {`${rec.author.firstName} ${rec.author.lastName}`}</h4>
           <ImageContainer
             src={rec.media[0].url}
             alt='Photo'
             width={150}
             height={100}
-            onClick={() => onRemoveAction(rec.id)}
           />
-          <p><TrashCan /></p>
-
+          <p onClick={() => onRemoveAction(rec.id)}>
+            <TrashCan />
+          </p>
         </RecommendationContainer>
       ))}
     </RecommendationsListContainer>

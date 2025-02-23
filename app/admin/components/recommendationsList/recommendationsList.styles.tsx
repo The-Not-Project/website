@@ -4,7 +4,8 @@ import styled from 'styled-components';
 export const RecommendationsListContainer = styled.div`
   display: flex;
   gap: 30px;
-  margin-inline: 10%;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const RecommendationContainer = styled.div`
@@ -30,6 +31,11 @@ export const RecommendationContainer = styled.div`
     position: absolute;
     top: 15px;
     right: 10px;
+    cursor: pointer;
+
+    &.green {
+      color: green;
+    }
   }
 
 `;

@@ -13,6 +13,7 @@ export default function NavBar() {
     { href: '/admin/categories', label: 'Categories' },
     { href: '/admin/stories', label: 'Stories' },
     { href: '/admin/recommendations', label: 'Recommendations' },
+    { href: '/admin/radar', label: 'Radar' },
   ];
 
   return (

@@ -10,7 +10,7 @@ import {
 } from '../components/shared/Section';
 import StoriesList from '../components/storiesList/storiesList.component';
 import StoryFormPopup from '../components/storyFormPopup/storyFormPopup.component';
-import StoriesSearch from '../components/storiesSearch/storiesSearch.component';
+import StoriesSearch from '../components/storiesFilteredSearch/storiesFilteredSearch.component';
 import { Button } from '../components/shared/Button';
 
 type FormState = {
@@ -18,17 +18,21 @@ type FormState = {
   isEditing: boolean;
   currentStory: Story | null;
   selectedCategories: Category[];
-}
+};
 
 const defaultFilters = {
   search: '',
   boroughs: [],
   categories: [],
-}
+};
 
 export default function StoriesPage() {
-  const { createStory, getStories, deleteStory, editStory, getFilteredStories } =
-    useServerActions();
+  const {
+    createStory,
+    getStories,
+    deleteStory,
+    editStory,
+  } = useServerActions();
   const [stories, setStories] = useState<Story[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [formState, setFormState] = useState<FormState>({
@@ -39,29 +43,31 @@ export default function StoriesPage() {
   });
   const [filters, setFilters] = useState<Filters>(defaultFilters);
 
-  const fetchStories = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const data = await getStories();
-      setStories(data);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [getStories]);
-
-  const fetchFilteredStories = useCallback(async (filters: Filters) => {
-    setIsLoading(true);
-    try {
-      const data = await getFilteredStories(filters);
-      setStories(data);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [getStories]);
+  const fetchStories = useCallback(
+    async (filters?: Filters) => {
+      setIsLoading(true);
+      try {
+        if (filters) {
+          const data = await getStories(filters, 300);
+          setStories(data);
+        } else {
+          const data = await getStories(defaultFilters, 300);
+          setStories(data);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [getStories]
+  );
 
   useEffect(() => {
-    if (filters.search || filters.boroughs.length > 0 || filters.categories.length > 0) {
-      fetchFilteredStories(filters);
+    if (
+      filters.search ||
+      filters.boroughs.length > 0 ||
+      filters.categories.length > 0
+    ) {
+      fetchStories(filters);
     } else {
       fetchStories();
     }
@@ -108,7 +114,7 @@ export default function StoriesPage() {
     <PageSection>
       <SectionTitle>Stories</SectionTitle>
       <StoriesSection>
-        <StoriesSearch filters={filters} setFilters={setFilters}/>
+        <StoriesSearch filters={filters} setFilters={setFilters} />
         <div>
           <StoriesList
             isLoading={isLoading}

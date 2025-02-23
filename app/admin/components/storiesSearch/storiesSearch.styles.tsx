@@ -1,57 +1,28 @@
 import styled from 'styled-components';
+import {BeatLoader} from 'react-spinners'
 
-export const StoriesSearchContainer = styled.div`
-  margin-bottom: 20px;
-`;
 
-export const SearchInput = styled.input`
-  width: 200px;
-  height: 35px;
-  background: transparent;
-  outline: none;
-  border: 1px solid #bdbdbd;
-  text-indent: 5px;
-  font-size: 1.1rem;
-  margin: 3px 20px 10px 0;
-`;
+export const SearchContainer = styled.div`
+  margin: 40px auto 20px auto;
+  width: 70%;
+  height: 40px;
+  border-radius: 100px;
+  overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
-export const SearchTitle = styled.h3`
-  font-weight: 500;
-  font-size: 1.3rem;
-`;
-
-export const SecondaryTitle = styled.h4`
-  display: inline-block;
-  font-weight: lighter;
-`;
-
-export const FilterOptionsContainer = styled.div`
-  margin-block: 5px 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-`;
-
-export const FilterOption = styled.span`
-  color: #bebebe;
-  border: 2px solid #bebebe;
-  padding: 0 8px;
-  font-size: 0.9rem;
-  border-radius: 3px;
-  cursor: pointer;
-
-  &.selected {
-    color: black;
-    border-color: black;
+  input {
+    width: 100%;
+    height: 100%;
+    font-size: 1.2rem;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    border: none;
+    outline: none;
   }
 `;
 
-export const ApplyFiltersButton = styled.button`
-  margin-top: 10px;
-  background: black;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-`;
+export const Loader = styled(BeatLoader)`
+    margin: 30px auto 10px auto;
+    width: max-content;
+`

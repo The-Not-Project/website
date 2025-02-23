@@ -14,10 +14,12 @@ import {
   getStories,
   deleteStory,
   editStory,
-  getFilteredStories,
   getRecommendations,
   addRecommendation,
-  removeRecommendation
+  removeRecommendation,
+  getRadarStory,
+  updateRadarStory,
+  deleteRadarStory
 } from '../script';
 import { AdminContainer } from './components/shared/layout.styles';
 import Back from './components/backButton/backButton.component';
@@ -43,12 +45,14 @@ export default async function AdminLayout({
     deleteCategory,
     createStory,
     getStories,
-    getFilteredStories,
     editStory,
     deleteStory,
     getRecommendations,
     addRecommendation,
-    removeRecommendation
+    removeRecommendation,
+    getRadarStory,
+    updateRadarStory,
+    deleteRadarStory
   };
 
   return (

@@ -1,112 +1,71 @@
-import { useServerActions } from '@/app/contexts/server-actions';
-import { Category, Filters } from '@/app/types/types';
+// components/searchAndResults/searchAndResults.component.tsx
+'use client';
+import type { Story } from '@/app/types/types';
+import { Loader, SearchContainer } from './storiesSearch.styles';
+import { NoStoriesMessage } from '../storiesList/storiesList.styles';
 import {
-  StoriesSearchContainer,
-  SearchInput,
-  SearchTitle,
-  SecondaryTitle,
-  FilterOptionsContainer,
-  FilterOption,
-  ApplyFiltersButton,
-} from './storiesSearch.styles';
-import { useEffect, useState } from 'react';
+  ImageContainer,
+  RecommendationContainer,
+  RecommendationsListContainer,
+} from '../recommendationsList/recommendationsList.styles';
+import { FaPlus as PlusSign } from 'react-icons/fa6';
 
-type StoriesSearchProps = {
-  filters: Filters;
-  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+
+type SearchAndResultsProps = {
+  searchValue: string;
+  results: Story[];
+  isLoading: boolean;
+  onSearchChangeAction: (value: string) => void;
+  onAddAction: (id: string) => void;
 };
 
-export default function StoriesSearch({
-  filters,
-  setFilters,
-}: StoriesSearchProps) {
-  const { getCategories } = useServerActions();
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [localFilters, setLocalFilters] = useState<Filters>(filters);
-
-  const boroughs = [
-    'brooklyn',
-    'manhattan',
-    'queens',
-    'staten island',
-    'bronx',
-  ];
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  async function fetchCategories() {
-    const data = await getCategories();
-    setCategories(data);
-  }
-
-  function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setLocalFilters({ ...localFilters, search: e.target.value });
-  }
-
-  function handleBoroughClick(borough: string) {
-    const newBoroughs = localFilters.boroughs.includes(borough)
-      ? localFilters.boroughs.filter(b => b !== borough)
-      : [...localFilters.boroughs, borough];
-    setLocalFilters({ ...localFilters, boroughs: newBoroughs });
-  }
-
-  function handleCategoryClick(category: Category) {
-    const newCategories = localFilters.categories.includes(category.id)
-      ? localFilters.categories.filter(c => c !== category.id)
-      : [...localFilters.categories, category.id];
-    setLocalFilters({ ...localFilters, categories: newCategories });
-  }
-
-  function capitalizeWords(str: string) {
-    return str
-      .split(' ') 
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1)) 
-      .join(' ');
-  }
-
+export default function RecommendationSearch({
+  searchValue,
+  results,
+  isLoading,
+  onSearchChangeAction,
+  onAddAction,
+}: SearchAndResultsProps) {
   return (
-    <StoriesSearchContainer>
-      <SearchTitle>Title</SearchTitle>
-      <SearchInput
-        id='search'
-        placeholder='e.g. My First Story'
-        value={localFilters.search}
-        onChange={handleSearchChange}
-      />
-      <SearchTitle>Filters</SearchTitle>
-      <SecondaryTitle>Categories</SecondaryTitle>
-      <FilterOptionsContainer>
-        {categories.map(category => (
-          <FilterOption
-            key={category.id}
-            onClick={() => handleCategoryClick(category)}
-            className={
-              localFilters.categories.includes(category.id) ? 'selected' : ''
-            }
-          >
-            {category.name}
-          </FilterOption>
-        ))}
-      </FilterOptionsContainer>
-      <SecondaryTitle>Boroughs</SecondaryTitle>
-      <FilterOptionsContainer>
-        {boroughs.map(borough => (
-          <FilterOption
-            key={borough}
-            onClick={() => handleBoroughClick(borough)}
-            className={
-              localFilters.boroughs.includes(borough) ? 'selected' : ''
-            }
-          >
-            {capitalizeWords(borough)}
-          </FilterOption>
-        ))}
-      </FilterOptionsContainer>
-      <ApplyFiltersButton onClick={() => setFilters(localFilters)}>
-        Apply Filters
-      </ApplyFiltersButton>
-    </StoriesSearchContainer>
+    <div className='search-section'>
+      <SearchContainer>
+        <input
+          type='text'
+          value={searchValue}
+          onChange={e => onSearchChangeAction(e.target.value)}
+          placeholder='Search stories'
+        />
+      </SearchContainer>
+
+      {!isLoading && searchValue && (
+        <div className='results-container'>
+          {results.length === 0 ? (
+            <NoStoriesMessage>No stories found.</NoStoriesMessage>
+          ) : (
+            <RecommendationsListContainer>
+              {results.map(story => (
+                <RecommendationContainer key={story.id}>
+                  <h3>{story.title.slice(0, 18)}...</h3>
+                  <h4>
+                    By {`${story.author.firstName} ${story.author.lastName}`}
+                  </h4>
+                  <ImageContainer
+                    src={story.media[0].url}
+                    alt='Photo'
+                    width={150}
+                    height={100}
+                  />
+                  <p className='green' onClick={() => onAddAction(story.id)}>
+                    <PlusSign />
+                  </p>
+                </RecommendationContainer>
+              ))}
+            </RecommendationsListContainer>
+          )}
+        </div>
+      )}
+
+      {isLoading && searchValue && <Loader />}
+    </div>
   );
 }

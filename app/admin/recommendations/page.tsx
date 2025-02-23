@@ -1,11 +1,11 @@
-// app/recommendations/page.tsx
 'use client';
+
 import { PageSection, SectionTitle } from '../components/shared/Section';
 import { useServerActions } from '@/app/contexts/server-actions';
 import { Filters, Story } from '@/app/types/types';
 import { useState, useEffect, useCallback } from 'react';
 import RecommendationsList from '../components/recommendationsList/recommendationsList.component';
-import RecommendationSearch from '../components/recommendationSearch/recommendationSearch.component';
+import RecommendationSearch from '../components/storiesSearch/storiesSearch.component';
 
 const defaultFilters = {
   search: '',
@@ -17,19 +17,20 @@ export default function RecommendationsPage() {
   const {
     getRecommendations,
     addRecommendation,
-    getFilteredStories,
+    getStories,
     removeRecommendation,
   } = useServerActions();
 
   const [recommendations, setRecommendations] = useState<Story[]>([]);
   const [searchResults, setSearchResults] = useState<Story[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchIsLoading, setsearchIsLoading] = useState(false);
   const [filters, setFilters] = useState<Filters>(defaultFilters);
 
   const fetchRecommendations = useCallback(async () => {
     setIsLoading(true);
     try {
-      const data = await getRecommendations();
+      const data = await getRecommendations(600);
       setRecommendations(data);
     } finally {
       setIsLoading(false);
@@ -42,14 +43,19 @@ export default function RecommendationsPage() {
         setSearchResults([]);
         return;
       }
-      const data = await getFilteredStories({
+      setsearchIsLoading(true);
+
+      const data = await getStories({
         ...filters,
         search: searchValue,
       });
+
       const recommendedIds = new Set(recommendations.map(rec => rec.id));
+
       setSearchResults(data.filter(story => !recommendedIds.has(story.id)));
+      setsearchIsLoading(false);
     },
-    [filters, getFilteredStories, recommendations]
+    [filters, getStories, recommendations]
   );
 
   useEffect(() => {
@@ -81,19 +87,19 @@ export default function RecommendationsPage() {
         recommendations={recommendations}
         onRemoveAction={handleRemoveRecommendation}
         isLoading={isLoading}
-        />
-
-        <SectionTitle>Add new</SectionTitle>
-      <RecommendationSearch
-        searchValue={filters.search}
-        results={searchResults}
-        isLoading={isLoading}
-        onSearchChangeAction={value => {
-          setFilters(prev => ({ ...prev, search: value }));
-          handleSearch(value);
-        }}
-        onAddAction={handleAddRecommendation}
       />
+      {recommendations.length < 4 && (
+        <RecommendationSearch
+          searchValue={filters.search}
+          results={searchResults}
+          isLoading={searchIsLoading}
+          onSearchChangeAction={value => {
+            setFilters(prev => ({ ...prev, search: value }));
+            handleSearch(value);
+          }}
+          onAddAction={handleAddRecommendation}
+        />
+      )}
     </PageSection>
   );
 }

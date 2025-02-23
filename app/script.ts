@@ -102,7 +102,7 @@ export async function deleteCategory(id: string) {
       id,
     },
   });
-};
+}
 
 export async function editCategory(id: string, data: FormData) {
   'use server';
@@ -123,7 +123,7 @@ export async function editCategory(id: string, data: FormData) {
       description: description.toString(),
     },
   });
-};
+}
 
 async function uploadFileToPinata(file: File): Promise<string> {
   const data = new FormData();
@@ -199,50 +199,21 @@ export async function createStory(formData: FormData) {
   }
 }
 
-export async function getStories(): Promise<Story[]> {
+export async function getStories(
+  filters?: Filters,
+  compression?: number
+): Promise<Story[]> {
   'use server';
 
-  const stories = await prisma.story.findMany({
-    include: {
-      categories: {
-        include: {
-          category: true,
-        },
-      },
-      media: true,
-      author: {
-        select: {
-          id: true,
-          firstName: true,
-          lastName: true,
-        },
-      },
-    },
-  });
-
-  return processStories(stories);
-}
-
-export async function getFilteredStories(filters: Filters): Promise<Story[]> {
-  'use server';
-
-  const { search, boroughs, categories } = filters;
+  const { search, boroughs, categories } = filters || {};
 
   const stories = await prisma.story.findMany({
     where: {
-      title: {
-        startsWith: search,
-      },
-      borough: {
-        in: boroughs.length > 0 ? boroughs : undefined,
-      },
-      categories: {
-        some: {
-          categoryId: {
-            in: categories.length > 0 ? categories : undefined,
-          },
-        },
-      },
+      ...(search ? { title: { startsWith: search } } : {}),
+      ...(boroughs && boroughs.length > 0 ? { borough: { in: boroughs } } : {}),
+      ...(categories && categories.length > 0
+        ? { categories: { some: { categoryId: { in: categories } } } }
+        : {}),
     },
     include: {
       categories: {
@@ -261,24 +232,28 @@ export async function getFilteredStories(filters: Filters): Promise<Story[]> {
     },
   });
 
-  return processStories(stories);
+  return processStories(stories, compression);
 }
 
-async function processStories(stories: any[]): Promise<Story[]> {
+async function processStories(stories: any[], compression?: number): Promise<Story[]> {
   return Promise.all(
     stories.map(async story => {
-      const mediaWithUrls = await Promise.all(story.media.map(transformMedia));
+      const mediaWithUrls = await Promise.all(
+        story.media.map((story: any) => transformMedia(story, compression))
+      );
 
       return {
         ...story,
-        categories: story.categories.map((sc: { category: any }) => sc.category),
+        categories: story.categories.map(
+          (sc: { category: any }) => sc.category
+        ),
         media: mediaWithUrls,
       };
     })
   );
 }
 
-async function transformMedia(media: any): Promise<any> {
+async function transformMedia(media: any, compression?: number): Promise<any> {
   try {
     const signedUrl = await pinata.gateways
       .createSignedURL({
@@ -286,8 +261,7 @@ async function transformMedia(media: any): Promise<any> {
         expires: 3600,
       })
       .optimizeImage({
-        width: 400,
-        height: 265,
+        width: compression ? compression : undefined,
         format: 'webp',
       });
 
@@ -387,8 +361,10 @@ export async function deleteMedia(id: string) {
     },
   });
   const urls = mediaIds.map(media => media.url);
-  
-  await pinata.files.delete(['bafkreicbh73f442wngpsryl7ay2kd7qmedsceg4ckbmhslgs4r3e5btifm']);
+
+  await pinata.files.delete([
+    'bafkreicbh73f442wngpsryl7ay2kd7qmedsceg4ckbmhslgs4r3e5btifm',
+  ]);
 
   await prisma.media.deleteMany({
     where: {
@@ -407,15 +383,15 @@ async function deleteStoryCategories(id: string) {
   });
 }
 
-export async function getRecommendations() {
+export async function getRecommendations(compression?: number): Promise<Story[]> {
   'use server';
 
-  const recommendedStoriesIds = await prisma.recommendation.findMany()
+  const recommendedStoriesIds = await prisma.recommendation.findMany();
 
   const recommendedStories = await prisma.story.findMany({
     where: {
       id: {
-        in: recommendedStoriesIds.map((rec) => rec.storyId),
+        in: recommendedStoriesIds.map(rec => rec.storyId),
       },
     },
     include: {
@@ -435,11 +411,7 @@ export async function getRecommendations() {
     },
   });
 
-  
-  
-
-  return processStories(recommendedStories);
-
+  return processStories(recommendedStories, compression);
 }
 
 export async function addRecommendation(id: string) {
@@ -448,8 +420,8 @@ export async function addRecommendation(id: string) {
   await prisma.recommendation.create({
     data: {
       storyId: id,
-    }
-  })
+    },
+  });
 }
 
 export async function removeRecommendation(id: string) {
@@ -458,6 +430,59 @@ export async function removeRecommendation(id: string) {
   await prisma.recommendation.delete({
     where: {
       storyId: id,
-    }
-  })
+    },
+  });
 }
+
+export async function updateRadarStory(id: string) {
+  'use server';
+
+  await prisma.radar.create({
+    data: {
+      storyId: id,
+    },
+  });
+}
+
+export async function getRadarStory(): Promise<Story[]> {
+  'use server';
+
+  const radarStory = await prisma.radar.findFirst();
+
+  if (!radarStory) {
+    return [];
+  }
+
+  const story = await prisma.story.findUnique({
+    where: {
+      id: radarStory.storyId,
+    },
+    include: {
+      categories: {
+        include: {
+          category: true,
+        },
+      },
+      media: true,
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
+    },
+  });
+
+  if (!story) {
+    return [];
+  }
+
+  return processStories([story]);
+}
+
+export const deleteRadarStory = async () => {
+  'use server';
+
+  await prisma.radar.deleteMany();
+};

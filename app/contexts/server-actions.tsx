@@ -11,13 +11,15 @@ type ServerActions = {
   editCategory: (id: string, data: FormData) => Promise<void>;
   deleteCategory: (id: string) => Promise<void>;
   createStory: (data: FormData) => Promise<void>;
-  getStories: () => Promise<Story[]>;
-  getFilteredStories: (filters: Filters) => Promise<Story[]>;
+  getStories: (filters?: Filters, compression?: number) => Promise<Story[]>;
   editStory: (id: string, data: FormData) => Promise<void>;
   deleteStory: (id: string) => Promise<void>;
-  getRecommendations: () => Promise<Story[]>;
+  getRecommendations: (compression?: number) => Promise<Story[]>;
   addRecommendation: (id: string) => Promise<void>;
   removeRecommendation: (id: string) => Promise<void>;
+  updateRadarStory : (id: string) => Promise<void>;
+  getRadarStory : () => Promise<Story[]>;
+  deleteRadarStory : () => Promise<void>;
 };
 
 const ServerActionsContext = createContext<ServerActions | null>(null);
