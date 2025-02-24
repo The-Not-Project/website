@@ -32,7 +32,7 @@ export const RadarDescription = styled.div`
 
   .author {
     position: absolute;
-    bottom: 30px;    
+    bottom: 20px;    
   }
 
 `;

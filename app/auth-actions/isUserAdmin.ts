@@ -1,6 +1,6 @@
 'use server'
 
-import { getUsersRoles } from "./getUsersRoles"
+import { getUsersRoles } from "./getUserRoles"
 
 export async function isUserAdmin(): Promise<boolean> {
 

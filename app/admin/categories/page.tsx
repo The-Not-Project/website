@@ -1,5 +1,5 @@
 'use client';
-import { useServerActions } from '@/app/contexts/server-actions';
+import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
 import { Category } from '@/app/types/types';
 import { PageSection, SectionTitle } from '../components/shared/Section';
 import { Button } from '../components/shared/Button';
@@ -15,7 +15,7 @@ type FormState = {
 
 export default function CategoriesPage() {
   const { createCategory, editCategory, getCategories, deleteCategory } =
-    useServerActions();
+    useAdminServerActions();
 
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);

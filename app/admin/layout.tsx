@@ -1,28 +1,15 @@
-import { ServerActionsProvider } from '@/app/contexts/server-actions';
+import { AdminServerActionsProvider } from '@/app/contexts/admin-server-actions';
 import { getSession } from '@auth0/nextjs-auth0';
-import { isUserAdmin } from '../actions/isUserAdmin';
+import { isUserAdmin } from '../auth-actions/isUserAdmin';
 import { redirect } from 'next/navigation';
 import NavBar from './components/navbar/navbar.component';
-import {
-  UpdateUser,
-  getCategories,
-  createCategory,
-  deleteCategory,
-  editCategory,
-  getUser,
-  createStory,
-  getStories,
-  deleteStory,
-  editStory,
-  getRecommendations,
-  addRecommendation,
-  removeRecommendation,
-  getRadarStory,
-  updateRadarStory,
-  deleteRadarStory
-} from '../script';
 import { AdminContainer } from './components/shared/layout.styles';
 import Back from './components/backButton/backButton.component';
+import { getUser, UpdateUser } from '../database/user';
+import { createCategory, deleteCategory, editCategory, getCategories } from '../database/category';
+import { createStory, deleteStory, editStory, getStories } from '../database/story';
+import { addRecommendation, getRecommendations, removeRecommendation } from '../database/recommendation';
+import { deleteRadarStory, getRadarStory, updateRadarStory } from '../database/radar';
 
 export default async function AdminLayout({
   children,
@@ -56,7 +43,7 @@ export default async function AdminLayout({
   };
 
   return (
-    <ServerActionsProvider {...groupedActions}>
+    <AdminServerActionsProvider {...groupedActions}>
       <AdminContainer>
         <Back />
         <div className='admin-content'>
@@ -65,6 +52,6 @@ export default async function AdminLayout({
           {children}
         </div>
       </AdminContainer>
-    </ServerActionsProvider>
+    </AdminServerActionsProvider>
   );
 }

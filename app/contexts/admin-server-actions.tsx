@@ -3,7 +3,7 @@
 import { createContext, useContext } from 'react';
 import { User, Category, Story, Filters } from '@/app/types/types';
 
-type ServerActions = {
+type AdminServerActions = {
   getUser: (id: string) => Promise<User | null>;
   UpdateUser: (data: FormData, user: User) => Promise<void>;
   createCategory: (data: FormData) => Promise<void>;
@@ -18,29 +18,29 @@ type ServerActions = {
   addRecommendation: (id: string) => Promise<void>;
   removeRecommendation: (id: string) => Promise<void>;
   updateRadarStory : (id: string) => Promise<void>;
-  getRadarStory : () => Promise<Story[]>;
+  getRadarStory : (compression?: number) => Promise<Story | null>;
   deleteRadarStory : () => Promise<void>;
 };
 
-const ServerActionsContext = createContext<ServerActions | null>(null);
+const AdminServerActionsContext = createContext<AdminServerActions | null>(null);
 
-export function ServerActionsProvider({
+export function AdminServerActionsProvider({
   children,
   ...actions
 }: {
   children: React.ReactNode;
-} & ServerActions) {
+} & AdminServerActions) {
   return (
-    <ServerActionsContext.Provider value={actions}>
+    <AdminServerActionsContext.Provider value={actions}>
       {children}
-    </ServerActionsContext.Provider>
+    </AdminServerActionsContext.Provider>
   );
 }
 
-export function useServerActions() {
-  const context = useContext(ServerActionsContext);
+export function useAdminServerActions() {
+  const context = useContext(AdminServerActionsContext);
   if (!context) {
-    throw new Error('useServerActions must be used within a ServerActionsProvider');
+    throw new Error('useAdminServerActions must be used within a AdminServerActionsProvider');
   }
   return context;
 }

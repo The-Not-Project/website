@@ -1,6 +1,6 @@
 'use client';
 
-import { useServerActions } from '@/app/contexts/server-actions';
+import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
 import { Category, Filters, Story } from '@/app/types/types';
 import { useState, useEffect, useCallback } from 'react';
 import {
@@ -27,20 +27,24 @@ const defaultFilters = {
 };
 
 export default function StoriesPage() {
+
   const {
     createStory,
     getStories,
     deleteStory,
     editStory,
-  } = useServerActions();
+  } = useAdminServerActions();
+
   const [stories, setStories] = useState<Story[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const [formState, setFormState] = useState<FormState>({
     isOpen: false,
     isEditing: false,
     currentStory: null,
     selectedCategories: [],
   });
+  
   const [filters, setFilters] = useState<Filters>(defaultFilters);
 
   const fetchStories = useCallback(

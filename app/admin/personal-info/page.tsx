@@ -1,5 +1,5 @@
 'use client';
-import { useServerActions } from '@/app/contexts/server-actions';
+import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
 import { User } from '@/app/types/types';
 import { PageSection, SectionTitle } from '../components/shared/Section';
 import { FormLabel, FormInput } from '../components/shared/Form';
@@ -9,7 +9,7 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import LoadingPage from '../components/loadingPage/loadingPage.component';
 
 export default function PersonalInformation() {
-  const { UpdateUser, getUser } = useServerActions();
+  const { UpdateUser, getUser } = useAdminServerActions();
   const { user } = useUser();
 
   const [currentUser, setCurrentUser] = useState<User | null>(null);

@@ -25,10 +25,10 @@ export const FormInput = styled.input`
   }
 `;
 
-export const FormTextArea = styled.textarea`
+export const FormTextArea = styled.textarea<{ height?: string }>`
   display: block;
   margin-block: 4px 15px;
-  min-height: 300px;
+  min-height: ${props => props.height || '300'}px;
   width: 700px;
   max-width: 100%;
   text-indent: 5px;

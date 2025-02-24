@@ -1,11 +1,12 @@
 'use client';
-import { useServerActions } from '@/app/contexts/server-actions';
+import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
 import { PageSection, SectionTitle } from '../components/shared/Section';
 import StoriesSearch from '../components/storiesSearch/storiesSearch.component';
 import { useCallback, useEffect, useState } from 'react';
-import { Story } from '@prisma/client';
-import { Filters } from '@/app/types/types';
+import { Filters, Story } from '@/app/types/types';
 import RadarStory from '../components/radarStory/radarStory.component';
+import { NoStoriesMessage } from '../components/storiesList/storiesList.styles';
+import LoadingPage from '../components/loadingPage/loadingPage.component';
 
 const defaultFilters = {
   search: '',
@@ -15,19 +16,19 @@ const defaultFilters = {
 
 export default function Page() {
   const { getRadarStory, deleteRadarStory, updateRadarStory, getStories } =
-    useServerActions();
+    useAdminServerActions();
   const [searchResults, setSearchResults] = useState<Story[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchIsLoading, setsearchIsLoading] = useState(false);
   const [filters, setFilters] = useState<Filters>(defaultFilters);
-  const [radarStory, setRadarStory] = useState<Story>();
+  const [radarStory, setRadarStory] = useState<Story | null>(null);
 
   const fetchRadarStory = useCallback(async () => {
     setIsLoading(true);
     try {
-      const data = await getRadarStory();
+      const data = await getRadarStory(1000);
 
-      setRadarStory(data[0]);
+      setRadarStory(data);
     } finally {
       setIsLoading(false);
     }
@@ -45,10 +46,13 @@ export default function Page() {
       }
       setsearchIsLoading(true);
 
-      const data = await getStories({
-        ...filters,
-        search: searchValue,
-      });
+      const data = await getStories(
+        {
+          ...filters,
+          search: searchValue,
+        },
+        600
+      );
 
       const radarId = radarStory?.id;
 
@@ -70,26 +74,34 @@ export default function Page() {
   const handleDeleteRadarStory = useCallback(async () => {
     await deleteRadarStory();
     await fetchRadarStory();
-    }, [deleteRadarStory, fetchRadarStory]);
+  }, [deleteRadarStory, fetchRadarStory]);
 
   return (
     <PageSection>
       <SectionTitle>Radar Story</SectionTitle>
-      {radarStory ? (
+      {isLoading ? (
+        <LoadingPage />
+      ) : radarStory ? (
         <>
-        <RadarStory story={radarStory} isLoading={isLoading} onDeleteAction={handleDeleteRadarStory} />
+          <RadarStory
+            story={radarStory}
+            onDeleteAction={handleDeleteRadarStory}
+          />
         </>
       ) : (
-        <StoriesSearch
-          searchValue={filters.search}
-          results={searchResults}
-          isLoading={searchIsLoading}
-          onSearchChangeAction={value => {
-            setFilters(prev => ({ ...prev, search: value }));
-            handleSearch(value);
-          }}
-          onAddAction={handleSetRadarStory}
-        />
+        <>
+          <NoStoriesMessage>No radar story found.</NoStoriesMessage>
+          <StoriesSearch
+            searchValue={filters.search}
+            results={searchResults}
+            isLoading={searchIsLoading}
+            onSearchChangeAction={value => {
+              setFilters(prev => ({ ...prev, search: value }));
+              handleSearch(value);
+            }}
+            onAddAction={handleSetRadarStory}
+          />
+        </>
       )}
     </PageSection>
   );

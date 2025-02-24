@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono, Oswald } from 'next/font/google';
+import { Oswald } from 'next/font/google';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
-import { createUser, getUser } from './script';
 import './globals.css';
+import { createUser, getUser } from './database/user';
 
 export const metadata: Metadata = {
   title: 'The Not Project',
@@ -31,9 +31,7 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body className={oswald.className}>
-        <UserProvider>
-          {children}
-        </UserProvider>
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );

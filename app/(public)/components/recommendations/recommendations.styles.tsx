@@ -38,5 +38,8 @@ export const RecommendationCard = styled.figure`
   width: 350px;
   img {
     border-radius: 2px;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
   }
 `;

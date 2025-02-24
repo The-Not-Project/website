@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CategoriesInput, CategoriesList, CategoriesSearchContainer, SelectedCategory } from "./categoriesSearch.styles";
 import { FaXmark as IconClose } from 'react-icons/fa6';
-import { useServerActions } from "@/app/contexts/server-actions";
+import { useAdminServerActions } from "@/app/contexts/admin-server-actions";
 import { Category } from "@/app/types/types";
 
 type CategoriesSearchProps = {
@@ -11,7 +11,7 @@ type CategoriesSearchProps = {
 
 export default function CategoriesSearch({ selectedCategories, setSelectedCategories }: CategoriesSearchProps) {
 
-      const { getCategories } = useServerActions();
+      const { getCategories } = useAdminServerActions();
 
       const [categories, setCategories] = useState<Category[]>([]);
       const [searchTerm, setSearchTerm] = useState('');      

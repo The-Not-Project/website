@@ -28,6 +28,7 @@ model Story {
   title          String
   borough        String
   content        String          @db.Text
+  summary        String?          @db.Text
   author         User            @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId       String
   categories     StoryCategory[]

@@ -20,6 +20,9 @@ export default function Story({ story, onDelete, onEdit }: StoryProps) {
     year: 'numeric',
   });
 
+  console.log(story);
+  
+
   const url = story.media[0].url;
 
   const handleDelete = async (id: string) => {

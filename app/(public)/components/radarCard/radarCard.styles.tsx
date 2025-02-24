@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-type RadarDescriptionProps = { $isVisible: boolean };
-
+type RadarDescriptionProps = { $isVisible: boolean; url: string };
 
 export const RadarCardContainer = styled.section`
   display: flex;
@@ -42,7 +41,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
 
   .author {
     position: absolute;
-    bottom: 30px;    
+    bottom: 30px;
     font-size: 1.5rem;
     transition: 0.3s ease-out;
     transition-delay: 0.5s;
@@ -50,7 +49,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   }
 
   .overlay {
-    background: url('/media/harlemPic\ 1.png') no-repeat center center/cover;
+    background: url(${({ url }) => url}) no-repeat center center/cover;
     background-size: 100vw;
     position: absolute;
     top: 0;
@@ -78,8 +77,8 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   }
 `;
 
-export const RadarPhoto = styled.div`
+export const RadarPhoto = styled.div<{url: string}>`
   flex-grow: 1;
-  background: url('/media/harlemPic\ 1.png') no-repeat center center/cover;
+  background: url(${({ url }) => url}) no-repeat center center/cover;
   transition: 0.3s ease-out;
 `;

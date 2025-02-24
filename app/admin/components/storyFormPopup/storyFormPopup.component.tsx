@@ -98,6 +98,13 @@ export default function StoryFormPopup({
           required
           defaultValue={story?.content || ''}
         />
+        <FormLabel htmlFor='summary'>Summary</FormLabel>
+        <FormTextArea
+          height='100'
+          name='summary'
+          required
+          defaultValue={story?.summary || ''}
+        />
 
         <FormLabel htmlFor='borough'>Borough</FormLabel>
         <FormSelect
@@ -128,7 +135,6 @@ export default function StoryFormPopup({
               width={150}
               height={100}
               alt='Story Image'
-              quality={100} // 100 = lossless
             />
             {story.media.length > 1 && (
               <>

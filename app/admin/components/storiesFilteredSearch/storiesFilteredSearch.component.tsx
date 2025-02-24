@@ -1,4 +1,4 @@
-import { useServerActions } from '@/app/contexts/server-actions';
+import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
 import { Category, Filters } from '@/app/types/types';
 import {
   StoriesSearchContainer,
@@ -20,7 +20,7 @@ export default function StoriesSearch({
   filters,
   setFilters,
 }: StoriesSearchProps) {
-  const { getCategories } = useServerActions();
+  const { getCategories } = useAdminServerActions();
   const [categories, setCategories] = useState<Category[]>([]);
   const [localFilters, setLocalFilters] = useState<Filters>(filters);
 

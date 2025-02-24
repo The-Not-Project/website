@@ -1,7 +1,7 @@
 'use client';
 
 import { PageSection, SectionTitle } from '../components/shared/Section';
-import { useServerActions } from '@/app/contexts/server-actions';
+import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
 import { Filters, Story } from '@/app/types/types';
 import { useState, useEffect, useCallback } from 'react';
 import RecommendationsList from '../components/recommendationsList/recommendationsList.component';
@@ -19,7 +19,7 @@ export default function RecommendationsPage() {
     addRecommendation,
     getStories,
     removeRecommendation,
-  } = useServerActions();
+  } = useAdminServerActions();
 
   const [recommendations, setRecommendations] = useState<Story[]>([]);
   const [searchResults, setSearchResults] = useState<Story[]>([]);
@@ -48,7 +48,7 @@ export default function RecommendationsPage() {
       const data = await getStories({
         ...filters,
         search: searchValue,
-      });
+      }, 600);
 
       const recommendedIds = new Set(recommendations.map(rec => rec.id));
 

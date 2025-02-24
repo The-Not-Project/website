@@ -15,6 +15,7 @@ export type Story = {
   title: string;
   id: string;
   content: string;
+  summary: string;
   borough: string;
   author: Author;
   categories: Category[];

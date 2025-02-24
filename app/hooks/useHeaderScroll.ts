@@ -8,9 +8,9 @@ export default function useHeaderScroll() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      // Update continuously: transparency is true if scrollY is low, false otherwise.
+
       setTransparency(scrollY <= 50);
-      // For example, a simple parallax effect:
+      
       setBackgroundPosition(scrollY * 0.5);
     };
 
