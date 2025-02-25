@@ -31,13 +31,24 @@ export default function Recommendations() {
       <BigTitle>Stories we think you'll like</BigTitle>
       <SecomdTitle>Check out our recommended stories below</SecomdTitle>
       <RecommendationsList>
-        {recommendations.map((recommendation) => (
-           <RecommendationCard key={recommendation.id}>
-            <img src={recommendation.media[0].url} />
-            <h3>{recommendation.title}</h3>
-            <p>{recommendation.summary}</p>
-          </RecommendationCard>
-        ))}
+        <div>
+          {recommendations.slice(0, 2).map((recommendation) => (
+            <RecommendationCard key={recommendation.id}>
+              <img src={recommendation.media[0].url} />
+              <h3>{recommendation.title}</h3>
+              <p>{recommendation.summary}</p>
+            </RecommendationCard>
+          ))}
+        </div>
+        <div>
+          {recommendations.slice(2, 4).map((recommendation) => (
+            <RecommendationCard key={recommendation.id}>
+              <img src={recommendation.media[0].url} />
+              <h3>{recommendation.title}</h3>
+              <p>{recommendation.summary}</p>
+            </RecommendationCard>
+          ))}
+        </div>
       </RecommendationsList>
     </RecommendationsContainer>
   );

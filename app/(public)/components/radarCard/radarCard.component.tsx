@@ -9,10 +9,14 @@ import {
 } from './radarCard.styles';
 import { useEffect, useState } from 'react';
 import { Story } from '@/app/types/types';
+import LoadingPage from '../loadingPage/loadingPage.component';
 
-export default function RadarCard() {
+type RadarCardProps = {
+  setLoadingAction: (value: boolean) => void;
+};
+
+export default function RadarCard({ setLoadingAction }: RadarCardProps) {
   const { getRadarStory } = usePublicServerActions();
-
   const [radarStory, setRadarStory] = useState<Story | null>(null);
 
   useEffect(() => {
@@ -21,26 +25,39 @@ export default function RadarCard() {
 
   async function fetchRadarStory() {
     const story = await getRadarStory();
-    setRadarStory(story);
+
+    if (story?.media[0]?.url) {
+      const img = new Image();
+      img.src = story.media[0].url;
+
+      img.onload = () => {
+        setLoadingAction(false);
+        setRadarStory(story);
+      };
+
+      document.head.appendChild(img);
+    } else {
+      setRadarStory(story);
+    }
   }
 
-  const url = radarStory?.media[0].url
-
-
+  const url = radarStory?.media[0]?.url || '';
   const { ref, isVisible } = useRadarVisibility({ threshold: 0.9 });
+
   return (
-    <>
-      <RadarCardContainer>
-        <RadarDescription $isVisible={isVisible} url={url || ''} ref={ref}>
+    <RadarCardContainer>
+      <>
+        <RadarDescription $isVisible={isVisible} $url={url} ref={ref}>
           <h2 className='title'>{radarStory?.title}</h2>
-          <p className='summary'>
-            “{radarStory?.summary}”
+          <p className='summary'>“{radarStory?.summary}”</p>
+          <p className='author'>
+            By{' '}
+            {`${radarStory?.author.firstName} ${radarStory?.author.lastName}`}
           </p>
-          <p className='author'>By {`${radarStory?.author.firstName} ${radarStory?.author.lastName}`}</p>
           <div className='overlay'></div>
         </RadarDescription>
-        <RadarPhoto url={url || ''}/>
-      </RadarCardContainer>
-    </>
+        <RadarPhoto $url={url} />
+      </>
+    </RadarCardContainer>
   );
 }

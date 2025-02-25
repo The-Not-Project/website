@@ -1,21 +1,25 @@
 'use client';
 import Image from 'next/image';
 import { DonateButton, NavBarContainer, AuthLink } from './navbar.styles';
-import { useUser } from '@auth0/nextjs-auth0/client';
 import useHeaderScroll from '@/app/hooks/useHeaderScroll';
+import { usePathname } from 'next/navigation';
 
 type NavBarProps = {
   isAdmin: boolean;
+  authenticated: boolean;
 };
 
-export default function NavBar({ isAdmin }: NavBarProps) {
+export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
 
-  const { user } = useUser();
-
+  const pathname = usePathname();
   const { transparency } = useHeaderScroll();
+  const isHome = pathname === '/';
+  const isBgSolid = isHome && transparency;
+  
+    
 
   return (
-    <NavBarContainer className={!transparency ? 'scrolled' : undefined}>
+    <NavBarContainer className={isBgSolid ? 'solid isHome' : isHome ? 'isHome' : undefined}> 
       <Image
         src='/media/logo.png'
         alt='The Not Project Logo'
@@ -27,15 +31,15 @@ export default function NavBar({ isAdmin }: NavBarProps) {
         {isAdmin && (
           <AuthLink
             href='/admin'
-            className={!transparency ? 'scrolled' : undefined}
+            className={isBgSolid ? 'solid' : undefined}
           >
             ADMIN
           </AuthLink>
         )}
-        {!user ? (
+        {!authenticated ? (
           <AuthLink
             href='/api/auth/login'
-            className={!transparency ? 'scrolled' : undefined}
+            className={isBgSolid ? 'solid' : undefined}
           >
             SIGN IN
           </AuthLink>
@@ -44,14 +48,13 @@ export default function NavBar({ isAdmin }: NavBarProps) {
             {'  '}
             <AuthLink
               href='/api/auth/logout'
-              className={!transparency ? 'scrolled' : undefined}
+              className={isBgSolid ? 'solid' : undefined}
             >
               LOG OUT
             </AuthLink>
           </>
         )}
-
-        <DonateButton className={!transparency ? 'scrolled' : undefined}>
+        <DonateButton className={isBgSolid ? 'solid' : undefined}>
           DONATE
         </DonateButton>
       </div>

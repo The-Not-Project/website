@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-type RadarDescriptionProps = { $isVisible: boolean; url: string };
+type RadarDescriptionProps = { $isVisible: boolean; $url: string };
 
 export const RadarCardContainer = styled.section`
   display: flex;
   max-width: 1920px;
-  height: 50vw;
+  height: calc(50vw - 80px);
   max-height: 900px;
   margin: 40px auto;
   padding-inline: 40px;
@@ -52,7 +52,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   }
 
   .overlay {
-    background: url(${({ url }) => url}) no-repeat center center/cover;
+    background: url(${({ $url }) => $url}) no-repeat center center/cover;
     background-size: 100vw;
     position: absolute;
     top: 0;
@@ -80,8 +80,8 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   }
 `;
 
-export const RadarPhoto = styled.div<{url: string}>`
+export const RadarPhoto = styled.div<{$url: string}>`
   flex-grow: 1;
-  background: url(${({ url }) => url}) no-repeat center center/cover;
+  background: url(${({ $url }) => $url}) no-repeat center center/cover;
   transition: 0.3s ease-out;
 `;

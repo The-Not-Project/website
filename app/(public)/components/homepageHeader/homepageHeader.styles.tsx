@@ -20,7 +20,7 @@ export const HeaderContainer = styled.header`
   .center-title {
     text-align: center;
     position: absolute;
-    font-size: 4rem;
+    font-size: 3rem;
     top: 50%;
     left: 50%;
     translate: -50% -50%;

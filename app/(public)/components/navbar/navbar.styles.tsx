@@ -1,30 +1,30 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const NavBarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
-  color: white;
   align-items: center;
   padding-inline: 40px;
   height: 80px;
-  border-bottom: 2px solid#ddd;
-  position: fixed;
-  width: 100%;
-  top: 0;
+  border-bottom: 2px solid var(--bg-color);
   transition: 0.3s;
-  text-shadow: none;
-  z-index: 1;
+  background: var(--bg-color);
+  color: black;
+  &.isHome {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+  }
 
-
-  &.scrolled {
-    border-color: var(--bg-color);
-    background: var(--bg-color);
-    color: black;
+  &.solid {
+    border-color: #ddd;
+    background: transparent;
+    color: white;
 
     img {
       filter: invert(1);
     }
-
   }
 
   .title-lg {
@@ -39,27 +39,25 @@ export const NavBarContainer = styled.nav`
 
 export const DonateButton = styled.button`
   background: transparent;
-  color: white;
+  color: black;
   outline: none;
-  border: 2px solid white;
+  border: 2px solid black;
   padding: 1px 10px;
   border-radius: 100px;
   font-size: 1.2rem;
   cursor: pointer;
 
-  &.scrolled {
-    color: black;
-    border-color: black;
+  &.solid {
+    color: white;
+    border-color: white;
   }
-  `;
+`;
 export const AuthLink = styled.a`
-  color: white;
+  color: black;
   text-decoration: none;
   margin-inline: 10px;
-  
-  &.scrolled {
-    color: black;
-    border-color: black;
-  }
 
-`
+  &.solid {
+    color: white;
+  }
+`;

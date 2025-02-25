@@ -6,101 +6,65 @@ import {
   SVGContainer,
   Background,
 } from './boroughs.styles';
+import { BoroughSummaries as summaries } from '@/app/constants/boroughs';
 import MySVG from './svg';
 
 export default function Boroughs() {
-  const summaries = [
-    {
-      borough: 'The Bronx',
-      description:
-        'The Bronx is a borough of New York City, coextensive with Bronx County, in the U.S. state of New York. It is south of Westchester County; northeast and east of Manhattan, across the Harlem River; and north of Queens, across the East River.',
-    },
-    {
-      borough: 'Manhattan',
-      description:
-        'Manhattan is the most densely populated of the five boroughs of New York City. The borough is coterminous with New York County, an original county of the U.S. state of New York.',
-    },
-    {
-      borough: 'Queens',
-      description:
-        'Queens is a borough of New York City, coextensive with Queens County, in the U.S. state of New York. Located on Long Island, it is the largest borough of New York City in area and is adjacent to the borough of Brooklyn at the western end of Long Island.',
-    },
-    {
-      borough: 'Brooklyn',
-      description:
-        'Brooklyn is the most populous borough of New York City, with a census-estimated 2,648,403 residents in 2020. Named after the Dutch village of Breukelen, it shares a land border with the borough of Queens, at the western end of Long Island.',
-    },
-    {
-      borough: 'Staten Island',
-      description:
-        'NYC’s underdog with heart. Where community runs deep, loyalty is everything, and pride stands taller than any skyline.',
-    },
-  ];
-
-  const [activeBoroughIndex, setActiveBoroughIndex] = useState(-1);
-  const [delayedSummary, setDelayedSummary] = useState(summaries[0]);
-  const [delayedUrl, setDelayedUrl] = useState(0);
-  const [hoverKey, setHoverKey] = useState(0);
+  const [activeBorough, setActiveBorough] = useState('brooklyn');
+  const [summary, setSummary] = useState(summaries.brooklyn);
+  const [fileName, setFileName] = useState('brooklyn');
 
   useEffect(() => {
-    const preloadImages = () => {
-      summaries.forEach((summary, index) => {
-        const img = new Image();
-        img.src = `/media/boroughsCards/${index}.jpg`; // Adjust path as needed
-      });
-    };
+    Object.keys(summaries).forEach(borough => {
+      const img = new Image();
+      img.src = `/media/boroughBackdrops/${borough}.jpg`;
+    });
+  }, []);
 
-    const boroughs = document.querySelectorAll('path');
+  useEffect(() => {
+    const paths = document.querySelectorAll('path');
 
     const handleMouseEnter = (event: Event) => {
-      const currentIndex = Array.from(boroughs).indexOf(
-        event.target as SVGPathElement
-      );
-      if (currentIndex === activeBoroughIndex) return;
+      const boroughId = (event.target as SVGElement).id;
+      if (boroughId === activeBorough) return;
 
-      setActiveBoroughIndex(currentIndex);
-      setHoverKey(prev => prev + 1);
+      setActiveBorough(boroughId);
 
       setTimeout(() => {
-        setDelayedUrl(currentIndex);
+        setFileName(boroughId);
       }, 100);
 
       setTimeout(() => {
-        setDelayedSummary(summaries[currentIndex]);
+        setSummary(summaries[boroughId as keyof typeof summaries]);
       }, 333);
     };
 
-    boroughs.forEach(borough => {
-      borough.addEventListener('mouseenter', handleMouseEnter);
+    paths.forEach(path => {
+      path.addEventListener('mouseenter', handleMouseEnter);
     });
 
-    preloadImages();
-
     return () => {
-      boroughs.forEach(borough => {
-        borough.removeEventListener('mouseenter', handleMouseEnter);
+      paths.forEach(path => {
+        path.removeEventListener('mouseenter', handleMouseEnter);
       });
     };
-  }, [activeBoroughIndex]);
+  }, [activeBorough]);
 
   return (
-    <BoroughsSectionContainer
-      $activeIndex={activeBoroughIndex}
-      key={`text-${hoverKey}`}
-    >
-      <Background
-        $activeIndex={activeBoroughIndex}
-        $url={delayedUrl}
-      >
+    <BoroughsSectionContainer key={activeBorough}>
+      <Background $fileName={fileName}>
         <div className='background-image' />
       </Background>
       <h1>Which Borough speaks to you?</h1>
       <div className='description'>
-        <h2>{delayedSummary.borough}</h2>
-        <p>{delayedSummary.description}</p>
+        <h2>{summary.borough}</h2>
+        <p>{summary.description}</p>
       </div>
-      <SVGContainer $activeIndex={activeBoroughIndex} onClick={() => alert("Doesn't do anything yet, fool.")}>
-          <MySVG />
+      <SVGContainer
+        $activeBorough={activeBorough}
+        onClick={() => alert("Doesn't do anything yet, fool.")}
+      >
+        <MySVG />
       </SVGContainer>
     </BoroughsSectionContainer>
   );

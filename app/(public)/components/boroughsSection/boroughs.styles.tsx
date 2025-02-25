@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-export const BoroughsSectionContainer = styled.section<{
-  $activeIndex: number;
-}>`
+export const BoroughsSectionContainer = styled.section`
   height: 100vh;
   position: relative;
   color: white;
@@ -32,15 +30,11 @@ export const BoroughsSectionContainer = styled.section<{
       font-size: clamp(1rem, 2rem, 2vw);
     }
 
-    ${({ $activeIndex }) =>
-      $activeIndex !== -1 &&
-      `
-        animation: fadepulsateslow 1s;
-      `}
+    animation: fadepulsateslow 1s;
   }
 `;
 
-export const Background = styled.div<{ $activeIndex: number; $url: number }>`
+export const Background = styled.div<{ $fileName: string }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -53,8 +47,8 @@ export const Background = styled.div<{ $activeIndex: number; $url: number }>`
     left: 0;
     width: 100%;
     height: 100%;
-    background: ${({ $url }) =>
-      `url('/media/boroughBackdrops/${$url}.jpg') no-repeat center center/cover`};
+    background: ${({ $fileName }) =>
+      `url('/media/boroughBackdrops/${$fileName}.jpg') no-repeat center center/cover`};
     filter: grayscale(50%);
   }
   &::after {
@@ -66,45 +60,35 @@ export const Background = styled.div<{ $activeIndex: number; $url: number }>`
     height: 100%;
     background: linear-gradient(var(--bg-color), transparent);
   }
-  ${({ $activeIndex }) =>
-    $activeIndex !== -1 &&
-    `
-      animation: fadepulsatefast .66s;
-    `}
+
+  animation: fadepulsatefast 0.66s;
 `;
 
-export const SVGContainer = styled.div<{ $activeIndex: number }>`
+export const SVGContainer = styled.div<{ $activeBorough: string }>`
   width: 30%;
   max-width: 60vh;
   position: absolute;
   right: 5%;
   bottom: 10%;
   overflow: visible;
-  
+
   svg {
     height: auto;
     width: 100%;
     z-index: 3;
+
     path {
-      fill: hsl(36, 47%, 95%, 0.7);
+      fill: hsl(36, 47%, 95%, 0.4);
       transition: 0.2s;
       cursor: pointer;
-    }
 
-    ${({ $activeIndex }) =>
-      $activeIndex !== -1 &&
-      `
-        path {
-          fill: hsl(36, 47%, 95%, 0.4);
-        }
-        
-        path:nth-child(${$activeIndex + 2}) {
-          opacity: 1;
-          filter: none;
-          fill: hsl(36, 47%, 95%, 0.9);
-          stroke: hsl(0, 0%, 0%, 0.5);
-          filter: drop-shadow(0 0 20px hsl(36, 47%, 0%, 0.5));
-        }
-      `}
+      &[id='${({ $activeBorough }) => $activeBorough}'] {
+        opacity: 1;
+        filter: none;
+        fill: hsl(36, 47%, 95%, 0.9);
+        stroke: hsl(0, 0%, 0%, 0.5);
+        filter: drop-shadow(0 0 20px hsl(36, 47%, 0%, 0.5));
+      }
+    }
   }
 `;

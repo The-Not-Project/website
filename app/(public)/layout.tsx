@@ -33,7 +33,7 @@ export default async function PublicLayout({
 
   return (
     <PublicServerActionsProvider {...groupedActions}>
-      <NavBar isAdmin={isAdmin} />
+      <NavBar isAdmin={isAdmin} authenticated={!!session} />
       {children}
       <Footer />
     </PublicServerActionsProvider>
