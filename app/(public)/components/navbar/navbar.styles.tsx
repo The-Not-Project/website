@@ -31,6 +31,9 @@ export const NavBarContainer = styled.nav`
     font-size: 2.5rem;
     font-weight: normal;
     text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 `;
 

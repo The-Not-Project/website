@@ -54,7 +54,7 @@ export const Background = styled.div<{ $activeIndex: number; $url: number }>`
     width: 100%;
     height: 100%;
     background: ${({ $url }) =>
-      `url('/media/boroughsCards/${$url}.jpg') no-repeat center center/cover`};
+      `url('/media/boroughBackdrops/${$url}.jpg') no-repeat center center/cover`};
     filter: grayscale(50%);
   }
   &::after {
