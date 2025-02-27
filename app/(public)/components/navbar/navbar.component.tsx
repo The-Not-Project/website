@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { DonateButton, NavBarContainer, AuthLink } from './navbar.styles';
+import { DonateButton, NavBarContainer, AuthLink, Link } from './navbar.styles';
 import useHeaderScroll from '@/app/hooks/useHeaderScroll';
 import { usePathname } from 'next/navigation';
 
@@ -28,13 +28,16 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
       />
       <h1 className='title-lg'>THE NOT PROJECT</h1>
       <div>
+        <Link href='/stories' className={isBgSolid ? 'solid' : undefined}>
+          STORIES
+        </Link>
         {isAdmin && (
-          <AuthLink
+          <Link
             href='/admin'
             className={isBgSolid ? 'solid' : undefined}
           >
             ADMIN
-          </AuthLink>
+          </Link>
         )}
         {!authenticated ? (
           <AuthLink

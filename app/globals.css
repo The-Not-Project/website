@@ -1,10 +1,8 @@
-
 :root {
   --bg-color: #f8f3ec;
 }
 
 * {
-  font-family: 'Oswald', sans-serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -15,8 +13,11 @@ body {
   overflow: overlay;
 }
 
-@keyframes fadepulsatefast {
+button, input, textarea, select {
+  font-family: 'Oswald', sans-serif;
+}
 
+@keyframes fadepulsatefast {
   50% {
     filter: blur(1000px);
   }
@@ -26,7 +27,6 @@ body {
 }
 
 @keyframes fadepulsateslow {
-
   33% {
     opacity: 0;
   }

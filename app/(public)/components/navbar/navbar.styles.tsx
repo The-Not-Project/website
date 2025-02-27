@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import styled from 'styled-components';
 
 export const NavBarContainer = styled.nav`
@@ -50,6 +51,15 @@ export const DonateButton = styled.button`
   &.solid {
     color: white;
     border-color: white;
+  }
+`;
+export const Link = styled(NextLink)`
+  color: black;
+  text-decoration: none;
+  margin-inline: 10px;
+
+  &.solid {
+    color: white;
   }
 `;
 export const AuthLink = styled.a`
