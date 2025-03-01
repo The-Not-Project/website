@@ -6,7 +6,7 @@ export const StoryPopupContainer = styled.div<{ $position: number }>`
   top: ${({ $position }) => `${$position}px`};
   translate: 0 -50%;
   width: 500px;
-  height: 500px;
+  height: 250px;
 `;
 
 export const Title = styled.h1`

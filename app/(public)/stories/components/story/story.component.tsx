@@ -39,7 +39,7 @@ export default function Story({ story }: { story: StoryType }) {
     if (!parentElement) return;
 
     let newPosition = storyElement.top + storyElement.height / 2;
-    const popupHeight = 500;
+    const popupHeight = 250;
 
     if (newPosition - popupHeight / 2 < parentElement.top) {
       newPosition = parentElement.top + popupHeight / 2;
