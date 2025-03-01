@@ -82,12 +82,10 @@ export default function Story({ story }: { story: StoryType }) {
           </CategoriesContainer>
         )}
       </StoryContent>
-      {hoveredStory.isHovered || story.id == '034f17f1-daa7-4c0b-81f2-9ab386c7d723' && (
+      {hoveredStory.isHovered && (
         <StoryPopup
-          story={story}
-          position={250}
-          // story={hoveredStory.story!}
-          // position={hoveredStory.position}
+          story={hoveredStory.story!}
+          position={hoveredStory.position}
         />
       )}
     </StoryContainer>
