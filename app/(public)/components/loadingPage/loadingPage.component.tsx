@@ -1,10 +1,15 @@
-import { LoadingPageContainer } from "./loadingPage.styles";
-import {ClockLoader as Loader} from 'react-spinners'
+import { LoadingPageContainer } from './loadingPage.styles';
+import { ClockLoader, BeatLoader } from 'react-spinners';
 
-export default function LoadingPage({ isLoading }: { isLoading: boolean }) {
+type LoadingPageProps = {
+  isLoading: boolean;
+  isHome: boolean;
+};
+
+export default function LoadingPage({ isLoading, isHome }: LoadingPageProps) {
   return (
-    <LoadingPageContainer $isLoading={isLoading}>
-      <Loader color="white" />
+    <LoadingPageContainer $isLoading={isLoading} $isHome={isHome}>
+      {isHome ? <ClockLoader color='white' /> : <BeatLoader color='white' />}
     </LoadingPageContainer>
   );
 }

@@ -24,7 +24,7 @@ export default function PublicPage() {
 
   return (
     <>
-      {showLoader && <LoadingPage isLoading={isLoading} />}
+      {showLoader && <LoadingPage isLoading={isLoading} isHome={true} />}
       <Header />
       <RadarCard setLoadingAction={setIsLoading} />
       <Boroughs />

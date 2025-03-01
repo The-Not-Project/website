@@ -6,6 +6,7 @@ import { Filters, Story } from '@/app/types/types';
 import StoriesList from './components/storiesList/storiesList.component';
 import StoriesSearch from './components/storiesSearch/storiesSearch.component';
 import { StoriesContainer } from './style';
+import LoadingPage from '../components/loadingPage/loadingPage.component';
 
 const defaultFilters = {
   search: '',
@@ -18,6 +19,8 @@ export default function StoriesPage() {
   const [stories, setStories] = useState<Story[]>([]);
   const [filters, SetFilters] = useState<Filters>(defaultFilters);
   const [isLoading, setIsLoading] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
+
 
   const fetchStories = useCallback(
     async (appliedFilters: Filters = defaultFilters) => {
@@ -33,12 +36,21 @@ export default function StoriesPage() {
   );
 
   useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => {
+        setShowLoader(false);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
     fetchStories(filters);
   }, [filters]);
 
   return (
     <>
-      {isLoading && <p>Loading...</p>}
+      {showLoader && <LoadingPage isLoading={isLoading} isHome={false} />}
       <StoriesContainer>
         <StoriesSearch filters={filters} setFilters={SetFilters} />
         <StoriesList stories={stories} />
