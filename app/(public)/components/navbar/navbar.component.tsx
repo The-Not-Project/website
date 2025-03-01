@@ -10,32 +10,30 @@ type NavBarProps = {
 };
 
 export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
-
   const pathname = usePathname();
   const { transparency } = useHeaderScroll();
   const isHome = pathname === '/';
   const isBgSolid = isHome && transparency;
-  
-    
 
   return (
-    <NavBarContainer className={isBgSolid ? 'solid isHome' : isHome ? 'isHome' : undefined}> 
-      <Image
-        src='/media/logo.png'
-        alt='The Not Project Logo'
-        width={120}
-        height={68}
-      />
+    <NavBarContainer
+      className={isBgSolid ? 'solid isHome' : isHome ? 'isHome' : undefined}
+    >
+      <Link href='/'>
+        <Image
+          src='/media/logo.png'
+          alt='The Not Project Logo'
+          width={120}
+          height={68}
+        />
+      </Link>
       <h1 className='title-lg'>THE NOT PROJECT</h1>
       <div>
         <Link href='/stories' className={isBgSolid ? 'solid' : undefined}>
           STORIES
         </Link>
         {isAdmin && (
-          <Link
-            href='/admin'
-            className={isBgSolid ? 'solid' : undefined}
-          >
+          <Link href='/admin' className={isBgSolid ? 'solid' : undefined}>
             ADMIN
           </Link>
         )}

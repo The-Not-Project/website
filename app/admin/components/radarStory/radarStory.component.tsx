@@ -1,5 +1,4 @@
 import { Story } from '@/app/types/types';
-import LoadingPage from '../loadingPage/loadingPage.component';
 import {
   RadarDescription,
   RadarPhoto,

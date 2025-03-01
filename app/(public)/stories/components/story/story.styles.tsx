@@ -9,6 +9,7 @@ export const StoryContainer = styled.div`
   transition: 0.2s;
   cursor: pointer;
   padding: 30px;
+  position: relative;
 
   &:hover {
     background-color: hsl(35, 44%, 94%);

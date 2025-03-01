@@ -1,5 +1,6 @@
 :root {
   --bg-color: #f8f3ec;
+  interpolate-size: allow-keywords;
 }
 
 * {

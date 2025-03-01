@@ -4,23 +4,23 @@ import { usePublicServerActions } from '@/app/contexts/public-server-actions';
 import {
   RecommendationsContainer,
   BigTitle,
-  SecomdTitle,
+  SecondaryTitle,
   RecommendationCard,
   RecommendationsList,
 } from './recommendations.styles';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Story } from '@/app/types/types';
+import Image from 'next/image';
 
 export default function Recommendations() {
-
   const { getRecommendations } = usePublicServerActions();
 
   const [recommendations, setRecommendations] = useState<Story[]>([]);
 
-  async function fetchRecommendations() {
+  const fetchRecommendations = useCallback(async () => {
     const recommendations = await getRecommendations(600);
     setRecommendations(recommendations);
-  }
+  }, [getRecommendations]);
 
   useEffect(() => {
     fetchRecommendations();
@@ -28,22 +28,32 @@ export default function Recommendations() {
 
   return (
     <RecommendationsContainer>
-      <BigTitle>Stories we think you'll like</BigTitle>
-      <SecomdTitle>Check out our recommended stories below</SecomdTitle>
+      <BigTitle>Stories we think you&apos;ll like</BigTitle>
+      <SecondaryTitle>Check out our recommended stories below</SecondaryTitle>
       <RecommendationsList>
         <div>
-          {recommendations.slice(0, 2).map((recommendation) => (
+          {recommendations.slice(0, 2).map(recommendation => (
             <RecommendationCard key={recommendation.id}>
-              <img src={recommendation.media[0].url} />
+              <Image
+                src={recommendation.media[0].url || ''}
+                width={300}
+                height={200}
+                alt='thumbnail'
+              />
               <h3>{recommendation.title}</h3>
               <p>{recommendation.summary}</p>
             </RecommendationCard>
           ))}
         </div>
         <div>
-          {recommendations.slice(2, 4).map((recommendation) => (
+          {recommendations.slice(2, 4).map(recommendation => (
             <RecommendationCard key={recommendation.id}>
-              <img src={recommendation.media[0].url} />
+              <Image
+                src={recommendation.media[0].url || ''}
+                width={300}
+                height={200}
+                alt='thumbnail'
+              />
               <h3>{recommendation.title}</h3>
               <p>{recommendation.summary}</p>
             </RecommendationCard>

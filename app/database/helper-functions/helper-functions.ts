@@ -1,4 +1,4 @@
-import { Story } from '@/app/types/types';
+import { Category, Media, RawMedia, RawStory, Story } from '@/app/types/types';
 import { pinata } from '@/app/utils/config';
 import { prisma } from '../prisma';
 
@@ -6,7 +6,7 @@ export async function uploadFileToPinata(file: File): Promise<string> {
   const data = new FormData();
   data.set('file', file);
 
-  const uploadResponse = await fetch('http://localhost:3000/api/files', {
+  const uploadResponse = await fetch(`${process.env.PUBLIC_API_BASE_URL}/files`, {
     method: 'POST',
     body: data,
   });
@@ -20,25 +20,25 @@ export async function uploadFileToPinata(file: File): Promise<string> {
 }
 
 export async function processStories(
-  stories: any[],
+  stories: RawStory[],
   compression?: number
 ): Promise<Story[]> {
   return Promise.all(stories.map(story => processStory(story, compression)));
 }
 
-export async function processStory(story: any, compression?: number): Promise<Story> {
+export async function processStory(story: RawStory, compression?: number): Promise<Story> {
   const mediaWithUrls = await Promise.all(
-    story.media.map((media: any) => transformMedia(media, compression))
+    story.media.map((media: RawMedia) => transformMedia(media, compression))
   );
 
   return {
     ...story,
-    categories: story.categories.map((sc: { category: any }) => sc.category),
+    categories: story.categories.map((sc: { category: Category }) => sc.category),
     media: mediaWithUrls,
   };
 }
 
-export async function transformMedia(media: any, compression?: number): Promise<any> {
+export async function transformMedia(media: RawMedia, compression?: number): Promise<Media> {
   try {
     const signedUrl = await pinata.gateways
       .createSignedURL({
@@ -78,9 +78,7 @@ export async function deleteMedia(id: string) {
   });
   const urls = mediaIds.map(media => media.url);
 
-  await pinata.files.delete([
-    'bafkreicbh73f442wngpsryl7ay2kd7qmedsceg4ckbmhslgs4r3e5btifm',
-  ]);
+  await pinata.files.delete(urls);
 
   await prisma.media.deleteMany({
     where: {

@@ -1,9 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const StoriesListContainer = styled.div`
-    margin: 40px auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-inline: 60px;
-`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;

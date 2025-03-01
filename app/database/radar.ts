@@ -1,4 +1,4 @@
-import { Story } from "../types/types";
+import { RawStory, Story } from "../types/types";
 import { processStory } from "./helper-functions/helper-functions";
 import { prisma } from "./prisma";
 
@@ -32,7 +32,7 @@ export async function getRadarStory(compression?: number): Promise<Story | null>
       },
     });
   
-    return processStory(story, compression);
+    return processStory(story as RawStory, compression);
   }
   
   export async function updateRadarStory(id: string) {

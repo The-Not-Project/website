@@ -30,6 +30,7 @@ export async function createAccessToken(): Promise<string> {
         const data: AccessTokenResponse = await response.json();
         return data.access_token;
     } catch (error) {
+        console.error("Error creating access token:", error);
         throw new Error("Failed to get access token");
     }
 }

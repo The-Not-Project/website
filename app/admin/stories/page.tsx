@@ -48,16 +48,11 @@ export default function StoriesPage() {
   const [filters, setFilters] = useState<Filters>(defaultFilters);
 
   const fetchStories = useCallback(
-    async (filters?: Filters) => {
+    async (appliedFilters: Filters = defaultFilters) => {
       setIsLoading(true);
       try {
-        if (filters) {
-          const data = await getStories(filters, 300);
-          setStories(data);
-        } else {
-          const data = await getStories(defaultFilters, 300);
-          setStories(data);
-        }
+        const data = await getStories(appliedFilters, 300);
+        setStories(data);
       } finally {
         setIsLoading(false);
       }
@@ -66,16 +61,8 @@ export default function StoriesPage() {
   );
 
   useEffect(() => {
-    if (
-      filters.search ||
-      filters.boroughs.length > 0 ||
-      filters.categories.length > 0
-    ) {
-      fetchStories(filters);
-    } else {
-      fetchStories();
-    }
-  }, [filters]);
+    fetchStories(filters);
+  }, [filters, fetchStories]);
 
   const handleOpenCreate = () => {
     setFormState({

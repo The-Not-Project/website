@@ -7,9 +7,7 @@ import {
 } from './homepageHeader.styles';
 import useHeaderScroll from '@/app/hooks/useHeaderScroll';
 
-type HomePageHeaderProps = {};
-
-export default function HomePageHeader({}: HomePageHeaderProps) {
+export default function HomePageHeader() {
   const { backgroundPosition } = useHeaderScroll();
 
   return (

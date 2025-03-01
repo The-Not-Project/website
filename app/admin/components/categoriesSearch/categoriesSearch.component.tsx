@@ -26,7 +26,7 @@ export default function CategoriesSearch({ selectedCategories, setSelectedCatego
             }
           };
           fetchCategories();
-        }, []);
+        });
 
       const filteredCategories = categories.filter(
         category =>

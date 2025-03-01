@@ -18,10 +18,7 @@ export default function Story({ story, onDelete, onEdit }: StoryProps) {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
-  });
-
-  console.log(story);
-  
+  });  
 
   const url = story.media[0].url;
 

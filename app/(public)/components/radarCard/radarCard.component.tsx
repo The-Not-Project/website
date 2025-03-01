@@ -9,7 +9,6 @@ import {
 } from './radarCard.styles';
 import { useEffect, useState } from 'react';
 import { Story } from '@/app/types/types';
-import LoadingPage from '../loadingPage/loadingPage.component';
 
 type RadarCardProps = {
   setLoadingAction: (value: boolean) => void;
