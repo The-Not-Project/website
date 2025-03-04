@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { LoadingPageContainer } from './loadingPage.styles';
-import { ClockLoader, BeatLoader } from 'react-spinners';
+import { BeatLoader } from 'react-spinners';
 
 type LoadingPageProps = {
   isLoading: boolean;
