@@ -14,6 +14,7 @@ export default function PublicPage() {
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!isLoading) {
       const timer = setTimeout(() => {
         setShowLoader(false);

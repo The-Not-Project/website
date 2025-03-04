@@ -9,7 +9,7 @@ export const LoadingPageContainer = styled.div<{ $isLoading: boolean, $isHome: b
     display: flex;
     justify-content: center;
     align-items: center;
-    background: black;
+    background: #1c1c1c;
     color: white;
     z-index: 1;
     transition: translate .3s ease;

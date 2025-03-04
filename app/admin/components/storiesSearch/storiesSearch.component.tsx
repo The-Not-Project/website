@@ -1,4 +1,3 @@
-// components/searchAndResults/searchAndResults.component.tsx
 'use client';
 import type { Story } from '@/app/types/types';
 import { Loader, SearchContainer } from './storiesSearch.styles';

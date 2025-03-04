@@ -11,6 +11,7 @@ export const RecommendationsListContainer = styled.div`
 export const RecommendationContainer = styled.div`
   background: white;
   position: relative;
+  height: 185.5px;
 
   h3 {
     font-weight: normal;
