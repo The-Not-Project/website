@@ -3,30 +3,25 @@ export const BoroughSummaries = {
     fileName: 'bronx',
     borough: 'The Bronx',
     description:
-      'The Bronx is a borough of New York City, coextensive with Bronx County, in the U.S. state of New York. It is south of Westchester County; northeast and east of Manhattan, across the Harlem River; and north of Queens, across the East River.',
-  },
+    'The Bronx, the birthplace of hip-hop and home to the world famous Yankees, is a place of unmatched energy and pride. The borough pulses with creativity, where culture and community intertwine to shape its distinct identity.  The Bronx remains a living testament to the strength and resilience of its people.'  },
   manhattan: {
     fileName: 'manhattan',
     borough: 'Manhattan',
     description:
-      'Manhattan is the most densely populated of the five boroughs of New York City. The borough is coterminous with New York County, an original county of the U.S. state of New York.',
-  },
+    'The pulse of the world beats in Manhattan. From the flashing lights of Times Square to the echoes of history in Harlem, this borough is the epicenter of ambition, culture, and reinvention. It’s where dreams collide with reality, and only the bold leave their mark.'  },
   queens: {
     fileName: 'queens',
     borough: 'Queens',
     description:
-      'Queens is a borough of New York City, coextensive with Queens County, in the U.S. state of New York. Located on Long Island, it is the largest borough of New York City in area and is adjacent to the borough of Brooklyn at the western end of Long Island.',
-  },
+    'Home of countless talented individuals, The Mets and The Not Project. A borough built on resilience, strength and ambition Queens is NYC in its purest form. It isn’t just a borough-it’s a movement, a history still being written, and the bridge between past legacies and future icons.'  },
   brooklyn: {
     fileName: 'brooklyn',
     borough: 'Brooklyn',
     description:
-      'Brooklyn is the most populous borough of New York City, with a census-estimated 2,648,403 residents in 2020. Named after the Dutch village of Breukelen, it shares a land border with the borough of Queens, at the western end of Long Island.',
-  },
+    'A borough that moves with grit, ambition, and an unshakable sense of identity. From the pulse of its streets to the soul of its art, this borough defines culture instead of chasing it. Brooklyn is legacy in motion.'  },
   statenisland:{
     fileName: 'statenisland',
     borough: 'Staten Island',
     description:
-      'NYC’s underdog with heart. Where community runs deep, loyalty is everything, and pride stands taller than any skyline.',
-  },
+    'Might be the city’s quietest borough, but its people are anything but subdued. A place where old-school values and modern-day energy coexist, this borough proves that strength lies in unity and a deep love for the place you call home. NYC’s underdog with heart.'   },
 }
