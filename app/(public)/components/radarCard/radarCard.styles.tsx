@@ -28,14 +28,14 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   background: #454d42;
 
   .title {
-    font-size: 3rem;
-    transition: 0.3s ease-out;
+    text-wrap: balance;
+    font-size: clamp(2rem, 3rem, 3vw);
     transition-delay: 0.5s;
     opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
   }
 
   .summary {
-    font-size: 2rem;
+    font-size: clamp(1rem, 2rem,1.5vw);
     font-style: italic;
     transition: 0.3s ease-out;
     transition-delay: 0.5s;

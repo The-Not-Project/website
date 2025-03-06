@@ -10,9 +10,9 @@ import { BoroughSummaries as summaries } from '@/app/constants/boroughs';
 import MySVG from './svg';
 
 export default function Boroughs() {
-  const [activeBorough, setActiveBorough] = useState('brooklyn');
-  const [summary, setSummary] = useState(summaries.brooklyn);
-  const [fileName, setFileName] = useState('brooklyn');
+  const [activeBorough, setActiveBorough] = useState('queens');
+  const [summary, setSummary] = useState(summaries.queens);
+  const [fileName, setFileName] = useState('queens');
 
   useEffect(() => {
     Object.keys(summaries).forEach(borough => {

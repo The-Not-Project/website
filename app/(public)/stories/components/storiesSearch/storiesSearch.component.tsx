@@ -29,13 +29,13 @@ export default function StoriesSearch({
   const [localFilters, setLocalFilters] = useState<Filters>(filters);
   const [categoriesVisible, setCategoriesVisible] = useState(false);
 
-  //   const boroughs = [
-  //     'brooklyn',
-  //     'manhattan',
-  //     'queens',
-  //     'staten island',
-  //     'bronx',
-  //   ];
+    // const boroughs = [
+    //   'brooklyn',
+    //   'manhattan',
+    //   'queens',
+    //   'staten island',
+    //   'bronx',
+    // ];
 
   useEffect(() => {
     fetchCategories();
