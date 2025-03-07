@@ -11,11 +11,11 @@ import { Fragment } from 'react';
 // import StoryPopup from '../storyPopup/storyPopup.component';
 
 export default function Story({ story }: { story: StoryType }) {
-  type HoveredStoryState = {
-    story: StoryType | null;
-    isHovered: boolean;
-    position: number;
-  };
+  // type HoveredStoryState = {
+  //   story: StoryType | null;
+  //   isHovered: boolean;
+  //   position: number;
+  // };
 
   // const [hoveredStory, setHoveredStory] = useState<HoveredStoryState>({
   //   story: null,
