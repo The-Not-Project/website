@@ -23,7 +23,7 @@ export default function HomePageHeader() {
           <source src='media/not a test.mp4' type='video/mp4' />
         </HeaderVideo>
       </HeaderBackground>
-      <div className='quote'>“Not who they expected, exactly who I am”</div>
+      {/* <div className='quote'>“Not who they expected, exactly who I am”</div> */}
       <div className='center-title'>Unbridled Stories, Untamed Voices.</div>
     </HeaderContainer>
   );
