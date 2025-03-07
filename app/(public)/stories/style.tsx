@@ -12,7 +12,7 @@ export const StoriesContainer = styled.div`
   }
 
   
-  @media (max-width: 1500px) {
+  @media (max-width: 1300px) {
       
       .highlights {
         display: none;
