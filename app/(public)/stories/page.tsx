@@ -54,6 +54,9 @@ export default function StoriesPage() {
       <StoriesContainer>
         <StoriesSearch filters={filters} setFilters={SetFilters} />
         <StoriesList stories={stories} />
+        <div className="highlights">
+          <img src="/media/trump.jpg" alt="highlights" />
+        </div>
       </StoriesContainer>
     </>
   );

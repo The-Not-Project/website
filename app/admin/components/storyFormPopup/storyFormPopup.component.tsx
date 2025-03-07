@@ -148,7 +148,7 @@ export default function StoryFormPopup({
                       width={150}
                       height={100}
                       alt='Story Image'
-                      quality={100} // 100 = lossless
+                      quality={100}
                     />
                   ))}
               </>

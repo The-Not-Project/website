@@ -5,32 +5,28 @@ export const StoryContainer = styled.div`
   align-items: center;
   width: 100%;
   height: fit-content;
-  gap: 15px;
+  gap: 30px;
   transition: 0.2s;
-  cursor: pointer;
-  padding: 30px;
-  position: relative;
-
-  &:hover {
-    background-color: hsl(35, 44%, 94%);
-    scale: 1.01;
-
-    box-shadow: 0px 25px 60px -28px rgba(0, 0, 0, 0.1);
-  }
+  padding-block: 15px;
+  border-bottom: 1px solid gray;
 
   img {
     object-fit: cover;
+    min-width: 280px;
+    height: 150px;
   }
 `;
 
 export const StoryContent = styled.div`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   height: 150px;
 
   .createdAt {
-    color: #963939;
-    font-size: 1.2rem;
+    margin-top: auto;
+    line-height: 0.3rem;
+    color: #3b3b3b;
   }
 
   .title {
@@ -41,14 +37,16 @@ export const StoryContent = styled.div`
 
 export const CategoriesContainer = styled.div`
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 5px;
+  
+  .divider {
+    scale: 0.7;
+    translate: 0 -2px;
+    color: gray;
+  }
 `;
 
 export const Category = styled.span`
-  display: inline-block;
-  background-color: #e5e5e5;
-  border-radius: 5px;
-  padding: 3px 10px;
-  font-size: .9rem;
+  text-decoration: underline;
+  font-size: 0.9rem;
 `;

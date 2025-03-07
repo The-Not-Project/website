@@ -1,4 +1,3 @@
-// components/popup/popup.component.tsx
 'use client';
 
 import { ReactNode } from 'react';
