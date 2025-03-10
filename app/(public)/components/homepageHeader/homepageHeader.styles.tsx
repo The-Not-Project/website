@@ -5,6 +5,7 @@ type HeaderBackgroundProps = { $position: number };
 export const HeaderContainer = styled.header`
   display: block;
   height: 100dvh;
+  max-height: 70vw;
   color: white;
   position: relative;
   text-shadow: 0 0 20px black;
@@ -20,7 +21,7 @@ export const HeaderContainer = styled.header`
   .center-title {
     text-align: center;
     position: absolute;
-    font-size: 3rem;
+    font-size: 3vw;
     top: 50%;
     left: 50%;
     translate: -50% -50%;

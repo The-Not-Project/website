@@ -18,7 +18,7 @@ export const BoroughSelectionContainer = styled.nav`
     display: flex;
     list-style: none;
     color: white;
-    font-size: 1.4rem;
+    font-size: clamp(1rem, 2vw, 1.5rem);
     gap: 25px;
 
     li {

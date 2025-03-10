@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.header<{ $filename: string }>`
   height: 70dvh;
+  max-height: 70vw;
   background: url(${({ $filename }) => `media/boroughBackdrops/${$filename}.jpg`})
     center center no-repeat;
   background-size: cover;
@@ -25,9 +26,9 @@ export const BoroughDescription = styled.div`
   left: 50%;
   translate: -50% -50%;
   color: white;
-  font-size: 2.2rem;
+  font-size: clamp(1.5rem, 2vw, 2.2rem);
+  text-wrap: balance;
   text-align: center;
   width: 50%;
   text-shadow: 0 0 20px black;
-  text-wrap: balance;
 `;

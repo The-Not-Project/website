@@ -30,15 +30,14 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   .title {
     text-wrap: balance;
     font-size: clamp(2rem, 3rem, 3vw);
-    transition-delay: 0.5s;
+    transition: opacity 0.3s ease-out 0.5s;
     opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
   }
 
   .summary {
-    font-size: clamp(1rem, 2rem,1.5vw);
+    font-size: clamp(1rem, 2rem, 1.5vw);
     font-style: italic;
-    transition: 0.3s ease-out;
-    transition-delay: 0.5s;
+    transition: opacity 0.3s ease-out 0.5s;
     opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
   }
 
@@ -46,8 +45,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     position: absolute;
     bottom: 30px;
     font-size: 1.5rem;
-    transition: 0.3s ease-out;
-    transition-delay: 0.5s;
+    transition: opacity 0.3s ease-out 0.5s;
     opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
   }
 
@@ -59,7 +57,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     left: 0;
     width: 100%;
     height: 100%;
-    transition: 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
     opacity: ${({ $isVisible }) => ($isVisible ? '0' : '1')};
 
     &::after {
