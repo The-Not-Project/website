@@ -1,5 +1,5 @@
-import { User } from "../types/types";
-import { prisma } from "./prisma";
+import { User } from "../../types/types";
+import { prisma } from "../prisma";
 
 export async function createUser(FormData: FormData) {
   'use server';

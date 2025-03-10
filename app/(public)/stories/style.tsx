@@ -6,19 +6,7 @@ export const StoriesContainer = styled.div`
   gap: 50px;
   margin-bottom: 50px;
 
-  .highlights img {
-    width: 300px;
-    margin-top: 10px;
-  }
-
-  
-  @media (max-width: 1300px) {
-      
-      .highlights {
-        display: none;
-      }
-  }
-  @media (max-width: 1200px) {
+  @media (max-width: 1400px) {
     flex-direction: column;
     padding-inline: 60px;
   }

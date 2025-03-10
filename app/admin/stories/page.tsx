@@ -65,6 +65,7 @@ export default function StoriesPage() {
   }, [filters, fetchStories]);
 
   const handleOpenCreate = () => {
+    window.scrollTo(0, 0);
     setFormState({
       isOpen: true,
       isEditing: false,
@@ -74,6 +75,7 @@ export default function StoriesPage() {
   };
 
   const handleOpenEdit = (story: Story) => {
+    window.scrollTo(0, 0);
     setFormState({
       isOpen: true,
       isEditing: true,

@@ -62,7 +62,7 @@ model StoryCategory {
 
 model Media {
   id          Int     @id @default(autoincrement())
-  url         String
+  cid         String
   story       Story   @relation(fields: [storyId], references: [id])
   storyId     String
   isThumbnail Boolean

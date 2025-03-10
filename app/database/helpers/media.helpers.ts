@@ -1,4 +1,4 @@
-import { Category, Media, RawMedia, RawStory, Story } from '@/app/types/types';
+import { Media, RawMedia } from '@/app/types/types';
 import { pinata } from '@/app/utils/config';
 import { prisma } from '../prisma';
 
@@ -19,30 +19,11 @@ export async function uploadFileToPinata(file: File): Promise<string> {
   return signedUrl;
 }
 
-export async function processStories(
-  stories: RawStory[],
-  compression?: number
-): Promise<Story[]> {
-  return Promise.all(stories.map(story => processStory(story, compression)));
-}
-
-export async function processStory(story: RawStory, compression?: number): Promise<Story> {
-  const mediaWithUrls = await Promise.all(
-    story.media.map((media: RawMedia) => transformMedia(media, compression))
-  );
-
-  return {
-    ...story,
-    categories: story.categories.map((sc: { category: Category }) => sc.category),
-    media: mediaWithUrls,
-  };
-}
-
 export async function transformMedia(media: RawMedia, compression?: number): Promise<Media> {
   try {
     const signedUrl = await pinata.gateways
       .createSignedURL({
-        cid: media.url,
+        cid: media.cid,
         expires: 3600,
       })
       .optimizeImage({
@@ -73,12 +54,12 @@ export async function deleteMedia(id: string) {
       storyId: id,
     },
     select: {
-      url: true,
+      cid: true,
     },
   });
-  const urls = mediaIds.map(media => media.url);
+  const cids = mediaIds.map(media => media.cid);
 
-  await pinata.files.delete(urls);
+  await pinata.files.delete(cids);
 
   await prisma.media.deleteMany({
     where: {
@@ -87,12 +68,3 @@ export async function deleteMedia(id: string) {
   });
 }
 
-export async function deleteStoryCategories(id: string) {
-  'use server';
-
-  await prisma.storyCategory.deleteMany({
-    where: {
-      storyId: id,
-    },
-  });
-}

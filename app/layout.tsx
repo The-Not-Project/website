@@ -3,7 +3,7 @@ import { Oswald } from 'next/font/google';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
 import './globals.css';
-import { createUser, getUser } from './database/user';
+import { createUser, getUser } from './database/repositories/user.repository';
 
 export const metadata: Metadata = {
   title: 'The Not Project',

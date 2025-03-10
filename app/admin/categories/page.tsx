@@ -40,6 +40,7 @@ export default function CategoriesPage() {
   }, [fetchCategories]);
 
   const handleOpenCreate = () => {
+    window.scrollTo(0, 0);
     setFormState({
       isOpen: true,
       isEditing: false,
@@ -48,6 +49,7 @@ export default function CategoriesPage() {
   };
 
   const handleOpenEdit = (category: Category) => {
+    window.scrollTo(0, 0);
     setFormState({
       isOpen: true,
       isEditing: true,

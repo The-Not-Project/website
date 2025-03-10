@@ -12,7 +12,6 @@ export const LoadingPageContainer = styled.div<{ $isLoading: boolean, $isHome: b
     background: #1c1c1c;
     color: white;
     z-index: 1;
-    transition: translate .3s ease;
+    ${({ $isLoading }) => !$isLoading && "transition: translate .3s ease;"};
     translate: 0 ${({ $isLoading, $isHome }) => ($isLoading ? "0" : $isHome ? "-100%" : "100%")};
-
 `

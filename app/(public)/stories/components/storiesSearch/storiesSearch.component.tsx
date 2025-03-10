@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { usePublicServerActions } from '@/app/contexts/public-server-actions';
+import { useAppContext } from '@/app/contexts/public-app-actions';
 import { Category, Filters } from '@/app/types/types';
 import {
   StoriesSearchContainer,
@@ -24,18 +24,10 @@ export default function StoriesSearch({
   filters,
   setFilters,
 }: StoriesSearchProps) {
-  const { getCategories } = usePublicServerActions();
+  const { getCategories } = useAppContext();
   const [categories, setCategories] = useState<Category[]>([]);
   const [localFilters, setLocalFilters] = useState<Filters>(filters);
   const [categoriesVisible, setCategoriesVisible] = useState(false);
-
-    // const boroughs = [
-    //   'brooklyn',
-    //   'manhattan',
-    //   'queens',
-    //   'staten island',
-    //   'bronx',
-    // ];
 
   useEffect(() => {
     fetchCategories();
@@ -50,26 +42,12 @@ export default function StoriesSearch({
     setLocalFilters({ ...localFilters, search: e.target.value });
   }
 
-  //   function handleBoroughClick(borough: string) {
-  //     const newBoroughs = localFilters.boroughs.includes(borough)
-  //       ? localFilters.boroughs.filter(b => b !== borough)
-  //       : [...localFilters.boroughs, borough];
-  //     setLocalFilters({ ...localFilters, boroughs: newBoroughs });
-  //   }
-
   function handleCategoryClick(category: Category) {
     const newCategories = localFilters.categories.includes(category.id)
       ? localFilters.categories.filter(c => c !== category.id)
       : [...localFilters.categories, category.id];
     setLocalFilters({ ...localFilters, categories: newCategories });
   }
-
-  //   function capitalizeWords(str: string) {
-  //     return str
-  //       .split(' ')
-  //       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-  //       .join(' ');
-  //   }
 
   return (
     <StoriesSearchContainer>

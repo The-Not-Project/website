@@ -12,7 +12,7 @@ type NavBarProps = {
 export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const pathname = usePathname();
   const { transparency } = useHeaderScroll();
-  const isHome = pathname === '/';
+  const isHome = pathname === '/' || pathname === '/stories';
   const isBgSolid = isHome && transparency;
 
   return (

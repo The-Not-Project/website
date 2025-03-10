@@ -5,11 +5,29 @@ import { redirect } from 'next/navigation';
 import NavBar from './components/navbar/navbar.component';
 import { AdminContainer } from './components/shared/layout.styles';
 import Back from './components/backButton/backButton.component';
-import { getUser, UpdateUser } from '../database/user';
-import { createCategory, deleteCategory, editCategory, getCategories } from '../database/category';
-import { createStory, deleteStory, editStory, getStories } from '../database/story';
-import { addRecommendation, getRecommendations, removeRecommendation } from '../database/recommendation';
-import { deleteRadarStory, getRadarStory, updateRadarStory } from '../database/radar';
+import { getUser, UpdateUser } from '../database/repositories/user.repository';
+import {
+  createCategory,
+  deleteCategory,
+  editCategory,
+  getCategories,
+} from '../database/repositories/category.repository';
+import {
+  createStory,
+  deleteStory,
+  editStory,
+  getStories,
+} from '../database/repositories/story.repository.';
+import {
+  addRecommendation,
+  getRecommendations,
+  removeRecommendation,
+} from '../database/repositories/recommendation.repository';
+import {
+  deleteRadarStory,
+  getRadarStory,
+  updateRadarStory,
+} from '../database/repositories/radar.repository';
 
 export default async function AdminLayout({
   children,
@@ -39,7 +57,7 @@ export default async function AdminLayout({
     removeRecommendation,
     getRadarStory,
     updateRadarStory,
-    deleteRadarStory
+    deleteRadarStory,
   };
 
   return (
