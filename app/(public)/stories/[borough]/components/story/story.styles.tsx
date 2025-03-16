@@ -35,6 +35,10 @@ export const StoryContent = styled.div`
     a {
       color: black;
       text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 `;

@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { DonateButton, NavBarContainer, AuthLink, Link } from './navbar.styles';
 import useHeaderScroll from '@/app/hooks/useHeaderScroll';
-import { redirect, usePathname } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 type NavBarProps = {
   isAdmin: boolean;
@@ -14,6 +14,7 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const { transparency } = useHeaderScroll();
   const isSpecialPage = pathname === '/' || pathname.startsWith('/stories');
   const isBgSolid = isSpecialPage && transparency;
+  const router = useRouter();
 
   const navContainerClass = isBgSolid
     ? 'solid isSpecialPage'
@@ -48,7 +49,12 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
         >
           {authenticated ? 'LOG OUT' : 'SIGN IN'}
         </AuthLink>
-        <DonateButton className={solidClass} onClick={() => redirect('/donate')}>DONATE</DonateButton>
+        <DonateButton
+          className={solidClass}
+          onClick={() => router.push('/donate')}
+        >
+          DONATE
+        </DonateButton>
       </div>
     </NavBarContainer>
   );

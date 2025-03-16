@@ -1,16 +1,15 @@
 'use client'
 import { BackButton } from './backButton.styles';
+import { useRouter } from 'next/navigation';
 
-const Back = () => {
-  const handleGoBack = (e: React.MouseEvent) => {
-    e.preventDefault();
-    window.location.href = '/';
-  };
+export default function Back() {
+
+  const router = useRouter();
+
   return (
-    <BackButton onClick={handleGoBack}>
+    <BackButton onClick={() => router.push('/')}>
         <span className="arrow"></span> Go back
     </BackButton>
   );
 };
 
-export default Back;

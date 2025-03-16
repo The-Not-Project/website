@@ -9,6 +9,7 @@ import {
 } from './radarCard.styles';
 import { useEffect, useState } from 'react';
 import { Story } from '@/app/types/types';
+import { useRouter } from 'next/navigation';
 
 type RadarCardProps = {
   setLoadingAction: (value: boolean) => void;
@@ -17,6 +18,8 @@ type RadarCardProps = {
 export default function RadarCard({ setLoadingAction }: RadarCardProps) {
   const { getRadarStory } = usePublicServerActions();
   const [radarStory, setRadarStory] = useState<Story | null>(null);
+  const { ref, isVisible } = useRadarVisibility({ threshold: 0.9 });
+  const router = useRouter();
 
   useEffect(() => {
     fetchRadarStory();
@@ -25,37 +28,37 @@ export default function RadarCard({ setLoadingAction }: RadarCardProps) {
   async function fetchRadarStory() {
     const story = await getRadarStory();
 
-    if (story?.media[0]?.url) {
-      const img = new Image();
-      img.src = story.media[0].url;
-
-      img.onload = () => {
-        setLoadingAction(false);
-        setRadarStory(story);
-      };
-
-      document.head.appendChild(img);
-    } else {
-      setRadarStory(story);
+    if (!story) {
+      setLoadingAction(true);
+      return null;
     }
+
+    const img = new Image();
+    img.src = story.media[0].url;
+
+    img.onload = () => {
+      setLoadingAction(false);
+      setRadarStory(story);
+    };
   }
 
-  const url = radarStory?.media[0]?.url || '';
-  const { ref, isVisible } = useRadarVisibility({ threshold: 0.9 });
+
+  const thumbnail = radarStory ? radarStory.media[0].url : '';
+
+  if (!radarStory) return null;
 
   return (
-    <RadarCardContainer>
+    <RadarCardContainer onClick={() => router.push(`story/${radarStory.id}`)}>
       <>
-        <RadarDescription $isVisible={isVisible} $url={url} ref={ref}>
-          <h2 className='title'>{radarStory?.title}</h2>
-          <p className='summary'>“{radarStory?.summary}”</p>
+        <RadarDescription $isVisible={isVisible} $url={thumbnail} ref={ref}>
+          <h2 className='title'>{radarStory.title}</h2>
+          <p className='summary'>“{radarStory.summary}”</p>
           <p className='author'>
-            By{' '}
-            {`${radarStory?.author.firstName} ${radarStory?.author.lastName}`}
+            By {`${radarStory.author.firstName} ${radarStory.author.lastName}`}
           </p>
           <div className='overlay'></div>
         </RadarDescription>
-        <RadarPhoto $url={url} />
+        <RadarPhoto $url={thumbnail} />
       </>
     </RadarCardContainer>
   );

@@ -8,12 +8,13 @@ import {
 } from './boroughs.styles';
 import { BoroughSummaries as summaries } from '@/app/constants/boroughs';
 import MySVG from './svg';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function Boroughs() {
   const [activeBorough, setActiveBorough] = useState('queens');
   const [summary, setSummary] = useState(summaries.queens);
   const [fileName, setFileName] = useState('queens');
+  const router = useRouter();
 
   useEffect(() => {
     Object.keys(summaries).forEach(borough => {
@@ -27,7 +28,7 @@ export default function Boroughs() {
 
     const handleClick = (event: Event) => {
       const boroughId = (event.target as SVGElement).id;
-      redirect(`stories/${boroughId}`);
+      router.push(`/stories/${boroughId}`);
     }
 
     const handleMouseEnter = (event: Event) => {

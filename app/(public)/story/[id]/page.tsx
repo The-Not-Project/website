@@ -6,6 +6,7 @@ import { Fragment, JSX, useCallback, useEffect, useState } from 'react';
 import { Story } from '@/app/types/types';
 import { CategoriesContainer, StoryContainer } from './style';
 import Image from 'next/image';
+import LoadingPage from '../../components/loadingPage/loadingPage.component';
 
 export default function StoryPage() {
   const { id } = useParams() as { id: string };
@@ -21,7 +22,7 @@ export default function StoryPage() {
     fetchStory();
   }, [fetchStory]);
 
-  if (!story) return <div>Loading...</div>;
+  if (!story) return <LoadingPage isLoading={true} isHome={false} />;
 
   const thumbnail = story.media.find(media => media.isThumbnail)?.url;
   const author = story.author.firstName + ' ' + story.author.lastName;

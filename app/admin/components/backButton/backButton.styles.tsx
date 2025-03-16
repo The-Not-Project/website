@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const BackButton = styled.a`
+export const BackButton = styled.p`
   position: absolute;
   top: 18px;
   left: 40px;

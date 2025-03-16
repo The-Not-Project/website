@@ -10,6 +10,7 @@ export const RadarCardContainer = styled.section`
   margin: 40px auto;
   padding-inline: 40px;
   overflow: hidden;
+  cursor: pointer;
 `;
 
 export const RadarDescription = styled.div<RadarDescriptionProps>`
