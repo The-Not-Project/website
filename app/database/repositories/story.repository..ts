@@ -8,10 +8,11 @@ import {
   processCategories,
   processFiles,
   processStories,
+  processStory,
   STORY_INCLUDE,
 } from '../helpers/story.helpers';
 import { deleteMedia } from '../helpers/media.helpers';
-import { Filters, Story } from '../../types/types';
+import { Filters, RawStory, Story } from '../../types/types';
 
 export async function getStories(
   filters?: Filters,
@@ -33,6 +34,17 @@ export async function getStories(
   });
 
   return processStories(stories, compression);
+}
+
+export async function getStory(id: string, compression?: number): Promise<Story> {
+  'use server'
+
+  const story = await prisma.story.findUnique({
+    where: { id },
+    include: STORY_INCLUDE,
+  });
+
+  return processStory(story as RawStory, compression);
 }
 
 export async function createStory(formData: FormData) {

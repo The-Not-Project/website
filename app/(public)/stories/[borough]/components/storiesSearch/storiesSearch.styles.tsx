@@ -1,16 +1,44 @@
 import styled from 'styled-components';
 import { FaAngleDown } from 'react-icons/fa6';
+import { FaFilter } from 'react-icons/fa';
 
 export const StoriesSearchContainer = styled.div`
   margin-top: 30px;
+  max-width: 250px;
+  background: var(--bg-color);
+  z-index: 1;
 
   hr {
     margin: 30px 10px 20px 10px;
     opacity: 0.5;
   }
+
+  @media (max-width: 1400px) {
+    position: absolute;
+    margin-top: 0;
+    border-radius: 5px;
+    height: 0;
+    overflow: hidden;
+    border: none;
+    transition: .3s ease;
+    padding: 0 10px;
+    opacity: 0;
+    
+    &.visible {
+      padding: 10px;
+      border: 1px solid gray;
+      height: max-content;
+      opacity: 1;
+    }
+
+    hr {
+      display: none;
+    }
+  }
 `;
 
 export const SearchContainer = styled.div`
+  height: 40px;
   display: flex;
   align-items: center;
   border: solid 1px gray;
@@ -19,7 +47,7 @@ export const SearchContainer = styled.div`
   gap: 5px;
 
   svg {
-      color: gray;
+    color: gray;
   }
 `;
 
@@ -39,6 +67,7 @@ export const SearchTitle = styled.h3`
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const SecondaryTitle = styled.h4`
@@ -53,6 +82,11 @@ export const SecondaryTitle = styled.h4`
   &:hover {
     color: #454c42;
   }
+
+  @media (max-width: 1400px) {
+    text-transform: lowercase;
+    margin-top: 10px;
+  }
 `;
 
 export const ArrowIcon = styled(FaAngleDown)`
@@ -65,7 +99,18 @@ export const ArrowIcon = styled(FaAngleDown)`
   &.rotated {
     rotate: -180deg;
   }
+  @media (max-width: 1400px) {
+    display: none;
+  }
 `;
+
+export const FilterIcon = styled(FaFilter)`
+  margin-right: 5px;
+  color: #5a5a5a;
+  font-size: 1rem;
+  translate: 0 2px;
+`;
+
 export const FilterOptionsContainer = styled.div`
   margin-block: 5px 10px;
   display: flex;
@@ -78,9 +123,16 @@ export const FilterOptionsContainer = styled.div`
   &.visible {
     height: max-content;
   }
+
+  @media (max-width: 1400px) {
+    height: fit-content;
+    max-height: 250px;
+    overflow-y: scroll;
+  }
 `;
 
 export const FilterLabel = styled.label`
+  z-index: 2;
   position: relative;
   font-size: 1.1em;
   padding-left: 1.8em;
@@ -144,5 +196,8 @@ export const ApplyFiltersButton = styled.button`
   &:hover {
     color: #fff;
     background-color: #57595c;
+  }
+
+  @media (max-width: 1400px) {
   }
 `;

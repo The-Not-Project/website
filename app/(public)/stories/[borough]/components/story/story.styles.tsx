@@ -21,32 +21,35 @@ export const StoryContent = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  height: 150px;
-
+  height: 100%;
   .createdAt {
     margin-top: auto;
-    line-height: 0.3rem;
+    translate: 0 10px;
     color: #3b3b3b;
   }
 
   .title {
     font-size: 1.7rem;
     font-weight: normal;
+
+    a {
+      color: black;
+      text-decoration: none;
+    }
   }
 `;
 
 export const CategoriesContainer = styled.div`
   display: flex;
   gap: 5px;
-  
+
   .divider {
     scale: 0.7;
-    translate: 0 -2px;
     color: gray;
   }
-`;
 
-export const Category = styled.span`
-  text-decoration: underline;
-  font-size: 0.9rem;
+  span {
+    text-decoration: underline;
+    font-size: 0.9rem;
+  }
 `;

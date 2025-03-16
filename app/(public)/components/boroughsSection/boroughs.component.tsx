@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useAppContext } from '@/app/contexts/public-app-actions';
 import {
   BoroughsSectionContainer,
   SVGContainer,
@@ -16,8 +15,6 @@ export default function Boroughs() {
   const [summary, setSummary] = useState(summaries.queens);
   const [fileName, setFileName] = useState('queens');
 
-  const { setCurrentBorough } = useAppContext();
-
   useEffect(() => {
     Object.keys(summaries).forEach(borough => {
       const img = new Image();
@@ -30,8 +27,7 @@ export default function Boroughs() {
 
     const handleClick = (event: Event) => {
       const boroughId = (event.target as SVGElement).id;
-      setCurrentBorough(summaries[boroughId as keyof typeof summaries]);
-      redirect('/stories')
+      redirect(`stories/${boroughId}`);
     }
 
     const handleMouseEnter = (event: Event) => {

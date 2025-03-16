@@ -3,11 +3,12 @@ import styled from 'styled-components';
 export const HeaderContainer = styled.header<{ $filename: string }>`
   height: 70dvh;
   max-height: 70vw;
-  background: url(${({ $filename }) => `media/boroughBackdrops/${$filename}.jpg`})
+  background: url(${({ $filename }) => `../media/boroughBackdrops/${$filename}.jpg`})
     center center no-repeat;
   background-size: cover;
   position: relative;
   margin-bottom: 20px;
+  padding-top: 90px;
   &:after {
     content: '';
     width: 100%;
@@ -31,4 +32,5 @@ export const BoroughDescription = styled.div`
   text-align: center;
   width: 50%;
   text-shadow: 0 0 20px black;
+  z-index: 1;
 `;

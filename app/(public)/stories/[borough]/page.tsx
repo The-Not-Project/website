@@ -3,19 +3,19 @@
 import { useCallback, useEffect, useState } from 'react';
 import { usePublicServerActions } from '@/app/contexts/public-server-actions';
 import { Filters, Story } from '@/app/types/types';
-import StoriesList from './[borough]/components/storiesList/storiesList.component';
-import StoriesSearch from './[borough]/components/storiesSearch/storiesSearch.component';
-import { StoriesContainer } from './[borough]/style';
-import LoadingPage from '../components/loadingPage/loadingPage.component';
-import Header from './[borough]/components/header/header.component';
+import StoriesList from './components/storiesList/storiesList.component';
+import StoriesSearch from './components/storiesSearch/storiesSearch.component';
+import { StoriesContainer } from './style';
+import LoadingPage from '../../components/loadingPage/loadingPage.component';
+import Header from './components/header/header.component';
 import { useParams } from 'next/navigation';
 
 export default function StoriesPage() {
-  const currentBorough = 'nyc';
+  const { borough: currentBorough } = useParams() as { borough: string };
 
   const defaultFilters = {
     search: '',
-    boroughs: [],
+    boroughs: [currentBorough.toLowerCase()],
     categories: [],
   };
 
@@ -27,7 +27,13 @@ export default function StoriesPage() {
 
   const fetchStories = useCallback(
     async (appliedFilters: Filters = defaultFilters) => {
-      const data = await getStories(appliedFilters, 500);
+      const data = await getStories(
+        {
+          ...appliedFilters,
+          boroughs: [currentBorough.toLowerCase()],
+        },
+        500
+      );
       setStories(data);
       setLoading(false);
     },

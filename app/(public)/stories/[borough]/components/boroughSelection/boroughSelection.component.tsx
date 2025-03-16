@@ -1,10 +1,9 @@
-import { useAppContext } from "@/app/contexts/public-app-actions";
+import Link from "next/link";
 import { BoroughSelectionContainer } from "./boroughSelection.styles";
 import { BoroughSummaries } from '@/app/constants/boroughs';
 
-export default function BoroughSelectionComponent() {
+export default function BoroughSelectionComponent({ borough }: { borough: string }) {
 
-    const { currentBorough, setCurrentBorough } = useAppContext();
   
   return (
     <BoroughSelectionContainer>
@@ -12,10 +11,11 @@ export default function BoroughSelectionComponent() {
         {Object.entries(BoroughSummaries).map(([key, value]) => (
             <li
               key={key}
-                onClick={() => setCurrentBorough(value)}
-                className={currentBorough.fileName === value.fileName ? 'active' : ''}
+                className={borough === value.fileName ? 'active' : ''}
             >
+              <Link href={`/stories/${value.fileName}`}>
                 {value.borough}
+              </Link>
             </li>
         ))}
         

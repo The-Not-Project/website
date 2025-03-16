@@ -1,11 +1,11 @@
-import { PublicServerActionsProvider } from '@/app/contexts/public-app-actions';
+import { PublicServerActionsProvider } from '@/app/contexts/public-server-actions';
 import NavBar from './components/navbar/navbar.component';
 import Footer from './components/footer/footer.component';
 import { getSession } from '@auth0/nextjs-auth0';
 import { isUserAdmin } from '../auth-actions/isUserAdmin';
 import { getUser, UpdateUser } from '../database/repositories/user.repository';
 import { getCategories } from '../database/repositories/category.repository';
-import { getStories } from '../database/repositories/story.repository.';
+import { getStories, getStory } from '../database/repositories/story.repository.';
 import { getRecommendations } from '../database/repositories/recommendation.repository';
 import { getRadarStory } from '../database/repositories/radar.repository';
 
@@ -24,11 +24,11 @@ export default async function PublicLayout({
 
   const groupedActions = {
     getUser,
-    getCategories,
     getStories,
-    getRecommendations,
+    getStory,
     getRadarStory,
-    UpdateUser,
+    getRecommendations,
+    getCategories,
   };
 
   return (

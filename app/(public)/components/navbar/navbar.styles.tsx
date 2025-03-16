@@ -11,7 +11,7 @@ export const NavBarContainer = styled.nav`
   transition: 0.3s;
   background: var(--bg-color);
   color: black;
-  &.isHome {
+  &.isSpecialPage {
     position: fixed;
     width: 100%;
     top: 0;

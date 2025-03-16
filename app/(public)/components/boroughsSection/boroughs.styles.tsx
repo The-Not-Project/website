@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const BoroughsSectionContainer = styled.section`
   height: 100vh;
+  max-height: 60vw;
   position: relative;
   color: white;
   text-shadow: 0 0 20px hsl(0, 0%, 0%);

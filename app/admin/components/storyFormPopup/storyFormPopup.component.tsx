@@ -42,12 +42,12 @@ export default function StoryFormPopup({
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
-
+    
     const formData = new FormData(event.currentTarget);
     selectedCategories.forEach(category => {
       formData.append('categories', category.id);
     });
-
+    
     try {
       if (isEditing && story) {
         await editStoryAction(story.id, formData);
@@ -62,6 +62,7 @@ export default function StoryFormPopup({
       );
     } finally {
       setSubmitting(false);
+      setReplaceMedia(false);
     }
   };
 

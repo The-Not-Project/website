@@ -11,7 +11,7 @@ export const LoadingPageContainer = styled.div<{ $isLoading: boolean, $isHome: b
     align-items: center;
     background: #1c1c1c;
     color: white;
-    z-index: 1;
+    z-index: 999;
     ${({ $isLoading }) => !$isLoading && "transition: translate .3s ease;"};
     translate: 0 ${({ $isLoading, $isHome }) => ($isLoading ? "0" : $isHome ? "-100%" : "100%")};
 `

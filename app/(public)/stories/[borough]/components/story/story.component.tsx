@@ -1,13 +1,13 @@
 // import { useState, useRef } from 'react';
+import { Fragment } from 'react';
 import Image from 'next/image';
 import { Story as StoryType } from '@/app/types/types';
 import {
   StoryContainer,
   StoryContent,
   CategoriesContainer,
-  Category,
 } from './story.styles';
-import { Fragment } from 'react';
+import Link from 'next/link';
 // import StoryPopup from '../storyPopup/storyPopup.component';
 
 export default function Story({ story }: { story: StoryType }) {
@@ -75,7 +75,7 @@ export default function Story({ story }: { story: StoryType }) {
           <CategoriesContainer>
             {story.categories.map((category, index) => (
               <Fragment key={category.id}>
-                <Category>{category.name}</Category>
+                <span>{category.name}</span>
                 {index < story.categories.length - 1 && (
                   <span className='divider'>|</span>
                 )}
@@ -83,7 +83,9 @@ export default function Story({ story }: { story: StoryType }) {
             ))}
           </CategoriesContainer>
         )}
-        <h2 className='title'>{story.title}</h2>
+        <h2 className='title'>
+          <Link href={`/story/${story.id}`}>{story.title}</Link>
+        </h2>
         <p>{story.summary}</p>
         <p className='createdAt'>{date}</p>
       </StoryContent>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppContext } from '@/app/contexts/public-app-actions';
+import { usePublicServerActions } from '@/app/contexts/public-server-actions';
 import {
   RecommendationsContainer,
   BigTitle,
@@ -13,7 +13,7 @@ import { Story } from '@/app/types/types';
 import Image from 'next/image';
 
 export default function Recommendations() {
-  const { getRecommendations } = useAppContext();
+  const { getRecommendations } = usePublicServerActions();
 
   const [recommendations, setRecommendations] = useState<Story[]>([]);
 

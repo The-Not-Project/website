@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { DonateButton, NavBarContainer, AuthLink, Link } from './navbar.styles';
 import useHeaderScroll from '@/app/hooks/useHeaderScroll';
-import { usePathname } from 'next/navigation';
+import { redirect, usePathname } from 'next/navigation';
 
 type NavBarProps = {
   isAdmin: boolean;
@@ -12,13 +12,18 @@ type NavBarProps = {
 export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const pathname = usePathname();
   const { transparency } = useHeaderScroll();
-  const isHome = pathname === '/' || pathname === '/stories';
-  const isBgSolid = isHome && transparency;
+  const isSpecialPage = pathname === '/' || pathname.startsWith('/stories');
+  const isBgSolid = isSpecialPage && transparency;
+
+  const navContainerClass = isBgSolid
+    ? 'solid isSpecialPage'
+    : isSpecialPage
+    ? 'isSpecialPage'
+    : undefined;
+  const solidClass = isBgSolid ? 'solid' : undefined;
 
   return (
-    <NavBarContainer
-      className={isBgSolid ? 'solid isHome' : isHome ? 'isHome' : undefined}
-    >
+    <NavBarContainer className={navContainerClass}>
       <Link href='/'>
         <Image
           src='/media/logo.png'
@@ -29,35 +34,21 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
       </Link>
       <h1 className='title-lg'>THE NOT PROJECT</h1>
       <div>
-        <Link href='/stories' className={isBgSolid ? 'solid' : undefined}>
+        <Link href='/stories' className={solidClass}>
           STORIES
         </Link>
         {isAdmin && (
-          <Link href='/admin' className={isBgSolid ? 'solid' : undefined}>
+          <Link href='/admin' className={solidClass}>
             ADMIN
           </Link>
         )}
-        {!authenticated ? (
-          <AuthLink
-            href='/api/auth/login'
-            className={isBgSolid ? 'solid' : undefined}
-          >
-            SIGN IN
-          </AuthLink>
-        ) : (
-          <>
-            {'  '}
-            <AuthLink
-              href='/api/auth/logout'
-              className={isBgSolid ? 'solid' : undefined}
-            >
-              LOG OUT
-            </AuthLink>
-          </>
-        )}
-        <DonateButton className={isBgSolid ? 'solid' : undefined}>
-          DONATE
-        </DonateButton>
+        <AuthLink
+          href={`/api/auth/${authenticated ? 'logout' : 'login'}`}
+          className={solidClass}
+        >
+          {authenticated ? 'LOG OUT' : 'SIGN IN'}
+        </AuthLink>
+        <DonateButton className={solidClass} onClick={() => redirect('/donate')}>DONATE</DonateButton>
       </div>
     </NavBarContainer>
   );

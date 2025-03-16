@@ -1,12 +1,9 @@
 import styled from 'styled-components';
 
 export const BoroughSelectionContainer = styled.nav`
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px); 
-  position: absolute;
-  top: 100px;
-  left: 50%;
-  transform: translateX(-50%);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); 
+  margin-inline: auto;
   display: flex;
   justify-content: center;
   width: max-content;
@@ -22,7 +19,6 @@ export const BoroughSelectionContainer = styled.nav`
     gap: 25px;
 
     li {
-        cursor: pointer;
         opacity: 0.9;
         filter: blur(1px);
         transition:  .2s;
@@ -31,6 +27,11 @@ export const BoroughSelectionContainer = styled.nav`
             opacity: 1;
             filter: none;
             text-shadow: 0 0 20px black;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
         }
 
     }

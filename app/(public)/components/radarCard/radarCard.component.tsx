@@ -1,6 +1,6 @@
 'use client';
 
-import { useAppContext } from '@/app/contexts/public-app-actions';
+import { usePublicServerActions } from '@/app/contexts/public-server-actions';
 import useRadarVisibility from '@/app/hooks/useRadarVisibility';
 import {
   RadarDescription,
@@ -15,7 +15,7 @@ type RadarCardProps = {
 };
 
 export default function RadarCard({ setLoadingAction }: RadarCardProps) {
-  const { getRadarStory } = useAppContext();
+  const { getRadarStory } = usePublicServerActions();
   const [radarStory, setRadarStory] = useState<Story | null>(null);
 
   useEffect(() => {
