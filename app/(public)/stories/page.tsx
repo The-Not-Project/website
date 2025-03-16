@@ -8,7 +8,6 @@ import StoriesSearch from './[borough]/components/storiesSearch/storiesSearch.co
 import { StoriesContainer } from './[borough]/style';
 import LoadingPage from '../components/loadingPage/loadingPage.component';
 import Header from './[borough]/components/header/header.component';
-import { useParams } from 'next/navigation';
 
 export default function StoriesPage() {
   const currentBorough = 'nyc';
