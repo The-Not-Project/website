@@ -11,11 +11,13 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { Story } from '@/app/types/types';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Recommendations() {
+  
   const { getRecommendations } = usePublicServerActions();
-
   const [recommendations, setRecommendations] = useState<Story[]>([]);
+  const router = useRouter();
 
   const fetchRecommendations = useCallback(async () => {
     const recommendations = await getRecommendations(600);
@@ -40,7 +42,7 @@ export default function Recommendations() {
                 height={200}
                 alt='thumbnail'
               />
-              <h3>{recommendation.title}</h3>
+              <h3 onClick={() => router.push(`/story/${recommendation.id}`)}>{recommendation.title}</h3>
               <p>{recommendation.summary}</p>
             </RecommendationCard>
           ))}
@@ -54,7 +56,7 @@ export default function Recommendations() {
                 height={200}
                 alt='thumbnail'
               />
-              <h3>{recommendation.title}</h3>
+              <h3 onClick={() => router.push(`/story/${recommendation.id}`)}>{recommendation.title}</h3>
               <p>{recommendation.summary}</p>
             </RecommendationCard>
           ))}

@@ -42,4 +42,9 @@ export const RecommendationCard = styled.figure`
     height: 200px;
     object-fit: cover;
   }
+
+  h3:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
