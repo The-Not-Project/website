@@ -31,7 +31,7 @@ export const BoroughSummaries = {
   },
   nyc: {
     fileName: 'nyc',
-    borough: undefined,
+    borough: '',
     description:
       'NYC is more than just five boroughs—it’s an idea, a heartbeat, a movement. It’s where cultures collide, resilience thrives, and history is made every single day. This is New York, the greatest city in the world.',
   },
