@@ -5,17 +5,20 @@ import { usePublicServerActions } from '@/app/contexts/public-server-actions';
 import { Filters, Story } from '@/app/types/types';
 import StoriesList from './components/storiesList/storiesList.component';
 import StoriesSearch from './components/storiesSearch/storiesSearch.component';
-import { StoriesContainer } from './style';
+import { BoroughTitle, StoriesContainer } from './style';
 import LoadingPage from '../../components/loadingPage/loadingPage.component';
 import Header from './components/header/header.component';
+import { BoroughSummaries } from '@/app/constants/boroughs';
 import { useParams } from 'next/navigation';
 
 export default function StoriesPage() {
-  const { borough: currentBorough } = useParams() as { borough: string };
+  const { borough } = useParams() as { borough: string };
+  const currentBorough =
+    BoroughSummaries[borough as keyof typeof BoroughSummaries];
 
   const defaultFilters = {
     search: '',
-    boroughs: [currentBorough.toLowerCase()],
+    boroughs: [borough.toLowerCase()],
     categories: [],
   };
 
@@ -30,7 +33,7 @@ export default function StoriesPage() {
       const data = await getStories(
         {
           ...appliedFilters,
-          boroughs: [currentBorough.toLowerCase()],
+          boroughs: [borough.toLowerCase()],
         },
         500
       );
@@ -55,8 +58,9 @@ export default function StoriesPage() {
 
   return (
     <>
-      <Header borough={currentBorough} />
       {showLoader && <LoadingPage isLoading={loading} isHome={false} />}
+      <Header borough={currentBorough} />
+      <BoroughTitle>Our {currentBorough.boroughName} Stories</BoroughTitle>
       <StoriesContainer>
         <StoriesSearch filters={filters} setFilters={SetFilters} />
         <StoriesList stories={stories} />

@@ -19,14 +19,13 @@ export const BoroughSelectionContainer = styled.nav`
     gap: 25px;
 
     li {
-        opacity: 0.9;
-        filter: blur(1px);
+        color: lightgray;
         transition:  .2s;
 
         &.active, &:hover {
-            opacity: 1;
+          color: white;
             filter: none;
-            text-shadow: 0 0 20px black;
+            text-shadow: 0 0 20px white;
         }
 
         a {

@@ -8,9 +8,10 @@ import StoriesSearch from './[borough]/components/storiesSearch/storiesSearch.co
 import { StoriesContainer } from './[borough]/style';
 import LoadingPage from '../components/loadingPage/loadingPage.component';
 import Header from './[borough]/components/header/header.component';
+import { BoroughSummaries } from '@/app/constants/boroughs';
 
 export default function StoriesPage() {
-  const currentBorough = 'nyc';
+    const currentBorough = BoroughSummaries.nyc
 
   const defaultFilters = {
     search: '',

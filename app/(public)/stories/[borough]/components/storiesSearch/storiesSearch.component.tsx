@@ -25,7 +25,6 @@ export default function StoriesSearch({
   filters,
   setFilters,
 }: StoriesSearchProps) {
-
   const windowIsWide = window.innerWidth > 1400;
 
   const { getCategories } = usePublicServerActions();
@@ -54,12 +53,26 @@ export default function StoriesSearch({
   }
 
   return (
-    <div>
-      <SearchTitle onClick={() => window.innerWidth < 1400 && setCategoriesVisible(!categoriesVisible)}>
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        setFilters(localFilters);
+        if (window.innerWidth < 1400) {
+          setCategoriesVisible(false);
+        }
+      }}
+    >
+      <SearchTitle
+        onClick={() => {
+          if (window.innerWidth < 1400) {
+            setCategoriesVisible(!categoriesVisible);
+          }
+        }}
+      >
         <FilterIcon />
         Filter Stories
       </SearchTitle>
-      <StoriesSearchContainer className={categoriesVisible ? 'visible' : ''}>  
+      <StoriesSearchContainer className={categoriesVisible ? 'visible' : ''}>
         <SearchContainer>
           <SearchIcon />
           <SearchInput
@@ -72,7 +85,11 @@ export default function StoriesSearch({
         <hr />
         <div>
           <SecondaryTitle
-            onClick={() => window.innerWidth > 1400 && setCategoriesVisible(!categoriesVisible)}
+            onClick={() => {
+              if (window.innerWidth > 1400) {
+                setCategoriesVisible(!categoriesVisible);
+              }
+            }}
           >
             <ArrowIcon className={categoriesVisible ? 'rotated' : undefined} />
             Categories
@@ -96,10 +113,8 @@ export default function StoriesSearch({
             ))}
           </FilterOptionsContainer>
         </div>
-        <ApplyFiltersButton onClick={() => setFilters(localFilters)}>
-          Look Up
-        </ApplyFiltersButton>
+        <ApplyFiltersButton>Look Up</ApplyFiltersButton>
       </StoriesSearchContainer>
-    </div>
+    </form>
   );
 }

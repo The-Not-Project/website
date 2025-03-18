@@ -66,7 +66,7 @@ export default function Boroughs() {
       </Background>
       <h1>Which Borough speaks to you?</h1>
       <div className='description'>
-        <h2>{summary.borough}</h2>
+        <h2>{summary.boroughName}</h2>
         <p>{summary.description}</p>
       </div>
       <SVGContainer

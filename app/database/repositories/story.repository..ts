@@ -24,7 +24,7 @@ export async function getStories(
 
   const stories = await prisma.story.findMany({
     where: {
-      ...(search ? { title: { startsWith: search } } : {}),
+      ...(search ? { title: { contains: search } } : {}),
       ...(boroughs && boroughs.length > 0 ? { borough: { in: boroughs } } : {}),
       ...(categories && categories.length > 0
         ? { categories: { some: { categoryId: { in: categories } } } }

@@ -9,11 +9,11 @@ export const HeaderContainer = styled.header<{ $filename: string }>`
   position: relative;
   margin-bottom: 20px;
   padding-top: 90px;
-  &:after {
+  &:before {
     content: '';
     width: 100%;
     height: 100%;
-    background: linear-gradient(hsl(0, 0%, 0%, 0.2) 60%, var(--bg-color));
+    background: linear-gradient(hsl(0, 0%, 0%, 0.2) 40%, var(--bg-color));
     position: absolute;
     top: 0;
     left: 0;

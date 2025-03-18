@@ -20,10 +20,10 @@ export const StoriesSearchContainer = styled.div`
     height: 0;
     overflow: hidden;
     border: none;
-    transition: .3s ease;
+    transition: 0.3s ease;
     padding: 0 10px;
     opacity: 0;
-    
+
     &.visible {
       padding: 10px;
       border: 1px solid gray;
@@ -65,9 +65,12 @@ export const SearchTitle = styled.h3`
   font-weight: normal;
   font-size: 1.3rem;
   margin-bottom: 10px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  cursor: pointer;
+
+  @media (max-width: 1400px) {
+    cursor: pointer;
+  }
 `;
 
 export const SecondaryTitle = styled.h4`

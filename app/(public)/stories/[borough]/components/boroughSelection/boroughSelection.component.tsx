@@ -11,10 +11,10 @@ export default function BoroughSelectionComponent({ borough }: { borough: string
         {Object.entries(BoroughSummaries).map(([key, value]) => (
             <li
               key={key}
-                className={borough === value.fileName ? 'active' : ''}
+                className={borough === value.boroughName ? 'active' : ''}
             >
               <Link href={`/stories/${value.fileName}`}>
-                {value.borough}
+                {value.boroughName}
               </Link>
             </li>
         ))}

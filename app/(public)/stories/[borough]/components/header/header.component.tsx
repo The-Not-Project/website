@@ -1,13 +1,19 @@
 import { BoroughDescription, HeaderContainer } from './header.styles';
 import BoroughSelection from '../boroughSelection/boroughSelection.component';
-import { BoroughSummaries } from '@/app/constants/boroughs';
 
-export default function HeaderComponent({ borough }: { borough: string }) {
-  const currentBorough = BoroughSummaries[borough as keyof typeof BoroughSummaries];
+type HeaderProps = {
+  borough: {
+    fileName: string;
+    boroughName: string;
+    description: string;
+  };
+};
+
+export default function HeaderComponent({ borough }: HeaderProps) {
   return (
-    <HeaderContainer $filename={borough}>
-      <BoroughSelection borough={borough}/>
-      <BoroughDescription>{currentBorough.description}</BoroughDescription>
+    <HeaderContainer $filename={borough.fileName}>
+      <BoroughSelection borough={borough.boroughName} />
+      <BoroughDescription>{borough.description}</BoroughDescription>
     </HeaderContainer>
   );
 }
