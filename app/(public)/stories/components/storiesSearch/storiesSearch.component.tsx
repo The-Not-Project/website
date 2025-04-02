@@ -25,7 +25,7 @@ export default function StoriesSearch({
   filters,
   setFilters,
 }: StoriesSearchProps) {
-  const windowIsWide = window.innerWidth > 1400;
+  const windowIsWide = window.innerWidth > 1600;
 
   const { getCategories } = usePublicServerActions();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -57,14 +57,14 @@ export default function StoriesSearch({
       onSubmit={e => {
         e.preventDefault();
         setFilters(localFilters);
-        if (window.innerWidth < 1400) {
+        if (window.innerWidth < 1600) {
           setCategoriesVisible(false);
         }
       }}
     >
       <SearchTitle
         onClick={() => {
-          if (window.innerWidth < 1400) {
+          if (window.innerWidth < 1600) {
             setCategoriesVisible(!categoriesVisible);
           }
         }}
@@ -86,7 +86,7 @@ export default function StoriesSearch({
         <div>
           <SecondaryTitle
             onClick={() => {
-              if (window.innerWidth > 1400) {
+              if (window.innerWidth > 1600) {
                 setCategoriesVisible(!categoriesVisible);
               }
             }}

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StoryContainer = styled.div`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 100px;
+  padding: 40px 100px 70px;
 
   .title {
     font-weight: normal;
@@ -20,7 +20,7 @@ export const StoryContainer = styled.div`
   .info {
     display: flex;
     justify-content: space-between;
-    margin-block: 5px 10px;
+    margin-block: 5px 20px;
   }
 
   .content {

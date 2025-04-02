@@ -49,12 +49,15 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
         >
           {authenticated ? 'LOG OUT' : 'SIGN IN'}
         </AuthLink>
-        <DonateButton
+          <Link href='/about' className={solidClass}>
+            ABOUT US
+          </Link>
+        {/* <DonateButton
           className={solidClass}
           onClick={() => router.push('/donate')}
         >
           DONATE
-        </DonateButton>
+        </DonateButton> */}
       </div>
     </NavBarContainer>
   );

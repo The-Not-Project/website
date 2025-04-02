@@ -13,7 +13,7 @@ export const StoriesSearchContainer = styled.div`
     opacity: 0.5;
   }
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1600px) {
     position: absolute;
     margin-top: 0;
     border-radius: 5px;
@@ -68,7 +68,7 @@ export const SearchTitle = styled.h3`
   display: inline-flex;
   align-items: center;
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1600px) {
     cursor: pointer;
   }
 `;
@@ -86,7 +86,7 @@ export const SecondaryTitle = styled.h4`
     color: #454c42;
   }
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1600px) {
     text-transform: lowercase;
     margin-top: 10px;
   }
@@ -102,7 +102,7 @@ export const ArrowIcon = styled(FaAngleDown)`
   &.rotated {
     rotate: -180deg;
   }
-  @media (max-width: 1400px) {
+  @media (max-width: 1600px) {
     display: none;
   }
 `;
@@ -127,7 +127,7 @@ export const FilterOptionsContainer = styled.div`
     height: max-content;
   }
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1600px) {
     height: fit-content;
     max-height: 250px;
     overflow-y: scroll;
@@ -201,6 +201,6 @@ export const ApplyFiltersButton = styled.button`
     background-color: #57595c;
   }
 
-  @media (max-width: 1400px) {
+  @media (max-width: 1600px) {
   }
 `;

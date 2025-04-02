@@ -5,6 +5,7 @@ export const StoriesListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* padding-right: 500px; */
 `;
 
 export const NoStoriesMessage = styled.p`

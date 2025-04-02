@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const BoroughSelectionContainer = styled.nav`
   backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px); 
+  /* -webkit-backdrop-filter: blur(5px);  */
   margin-inline: auto;
   display: flex;
   justify-content: center;

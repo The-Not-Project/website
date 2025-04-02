@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header<{ $filename: string }>`
-  height: 70dvh;
-  max-height: 70vw;
+  height: 100dvh;
+  max-height: 1000px;
   background: url(${({ $filename }) => `../media/boroughBackdrops/${$filename}.jpg`})
     center center no-repeat;
   background-size: cover;
