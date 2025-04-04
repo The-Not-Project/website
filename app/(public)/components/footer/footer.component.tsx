@@ -1,19 +1,41 @@
 "use client";
 
 import Link from "next/link";
-import { Instagram, Youtube } from "lucide-react";
+import Image from "next/image";
 
-import { FooterContainer } from "./footer.styles";
+import {
+  FooterContainer,
+  MainContent,
+  Youtube,
+  Instagram,
+  NavSection,
+  SignUpSection,
+  SignUpForm,
+  SignUp,
+  ConsentText,
+  BottomBar,
+  SocialLinks,
+  LegalLinks,
+  Copyright,
+  Foot3r,
+} from "./footer.styles";
 
 export default function Footer() {
   return (
     <FooterContainer>
-      <div className="footer">
-        <div className="mainContent">
+      <Foot3r>
+        <MainContent>
           <div className="logoSection">
-            <h3>Logo</h3>
+            {/* <h3>Logo</h3> */}
+            <Image
+              src="/media/logo.png"
+              alt="The Not Project Logo"
+              width={120}
+              height={68}
+            />
           </div>
-          <div className="navSection">
+
+          <NavSection>
             <h2>Company</h2>
             <ul>
               <li>
@@ -29,9 +51,9 @@ export default function Footer() {
                 <Link href="/story">Story</Link>
               </li>
             </ul>
-          </div>
+          </NavSection>
 
-          <div className="supportSection">
+          <NavSection>
             <h2>Support</h2>
             <ul>
               <li>
@@ -47,19 +69,19 @@ export default function Footer() {
                 <Link href="/faq">FAQ</Link>
               </li>
             </ul>
-          </div>
+          </NavSection>
 
-          <div className="signupSection">
+          <SignUpSection>
             <h2>Never Miss Out</h2>
-            <form className="signupForm">
+            <SignUpForm>
               <p>Be the first to know about our new stories</p>
-              <div className="signup">
+              <SignUp>
                 <input type="email" placeholder="Email Address" />
                 <input type="tel" placeholder="Phone Number" />
                 <button type="submit">SIGN UP</button>
-              </div>
-            </form>
-            <p className="consentText">
+              </SignUp>
+            </SignUpForm>
+            <ConsentText>
               By entering your phone number and submitting this form, you
               consent to receive marketing text messages from The Not Project at
               the number provided, including messages sent by auto dialer.
@@ -68,25 +90,35 @@ export default function Footer() {
               unsubscribe link (where available) in one of our messages. View
               our <Link href="/privacy">Privacy Policies</Link> and{" "}
               <Link href="/terms">Terms & Conditions</Link>.
-            </p>
-          </div>
-        </div>
-        <div className="bottomBar">
-          <div className="socialLinks">
+            </ConsentText>
+          </SignUpSection>
+        </MainContent>
+
+        <BottomBar>
+          <SocialLinks>
             <Link href="/instagram" aria-label="Instagram">
               <Instagram />
             </Link>
-            <Link href="/youtube" aria-label="YouTube">
+            {/* <Link href="/youtube" aria-label="YouTube">
               <Youtube />
-            </Link>
-          </div>
-          <div className="legalLinks">
+            </Link> */}
+
+            {/* <a
+              href="https://www.youtube.com/@TheNotProject"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+            >
+              <Youtube />
+            </a> */}
+          </SocialLinks>
+          <LegalLinks>
             <Link href="/privacy">Privacy Policies</Link>
             <Link href="/terms">Terms & Conditions</Link>
-          </div>
-          <div className="copyright">The Not Project 2025</div>
-        </div>
-      </div>
+          </LegalLinks>
+          <Copyright>The Not Project 2025</Copyright>
+        </BottomBar>
+      </Foot3r>
     </FooterContainer>
   );
 }
