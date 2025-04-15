@@ -4,12 +4,16 @@ type HeaderBackgroundProps = { $position: number };
 
 export const HeaderContainer = styled.header`
   display: block;
-  height: 100dvh;
+  height: 100vh;
   max-height: 70vw;
   color: white;
   position: relative;
   text-shadow: 0 0 20px black;
   padding-top: 80px;
+
+  @media (max-width: 600px) {
+    max-height: none;
+  }
 
   .quote {
     position: absolute;
@@ -25,6 +29,11 @@ export const HeaderContainer = styled.header`
     top: 50%;
     left: 50%;
     translate: -50% -50%;
+
+    @media (max-width: 600px) {
+      font-size: 7vw;
+      text-wrap: balance;
+    }
   }
 `;
 

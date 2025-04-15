@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { Oswald } from 'next/font/google';
+import { Oswald, Playfair } from 'next/font/google';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
-import './globals.css';
 import { createUser, getUser } from './database/repositories/user.repository';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'The Not Project',

@@ -1,0 +1,11 @@
+.page-wrapper {
+  transition: 0.18s ease-in;
+
+  &.shifted {
+    translate: -80%;
+  }
+}
+
+image {
+  border: red 2px solid;
+}

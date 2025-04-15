@@ -1,8 +1,18 @@
 'use client';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { DonateButton, NavBarContainer, AuthLink, Link } from './navbar.styles';
-import useHeaderScroll from '@/app/hooks/useHeaderScroll';
 import { useRouter, usePathname } from 'next/navigation';
+import useHeaderScroll from '@/app/hooks/useHeaderScroll';
+import { useStore } from '@/app/zustand/store';
+import {
+  DonateButton,
+  NavBarContainer,
+  AuthLink,
+  Link,
+  MenuIcon,
+  Menu,
+} from './navbar.styles';
+import { FaBars, FaXmark } from 'react-icons/fa6';
 
 type NavBarProps = {
   isAdmin: boolean;
@@ -14,7 +24,28 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const { transparency } = useHeaderScroll();
   const isSpecialPage = pathname === '/' || pathname.startsWith('/stories');
   const isBgSolid = isSpecialPage && transparency;
-  const router = useRouter();
+  // const [isMobile, setIsMobile] = useState(false);
+  // const router = useRouter();
+
+  const isMenuOpen = useStore(state => state.mobileLayout.isMenuOpen);
+  const setIsMenuOpen = useStore(state => state.mobileLayout.setIsMenuOpen);
+  const isMobile = useStore(state => state.mobileLayout.isMobile);
+
+  useEffect(() => {
+
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsMenuOpen(false);
+      }
+    };
+
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const navContainerClass = isBgSolid
     ? 'solid isSpecialPage'
@@ -24,17 +55,43 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const solidClass = isBgSolid ? 'solid' : undefined;
 
   return (
-    <NavBarContainer className={navContainerClass}>
-      <Link href='/'>
-        <Image
-          src='/media/logo.png'
-          alt='The Not Project Logo'
-          width={120}
-          height={68}
-        />
-      </Link>
+    <NavBarContainer
+      className={`${navContainerClass} ${isMenuOpen && 'shifted'}`}
+    >
       <h1 className='title-lg'>THE NOT PROJECT</h1>
-      <div>
+      {!isMobile && (
+        <Link href='/'>
+          <Image
+            src='/media/logo.png'
+            alt='The Not Project Logo'
+            width={120}
+            height={68}
+          />
+        </Link>
+      )}
+      {isMobile && (
+        <>
+          <MenuIcon
+            className={!isMenuOpen ? solidClass : 'solid'}
+            onClick={() => setIsMenuOpen(true)}
+          >
+            {!isMenuOpen && <FaBars />}
+          </MenuIcon>
+        </>
+      )}
+
+      <Menu className={isMenuOpen ? 'open' : undefined}>
+        {isMobile && (
+          <>
+            <Image
+              src='/media/logo.png'
+              alt='The Not Project Logo'
+              width={120}
+              height={68}
+            />
+             <FaXmark className='close' onClick={() => setIsMenuOpen(false)} />
+          </>
+        )}
         <Link href='/stories' className={solidClass}>
           STORIES
         </Link>
@@ -49,16 +106,16 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
         >
           {authenticated ? 'LOG OUT' : 'SIGN IN'}
         </AuthLink>
-          <Link href='/about' className={solidClass}>
-            ABOUT US
-          </Link>
+        <Link href='/about' className={solidClass}>
+          ABOUT US
+        </Link>
         {/* <DonateButton
           className={solidClass}
           onClick={() => router.push('/donate')}
-        >
+          >
           DONATE
-        </DonateButton> */}
-      </div>
+          </DonateButton> */}
+      </Menu>
     </NavBarContainer>
   );
 }

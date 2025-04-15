@@ -11,6 +11,13 @@ export const RadarCardContainer = styled.section`
   padding-inline: 40px;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
+
+  @media (max-width: 600px) {
+    margin-block: 20px 0;
+    padding: 5px;
+    height: 70vw;
+  }
 `;
 
 export const RadarDescription = styled.div<RadarDescriptionProps>`
@@ -28,11 +35,36 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   transition: 0.3s ease-out;
   background: #454d42;
 
+  @media (max-width: 600px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: none;
+    padding: 15px 17px;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 0;
+    text-align: left;
+    z-index: 2;
+
+    transition: opacity 0.3s ease-out 0.3s, translate 0.3s ease-out 0.3s;
+    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
+    translate: 0 ${({ $isVisible }) => ($isVisible ? '0' : '10px')};
+  }
+
   .title {
     text-wrap: balance;
     font-size: clamp(2rem, 3rem, 3vw);
     transition: opacity 0.3s ease-out 0.5s;
     opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
+    @media (max-width: 600px) {
+      transition: none;
+      opacity: 1;
+      font-weight: normal;
+      font-size: 1.3rem;
+    }
   }
 
   .summary {
@@ -40,14 +72,25 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     font-style: italic;
     transition: opacity 0.3s ease-out 0.5s;
     opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
+    @media (max-width: 600px) {
+      display: none;
+    }
   }
 
-  .author {
+  .date {
     position: absolute;
     bottom: 30px;
     font-size: 1.5rem;
     transition: opacity 0.3s ease-out 0.5s;
     opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
+    @media (max-width: 600px) {
+      transition: none;
+
+      opacity: 1;
+      position: static;
+      font-size: 0.9rem;
+      color: #e5e5e5;
+    }
   }
 
   .overlay {
@@ -60,6 +103,10 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     height: 100%;
     transition: opacity 0.3s ease-out;
     opacity: ${({ $isVisible }) => ($isVisible ? '0' : '1')};
+
+    @media (max-width: 600px) {
+      display: none;
+    }
 
     &::after {
       content: 'Our Radar';
@@ -79,8 +126,42 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   }
 `;
 
-export const RadarPhoto = styled.div<{$url: string}>`
+export const RadarPhoto = styled.div<{ $url: string }>`
   flex-grow: 1;
   background: url(${({ $url }) => $url}) no-repeat center center/cover;
   transition: 0.3s ease-out;
+  position: relative;
+  @media (max-width: 600px) {
+    transition: none;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.5) 100%
+      );
+    }
+  }
+`;
+
+export const CategoriesContainer = styled.div`
+  display: flex;
+  gap: 5px;
+
+  @media (min-width: 600px) {
+    display: none;
+  }
+`;
+
+export const Category = styled.div`
+  background: red;
+  font-size: 0.8rem;
+  padding: 10px 4px;
+  line-height: 0;
+  border-radius: 1px;
 `;
