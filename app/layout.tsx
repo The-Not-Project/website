@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Oswald, Playfair } from 'next/font/google';
+import { Oswald } from 'next/font/google';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
 import { createUser, getUser } from './database/repositories/user.repository';

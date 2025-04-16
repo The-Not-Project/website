@@ -6,7 +6,6 @@ import Image from "next/image";
 import {
   FooterContainer,
   MainContent,
-  Youtube,
   Instagram,
   NavSection,
   SignUpSection,
@@ -17,13 +16,13 @@ import {
   SocialLinks,
   LegalLinks,
   Copyright,
-  Foot3r,
+  Footer,
 } from "./footer.styles";
 
-export default function Footer() {
+export default function FooterComponent() {
   return (
     <FooterContainer>
-      <Foot3r>
+      <Footer>
         <MainContent>
           <div className="logoSection">
             {/* <h3>Logo</h3> */}
@@ -118,7 +117,7 @@ export default function Footer() {
           </LegalLinks>
           <Copyright>The Not Project 2025</Copyright>
         </BottomBar>
-      </Foot3r>
+      </Footer>
     </FooterContainer>
   );
 }

@@ -1,11 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import useHeaderScroll from '@/app/hooks/useHeaderScroll';
 import { useStore } from '@/app/zustand/store';
 import {
-  DonateButton,
   NavBarContainer,
   AuthLink,
   Link,
@@ -24,7 +23,6 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const { transparency } = useHeaderScroll();
   const isSpecialPage = pathname === '/' || pathname.startsWith('/stories');
   const isBgSolid = isSpecialPage && transparency;
-  // const [isMobile, setIsMobile] = useState(false);
   // const router = useRouter();
 
   const isMenuOpen = useStore(state => state.mobileLayout.isMenuOpen);

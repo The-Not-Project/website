@@ -6,9 +6,10 @@ export const FooterContainer = styled.footer`
   align-items: center;
   justify-content: center;
   width: 100%;
+  overflow: hidden;
 `;
 
-export const Foot3r = styled.div`
+export const Footer = styled.div`
   height: 500px;
   background-color: #454c42;
   color: white;
@@ -18,7 +19,7 @@ export const Foot3r = styled.div`
 `;
 
 export const MainContent = styled.div`
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 3fr;
@@ -111,7 +112,6 @@ export const SignUpForm = styled.form`
         color: #454c42;
       }
     }
-  }
 `;
 
 export const SignUp = styled.div`

@@ -1,27 +1,34 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useStore } from '@/app/zustand/store';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useStore } from "@/app/zustand/store";
 import {
   BoroughsSectionContainer,
   SVGContainer,
   Background,
-} from './boroughs.styles';
-import { BoroughSummaries as summaries } from '@/app/constants/boroughs';
-import MapSVG from './MapSVG';
-import CompactMap from './MapSGVCompact';
+  BoroughPopup,
+  Link,
+} from "./boroughs.styles";
+import { BoroughSummaries as summaries } from "@/app/constants/boroughs";
+import MapSVG from "./MapSVG";
+import CompactMap from "./MapSGVCompact";
 
 export default function Boroughs() {
-  const [activeBorough, setActiveBorough] = useState<string | undefined>(undefined);
+  const isMobile = useStore((state) => state.mobileLayout.isMobile);
   const [summary, setSummary] = useState(summaries.queens);
-  const [fileName, setFileName] = useState('queens');
-  const isMobile = useStore(state => state.mobileLayout.isMobile);
+  const [fileName, setFileName] = useState<string>('nyc');
+  const [activeBorough, setActiveBorough] = useState<string | undefined>();
 
   const router = useRouter();
 
   useEffect(() => {
-    Object.keys(summaries).forEach(borough => {
+    setActiveBorough(isMobile ? undefined : "queens");
+    setFileName(isMobile ? "nyc" : "queens");
+  }, [isMobile]);
+
+  useEffect(() => {
+    Object.keys(summaries).forEach((borough) => {
       const img = new Image();
       img.src = `/media/boroughBackdrops/${borough}.jpg`;
     });
@@ -29,8 +36,14 @@ export default function Boroughs() {
 
   const handleClick = (borough: string) => {
     if (window.innerWidth <= 600) {
-      if (borough === activeBorough) setActiveBorough(undefined);
-      setActiveBorough(borough);
+      if (borough === activeBorough) {
+        setActiveBorough(undefined);
+        setFileName("nyc");
+      } else {
+        setActiveBorough(borough);
+        setFileName(borough);
+        setSummary(summaries[borough as keyof typeof summaries]);
+      }
     } else {
       router.push(`/stories/${borough}`);
     }
@@ -52,28 +65,26 @@ export default function Boroughs() {
 
   return (
     <BoroughsSectionContainer key={activeBorough}>
-      {!isMobile && (
+      <Background $fileName={fileName}>
+        <div className="background-image" />
+      </Background>
+      {isMobile ? (
+        !!activeBorough && (
+          <BoroughPopup>
+            <h2>{summary.boroughName}</h2>
+            <Link href={`stories/${activeBorough}`}>See stories</Link>
+          </BoroughPopup>
+        )
+      ) : (
         <>
-          <Background $fileName={fileName}>
-            <div className='background-image' />
-          </Background>
           <h1>Which Borough speaks to you?</h1>
-          <div className='description'>
+          <div className="description">
             <h2>{summary.boroughName}</h2>
             <p>{summary.description}</p>
           </div>
         </>
       )}
-      {/* <div className='background-slideshow'>
-        <div className='slide-track'>
-          <img src='media/boroughBackdrops/bronx.jpg' alt='Slide 1' />
-          <img src='media/boroughBackdrops/manhattan.jpg' alt='Slide 2' />
-          <img src='media/boroughBackdrops/queens.jpg' alt='Slide 3' />
-          <img src='media/boroughBackdrops/brooklyn.jpg' alt='Slide 4' />
-          <img src='media/boroughBackdrops/statenisland.jpg' alt='Slide 5' />
-          <img src='media/boroughBackdrops/bronx.jpg' alt='Slide 1' />
-        </div>
-      </div> */}
+
       <SVGContainer>
         {isMobile ? (
           <CompactMap

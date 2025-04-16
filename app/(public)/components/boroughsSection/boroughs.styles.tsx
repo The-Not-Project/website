@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import NextLink from "next/link";
 
 export const BoroughsSectionContainer = styled.section`
   height: 100vh;
@@ -6,48 +7,19 @@ export const BoroughsSectionContainer = styled.section`
   position: relative;
   color: white;
   text-shadow: 0 0 20px hsl(0, 0%, 0%);
+  overflow: hidden;
 
   @media (max-width: 600px) {
     height: max-content;
     max-height: unset;
-    padding-top: 40px;
     box-sizing: content-box;
-    background: linear-gradient(var(--bg-color), hsl(35, 46%, 95%, 0.3) 20%, hsl(35, 46%, 95%, 0.3) 80%, var(--bg-color));
-
-
-    .background-slideshow {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: -1;
-    }
-    
-    .slide-track {
-      display: flex;
-      width: 500vw;
-      height: 100%;
-      animation: slide 20s linear infinite;
-    }
-    
-    .slide-track img {
-      width: 100vw;
-      height: 100%;
-      object-fit: cover;
-      filter: blur(5px) brightness(50%) grayscale(70%);
-    }
-
-    /* Animation */
-    @keyframes slide {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-500vw);
-      }
-    }
+    background: linear-gradient(
+      var(--bg-color),
+      hsl(35, 46%, 95%, 0.3) 20%,
+      hsl(35, 46%, 95%, 0.3) 80%,
+      var(--bg-color)
+    );
+    padding-block: 40px 60px;
   }
 
   h1 {
@@ -97,7 +69,7 @@ export const Background = styled.div<{ $fileName: string }>`
     filter: grayscale(50%);
   }
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -107,6 +79,18 @@ export const Background = styled.div<{ $fileName: string }>`
   }
 
   animation: fadepulsatefast 0.66s;
+
+  @media (max-width: 600px) {
+    z-index: -1;
+    animation-duration: 0.5s;
+    ${({ $fileName }) =>
+      $fileName !== "nyc" &&
+      `
+      &::after {
+        background: none;
+      }`
+    }
+  }
 `;
 
 export const SVGContainer = styled.div`
@@ -137,7 +121,6 @@ export const Path = styled.path<{ x: number; y: number }>`
     fill: hsl(36, 47%, 95%, 0.4);
 
     &.active {
-
       opacity: 1;
       filter: none;
       fill: hsl(36, 47%, 95%, 0.9);
@@ -148,16 +131,42 @@ export const Path = styled.path<{ x: number; y: number }>`
 
   @media (max-width: 600px) {
     stroke: hsl(0, 0%, 0%, 0);
-    transition: translate 1s;
-
+    transition: 0.2s;
     &.active {
       filter: none;
       scale: 1.1;
-      translate: ${({x}) => x}% ${({y}) => y}%;
-      }
+      translate: ${({ x, y }) => `${x}% ${y}%`};
+      opacity: 0.8;
+    }
 
-      &.blurred {
-        filter: blur(5px) brightness(50%) grayscale(70%);
-      }
+    &.hidden {
+      display: none;
+    }
   }
+`;
+
+export const BoroughPopup = styled.div`
+  position: absolute;
+  background: hsl(35, 46%, 95%, 0.9);
+  text-shadow: none;
+  color: black;
+  width: 100%;
+  border-radius: 3px;
+  text-align: center;
+  padding: 20px;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+`;
+
+export const Link = styled(NextLink)`
+  color: black;
+  font-size: 1.2rem;
 `;
