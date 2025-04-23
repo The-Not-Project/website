@@ -12,6 +12,10 @@ type HeaderProps = {
     fileName: string;
     boroughName: string;
     description: string;
+    quote: {
+      text: string;
+      author: string;
+    }
   };
 };
 
@@ -28,8 +32,14 @@ export default function HeaderComponent({ borough }: HeaderProps) {
         setShowBoroughs={setShowBoroughs}
       />
       <BoroughDescription>
-        <span>“New York is not a city, it’s a world.”</span>
-        <br /> — Iman
+        {isMobile ? (
+          <>
+            <span>“{borough.quote.text}”</span>
+            <br /> — {borough.quote.author}
+          </>
+        ) : (
+          borough.description
+        )}
       </BoroughDescription>
       {isMobile && (
         <MenuButton onClick={() => setShowBoroughs(true)}>

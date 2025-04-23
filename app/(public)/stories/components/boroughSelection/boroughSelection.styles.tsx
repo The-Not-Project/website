@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { FaXmark } from 'react-icons/fa6';
-
+import { FaXmark } from "react-icons/fa6";
 
 export const BoroughSelectionContainer = styled.nav`
   backdrop-filter: blur(5px);
@@ -19,6 +18,7 @@ export const BoroughSelectionContainer = styled.nav`
     height: 100dvh;
     border-radius: 0;
     position: absolute;
+    padding-block: 60% 20%;
     top: 0;
     width: 100%;
     z-index: 3;
@@ -30,9 +30,7 @@ export const BoroughSelectionContainer = styled.nav`
     &.invisible {
       pointer-events: painted;
       animation: fadeOut 0.2s forwards;
-
     }
-
   }
 
   ul {
@@ -45,6 +43,10 @@ export const BoroughSelectionContainer = styled.nav`
     li {
       color: lightgray;
       transition: 0.2s;
+
+      &.nyc {
+        margin-top: auto;
+      }
 
       &.active,
       &:hover {

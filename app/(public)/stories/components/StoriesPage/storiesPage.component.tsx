@@ -5,7 +5,7 @@ import { usePublicServerActions } from '@/app/contexts/public-server-actions';
 import { Filters, Story } from '@/app/types/types';
 import StoriesList from '../storiesList/storiesList.component';
 import StoriesSearch from '../storiesSearch/storiesSearch.component';
-import { BoroughTitle, StoriesContainer } from './storiesPage.styles';
+import { StoriesContainer } from './storiesPage.styles';
 import LoadingPage from '@/app/(public)/components/loadingPage/loadingPage.component';
 import Header from '../header/header.component';
 import { BoroughSummaries } from '@/app/constants/boroughs';
@@ -60,9 +60,9 @@ export default function StoriesPageComponent({ boroughParam }: StoriesPageProps)
     <>
       {showLoader && <LoadingPage isLoading={loading} isHome={false} />}
       <Header borough={currentBorough} />
-      {boroughParam && (
+      {/* {boroughParam && (
         <BoroughTitle>Our {currentBorough.boroughName} Stories</BoroughTitle>
-      )}
+      )} */}
       <StoriesContainer>
         <StoriesSearch 
           filters={filters} 

@@ -6,6 +6,7 @@ import {
 import { BoroughSummaries } from "@/app/constants/boroughs";
 import { useStore } from "@/app/zustand/store";
 import { useEffect, useState } from "react";
+import clsx from "clsx";
 
 type BoroughSelectionProps = {
   borough: string;
@@ -23,22 +24,34 @@ export default function BoroughSelectionComponent({
 
   useEffect(() => {
     if (showBoroughs) {
-      setIsVisible(true); 
+      setIsVisible(true);
     } else {
-      const timeout = setTimeout(() => setIsVisible(false), 300); 
+      const timeout = setTimeout(() => setIsVisible(false), 300);
       return () => clearTimeout(timeout);
     }
   }, [showBoroughs]);
 
   return !isMobile || (isMobile && isVisible) ? (
-    <BoroughSelectionContainer className={!showBoroughs ? "invisible" : undefined}>
+    <BoroughSelectionContainer
+      className={!showBoroughs ? "invisible" : undefined}
+    >
       <ul className={!showBoroughs ? "invisible" : ""}>
-        {Object.entries(BoroughSummaries).map(([key, value]) => (
+        {Object.entries(
+          isMobile
+            ? BoroughSummaries
+            : Object.fromEntries(Object.entries(BoroughSummaries).slice(0, -1))
+        ).map(([key, value]) => (
           <li
             key={key}
-            className={borough === value.boroughName ? "active" : ""}
+            className={clsx(value.fileName, {
+              active: borough === value.boroughName,
+            })}
           >
-            <Link href={`/stories/${value.fileName}`}>{value.boroughName}</Link>
+            <Link
+              href={`/stories/${value.fileName == "nyc" ? "" : value.fileName}`}
+            >
+              {value.boroughName}
+            </Link>
           </li>
         ))}
       </ul>
