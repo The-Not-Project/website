@@ -5,6 +5,8 @@ export const StoriesListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100vw;
+  overflow-x: hidden;
   /* padding-right: 500px; */
 `;
 

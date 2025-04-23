@@ -77,10 +77,10 @@ export default function Boroughs() {
         )
       ) : (
         <>
-          <h1>Which Borough speaks to you?</h1>
+          {/* <h1>The Five</h1> */}
           <div className="description">
             <h2>{summary.boroughName}</h2>
-            <p>{summary.description}</p>
+            {/* <p>{summary.description}</p> */}
           </div>
         </>
       )}

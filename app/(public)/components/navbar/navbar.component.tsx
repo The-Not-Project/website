@@ -1,17 +1,17 @@
-'use client';
-import { useEffect } from 'react';
-import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-import useHeaderScroll from '@/app/hooks/useHeaderScroll';
-import { useStore } from '@/app/zustand/store';
+"use client";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import useHeaderScroll from "@/app/hooks/useHeaderScroll";
+import { useStore } from "@/app/zustand/store";
 import {
   NavBarContainer,
   AuthLink,
   Link,
   MenuIcon,
   Menu,
-} from './navbar.styles';
-import { FaBars, FaXmark } from 'react-icons/fa6';
+} from "./navbar.styles";
+import { FaBars, FaXmark } from "react-icons/fa6";
 
 type NavBarProps = {
   isAdmin: boolean;
@@ -21,47 +21,45 @@ type NavBarProps = {
 export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const pathname = usePathname();
   const { transparency } = useHeaderScroll();
-  const isSpecialPage = pathname === '/' || pathname.startsWith('/stories');
+  const isSpecialPage = pathname === "/" || pathname.startsWith("/stories");
   const isBgSolid = isSpecialPage && transparency;
+  const isMobile = useStore((state) => state.mobileLayout.isMobile);
   // const router = useRouter();
 
-  const isMenuOpen = useStore(state => state.mobileLayout.isMenuOpen);
-  const setIsMenuOpen = useStore(state => state.mobileLayout.setIsMenuOpen);
-  const isMobile = useStore(state => state.mobileLayout.isMobile);
+  const isMenuOpen = useStore((state) => state.mobileLayout.isMenuOpen);
+  const setIsMenuOpen = useStore((state) => state.mobileLayout.setIsMenuOpen);
 
   useEffect(() => {
-
     const handleScroll = () => {
       if (window.scrollY > 0) {
         setIsMenuOpen(false);
       }
     };
 
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   const navContainerClass = isBgSolid
-    ? 'solid isSpecialPage'
+    ? "solid isSpecialPage"
     : isSpecialPage
-    ? 'isSpecialPage'
+    ? "isSpecialPage"
     : undefined;
-  const solidClass = isBgSolid ? 'solid' : undefined;
+  const solidClass = isBgSolid ? "solid" : undefined;
 
   return (
     <NavBarContainer
-      className={`${navContainerClass} ${isMenuOpen && 'shifted'}`}
+      className={`${navContainerClass} ${isMenuOpen && "shifted"}`}
     >
-      <h1 className='title-lg'>THE NOT PROJECT</h1>
+      <h1 className="title-lg">THE NOT PROJECT</h1>
       {!isMobile && (
-        <Link href='/'>
+        <Link href="/">
           <Image
-            src='/media/logo.png'
-            alt='The Not Project Logo'
+            src="/media/logo.png"
+            alt="The Not Project Logo"
             width={120}
             height={68}
           />
@@ -70,7 +68,7 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
       {isMobile && (
         <>
           <MenuIcon
-            className={!isMenuOpen ? solidClass : 'solid'}
+            className={!isMenuOpen ? solidClass : "solid"}
             onClick={() => setIsMenuOpen(true)}
           >
             {!isMenuOpen && <FaBars />}
@@ -78,33 +76,49 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
         </>
       )}
 
-      <Menu className={isMenuOpen ? 'open' : undefined}>
+      <Menu className={isMenuOpen ? "open" : undefined}>
         {isMobile && (
           <>
             <Image
-              src='/media/logo.png'
-              alt='The Not Project Logo'
+              src="/media/logo.png"
+              alt="The Not Project Logo"
               width={120}
               height={68}
             />
-             <FaXmark className='close' onClick={() => setIsMenuOpen(false)} />
+            <FaXmark className="close" onClick={() => setIsMenuOpen(false)} />
+            <Link
+              href="/"
+              className={solidClass}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              HOME
+            </Link>
           </>
         )}
-        <Link href='/stories' className={solidClass}>
+
+        <Link
+          href="/stories"
+          className={solidClass}
+          onClick={() => setIsMenuOpen(false)}
+        >
           STORIES
         </Link>
         {isAdmin && (
-          <Link href='/admin' className={solidClass}>
+          <Link href="/admin" className={solidClass}>
             ADMIN
           </Link>
         )}
         <AuthLink
-          href={`/api/auth/${authenticated ? 'logout' : 'login'}`}
+          href={`/api/auth/${authenticated ? "logout" : "login"}`}
           className={solidClass}
         >
-          {authenticated ? 'LOG OUT' : 'SIGN IN'}
+          {authenticated ? "LOG OUT" : "SIGN IN"}
         </AuthLink>
-        <Link href='/about' className={solidClass}>
+        <Link
+          href="/about"
+          className={solidClass}
+          onClick={() => setIsMenuOpen(false)}
+        >
           ABOUT US
         </Link>
         {/* <DonateButton

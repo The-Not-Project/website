@@ -19,6 +19,15 @@ export const HeaderContainer = styled.header<{ $filename: string }>`
     left: 0;
     pointer-events: none;
   }
+
+  @media (max-width: 600px) {
+    height: 80vh;
+    &:before {
+      background: none;
+      backdrop-filter: brightness(0.5) blur(3px);
+
+    }
+  }
 `;
 
 export const BoroughDescription = styled.div`
@@ -33,4 +42,30 @@ export const BoroughDescription = styled.div`
   width: 50%;
   text-shadow: 0 0 20px black;
   z-index: 1;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    padding-inline: 5px;
+    /* top: auto;
+    bottom: 0;
+    translate: -50% -20%; */
+    font-size: 1.5rem;
+    color: #e6e6e6;
+
+    span {
+      font-style: italic;
+    }
+  }
 `;
+
+export const MenuButton = styled.p`
+  color: #f7deb1;
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  bottom: 20px;
+  font-size: 1.2rem;
+  width: max-content;
+  text-decoration: underline;
+  
+  `

@@ -43,7 +43,7 @@ export default function Recommendations() {
                 alt='thumbnail'
               />
               <h3 onClick={() => router.push(`/story/${recommendation.id}`)}>{recommendation.title}</h3>
-              <p>{recommendation.summary}</p>
+              {/* <p>{recommendation.summary}</p> */}
             </RecommendationCard>
           ))}
         </div>
@@ -57,7 +57,7 @@ export default function Recommendations() {
                 alt='thumbnail'
               />
               <h3 onClick={() => router.push(`/story/${recommendation.id}`)}>{recommendation.title}</h3>
-              <p>{recommendation.summary}</p>
+              {/* <p>{recommendation.summary}</p> */}
             </RecommendationCard>
           ))}
         </div>

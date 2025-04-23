@@ -5,7 +5,7 @@ import { Title } from "./styles";
 export default function About() {
     return(
         <>
-        <Title>About niggas</Title>
+        <Title>Website still under construction, coming end of May</Title>
         
         </>
 

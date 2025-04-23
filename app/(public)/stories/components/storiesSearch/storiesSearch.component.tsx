@@ -25,14 +25,14 @@ export default function StoriesSearch({
   filters,
   setFilters,
 }: StoriesSearchProps) {
-  const windowIsWide = window.innerWidth > 1600;
 
   const { getCategories } = usePublicServerActions();
   const [categories, setCategories] = useState<Category[]>([]);
   const [localFilters, setLocalFilters] = useState<Filters>(filters);
-  const [categoriesVisible, setCategoriesVisible] = useState(windowIsWide);
+  const [categoriesVisible, setCategoriesVisible] = useState(false);
 
   useEffect(() => {
+    setCategoriesVisible(window.innerWidth > 1600);
     fetchCategories();
   }, []);
 

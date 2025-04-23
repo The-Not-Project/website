@@ -2,11 +2,11 @@ import styled from "styled-components";
 import NextLink from "next/link";
 
 export const BoroughsSectionContainer = styled.section`
-  height: 100vh;
+  height: calc(100vh - 80px);
   max-height: 60vw;
   position: relative;
   color: white;
-  text-shadow: 0 0 20px hsl(0, 0%, 0%);
+  text-shadow: 0 0 20px hsl(0, 0%, 0%, 0.3);
   overflow: hidden;
 
   @media (max-width: 600px) {
@@ -26,21 +26,20 @@ export const BoroughsSectionContainer = styled.section`
     font-size: clamp(3rem, 5rem, 4vw);
     position: absolute;
     font-weight: 500;
-    top: 10%;
+    top: 5%;
     left: 10%;
   }
 
   .description {
-    position: absolute;
-    top: 30%;
-    left: 30%;
-    width: 30%;
     text-align: center;
 
+
     h2 {
-      font-size: clamp(3rem, 5rem, 3.5vw);
+      margin-top: 10px;
+      font-size: 10vw;
       font-weight: 500;
-      margin-bottom: 20px;
+      text-transform: uppercase;
+      color: white;
     }
 
     p {
@@ -57,6 +56,7 @@ export const Background = styled.div<{ $fileName: string }>`
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: -1;
 
   .background-image {
     position: absolute;
@@ -82,48 +82,51 @@ export const Background = styled.div<{ $fileName: string }>`
 
   @media (max-width: 600px) {
     z-index: -1;
-    animation-duration: 0.5s;
+    animation: none;
     ${({ $fileName }) =>
       $fileName !== "nyc" &&
       `
       &::after {
         background: none;
-      }`
-    }
+      }`}
   }
 `;
 
 export const SVGContainer = styled.div`
-  width: 35%;
-  max-width: 60vh;
+  height: 70%;
+  width: auto;
   position: absolute;
-  right: 2%;
-  bottom: 2%;
+  left: 50%;
+  bottom: 0;
+  translate: -50%;
 
   @media (max-width: 600px) {
-    width: 80%;
     position: unset;
     margin: 0 auto;
+    height: 100%;
     width: 100%;
+    translate: -50%;
+    translate: none;
   }
 
   svg {
     width: 100%;
-    height: auto;
+    height: 100%;
   }
 `;
 
 export const Path = styled.path<{ x: number; y: number }>`
   transition: 0.2s;
   cursor: pointer;
+  /* fill: white; */
 
   @media (min-width: 600px) {
-    fill: hsl(36, 47%, 95%, 0.4);
+    fill: hsl(36, 47%, 95%, 0.8);
 
     &.active {
       opacity: 1;
       filter: none;
-      fill: hsl(36, 47%, 95%, 0.9);
+      fill: hsl(36, 47%, 95%);
       stroke: hsl(0, 0%, 0%, 0.5);
       filter: drop-shadow(0 0 20px hsl(36, 47%, 0%, 0.5));
     }
