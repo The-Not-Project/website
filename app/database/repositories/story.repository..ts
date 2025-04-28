@@ -52,8 +52,10 @@ export async function createStory(formData: FormData) {
 
   const session = await getSession();
   if (!session) throw new Error('User not authenticated');
+
   const user = await getUser(session.user.sub);
   if (!user) throw new Error('User not found');
+  
   if (!user.firstName || !user.lastName) {
     redirect('/admin/personal-info');
   }
@@ -66,7 +68,7 @@ export async function createStory(formData: FormData) {
       title,
       content,
       borough,
-      summary,
+      summary: summary,
       author: { connect: { id: user.id } },
     },
   });

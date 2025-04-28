@@ -1,16 +1,20 @@
 // import { useState, useRef } from 'react';
-import { Fragment } from 'react';
-import Image from 'next/image';
-import { Story as StoryType } from '@/app/types/types';
+import { Fragment } from "react";
+import Link from "next/link";
+import { useStore } from "@/app/zustand/store";
+import { Story as StoryType } from "@/app/types/types";
 import {
   StoryContainer,
   StoryContent,
   CategoriesContainer,
-} from './story.styles';
-import Link from 'next/link';
+} from "./story.styles";
+import { useRouter } from "next/navigation";
 // import StoryPopup from '../storyPopup/storyPopup.component';
 
 export default function Story({ story }: { story: StoryType }) {
+  const isMobile = useStore((state) => state.mobileLayout.isMobile);
+  const router = useRouter();
+
   // type HoveredStoryState = {
   //   story: StoryType | null;
   //   isHovered: boolean;
@@ -25,11 +29,11 @@ export default function Story({ story }: { story: StoryType }) {
 
   // const storyContainerRef = useRef<HTMLDivElement>(null);
 
-  const thumbnail = story.media.find(media => media.isThumbnail)?.url;
-  const date = new Date(story.createdAt).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
+  const thumbnail = story.media.find((media) => media.isThumbnail)?.url;
+  const date = new Date(story.createdAt).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
   });
 
   // const handleMouseEnter = (event: React.MouseEvent) => {
@@ -69,27 +73,46 @@ export default function Story({ story }: { story: StoryType }) {
     // ref={storyContainerRef}
     // onMouseEnter={handleMouseEnter}
     // onMouseLeave={handleMouseLeave}
+    onClick={() => isMobile && router.push(`/story/${story.id}`)}
     >
       <StoryContent>
-        {story.categories.length > 0 && (
-          <CategoriesContainer>
-            {story.categories.map((category, index) => (
-              <Fragment key={category.id}>
-                <span>{category.name}</span>
-                {index < story.categories.length - 1 && (
-                  <span className='divider'>|</span>
-                )}
-              </Fragment>
-            ))}
-          </CategoriesContainer>
+        {isMobile ? (
+          <>
+            <h2 className="title">
+              <Link href={`/story/${story.id}`}>{story.title}</Link>
+            </h2>
+            <div className="info">
+              <span className="createdAt">{date}</span>
+              {story.categories.length > 0 && (
+                <CategoriesContainer>
+                  <span>・{story.categories[0].name}</span>
+                </CategoriesContainer>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            {story.categories.length > 0 && (
+              <CategoriesContainer>
+                {story.categories.map((category, index) => (
+                  <Fragment key={category.id}>
+                    <span>{category.name}</span>
+                    {index < story.categories.length - 1 && (
+                      <span className="divider">|</span>
+                    )}
+                  </Fragment>
+                ))}
+              </CategoriesContainer>
+            )}
+            <h2 className="title">
+              <Link href={`/story/${story.id}`}>{story.title}</Link>
+            </h2>
+            <p>{story.summary}</p>
+            <p className="createdAt">{date}</p>
+          </>
         )}
-        <h2 className='title'>
-          <Link href={`/story/${story.id}`}>{story.title}</Link>
-        </h2>
-        <p>{story.summary}</p>
-        <p className='createdAt'>{date}</p>
       </StoryContent>
-      <Image src={thumbnail || ''} width={280} height={150} alt='thumbnail' />
+      <img src={thumbnail} alt="thumbnail" />
       {/* {hoveredStory.isHovered && (
         <StoryPopup
           story={hoveredStory.story!}

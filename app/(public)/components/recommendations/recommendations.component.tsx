@@ -1,23 +1,19 @@
-'use client';
+"use client";
 
-import { usePublicServerActions } from '@/app/contexts/public-server-actions';
+import { useCallback, useEffect, useState } from "react";
+import { Story } from "@/app/types/types";
+import { usePublicServerActions } from "@/app/contexts/public-server-actions";
 import {
   RecommendationsContainer,
   BigTitle,
   SecondaryTitle,
-  RecommendationCard,
   RecommendationsList,
-} from './recommendations.styles';
-import { useCallback, useEffect, useState } from 'react';
-import { Story } from '@/app/types/types';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+} from "./recommendations.styles";
+import RecommendationCard from "./recommendationCard.component";
 
 export default function Recommendations() {
-  
   const { getRecommendations } = usePublicServerActions();
   const [recommendations, setRecommendations] = useState<Story[]>([]);
-  const router = useRouter();
 
   const fetchRecommendations = useCallback(async () => {
     const recommendations = await getRecommendations(600);
@@ -28,37 +24,29 @@ export default function Recommendations() {
     fetchRecommendations();
   }, []);
 
+  if (recommendations.length === 0) {
+    return null; 
+  }
+
   return (
     <RecommendationsContainer>
       <BigTitle>Stories we think you&apos;ll like</BigTitle>
       <SecondaryTitle>Check out our recommended stories below</SecondaryTitle>
       <RecommendationsList>
-        <div>
-          {recommendations.slice(0, 2).map(recommendation => (
-            <RecommendationCard key={recommendation.id}>
-              <Image
-                src={recommendation.media[0].url || ''}
-                width={300}
-                height={200}
-                alt='thumbnail'
-              />
-              <h3 onClick={() => router.push(`/story/${recommendation.id}`)}>{recommendation.title}</h3>
-              {/* <p>{recommendation.summary}</p> */}
-            </RecommendationCard>
+        <div className="row">
+          {recommendations.slice(0, 2).map((recommendation) => (
+            <RecommendationCard
+              key={recommendation.id}
+              recommendation={recommendation}
+            />
           ))}
         </div>
-        <div>
-          {recommendations.slice(2, 4).map(recommendation => (
-            <RecommendationCard key={recommendation.id}>
-              <Image
-                src={recommendation.media[0].url || ''}
-                width={300}
-                height={200}
-                alt='thumbnail'
-              />
-              <h3 onClick={() => router.push(`/story/${recommendation.id}`)}>{recommendation.title}</h3>
-              {/* <p>{recommendation.summary}</p> */}
-            </RecommendationCard>
+        <div className="row">
+          {recommendations.slice(2, 4).map((recommendation) => (
+            <RecommendationCard
+              key={recommendation.id}
+              recommendation={recommendation}
+            />
           ))}
         </div>
       </RecommendationsList>

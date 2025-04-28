@@ -15,7 +15,7 @@ export function getStoryData(formData: FormData) {
     .getAll('files')
     .filter(file => file instanceof File && file.size > 0) as File[];
 
-  if (!title || !content || !borough) {
+  if (!title || !content || !borough || !summary) {
     throw new Error('Missing required story fields');
   }
 

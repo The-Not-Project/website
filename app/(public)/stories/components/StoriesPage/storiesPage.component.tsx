@@ -1,40 +1,46 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useState } from 'react';
-import { usePublicServerActions } from '@/app/contexts/public-server-actions';
-import { Filters, Story } from '@/app/types/types';
-import StoriesList from '../storiesList/storiesList.component';
-import StoriesSearch from '../storiesSearch/storiesSearch.component';
-import { StoriesContainer } from './storiesPage.styles';
-import LoadingPage from '@/app/(public)/components/loadingPage/loadingPage.component';
-import Header from '../header/header.component';
-import { BoroughSummaries } from '@/app/constants/boroughs';
+import { useCallback, useEffect, useState } from "react";
+import { usePublicServerActions } from "@/app/contexts/public-server-actions";
+import { Filters, Story } from "@/app/types/types";
+import StoriesList from "../storiesList/storiesList.component";
+import StoriesSearch from "../storiesSearch/storiesSearch.component";
+import { StoriesContainer } from "./storiesPage.styles";
+import LoadingPage from "@/app/(public)/components/loadingPage/loadingPage.component";
+import Header from "../header/header.component";
+import { BoroughSummaries } from "@/app/constants/boroughs";
+import { useStore } from "@/app/zustand/store";
+import clsx from "clsx";
 
 interface StoriesPageProps {
   boroughParam?: string;
 }
 
-export default function StoriesPageComponent({ boroughParam }: StoriesPageProps) {
+export default function StoriesPageComponent({
+  boroughParam,
+}: StoriesPageProps) {
   const currentBorough = boroughParam
-    ? BoroughSummaries[boroughParam.toLowerCase() as keyof typeof BoroughSummaries]
+    ? BoroughSummaries[
+        boroughParam.toLowerCase() as keyof typeof BoroughSummaries
+      ]
     : BoroughSummaries.nyc;
 
   const defaultFilters: Filters = {
-    search: '',
+    search: "",
     boroughs: boroughParam ? [boroughParam.toLowerCase()] : [],
     categories: [],
   };
-  
 
   const { getStories } = usePublicServerActions();
   const [loading, setLoading] = useState(true);
   const [stories, setStories] = useState<Story[]>([]);
   const [filters, setFilters] = useState<Filters>(defaultFilters);
   const [showLoader, setShowLoader] = useState(true);
+  const isMenuOpen = useStore((state) => state.mobileLayout.isMenuOpen);
 
   const fetchStories = useCallback(
     async (appliedFilters: Filters = defaultFilters) => {
-      const finalFilters = boroughParam 
+      const finalFilters = boroughParam
         ? { ...appliedFilters, boroughs: [boroughParam.toLowerCase()] }
         : appliedFilters;
 
@@ -57,19 +63,16 @@ export default function StoriesPageComponent({ boroughParam }: StoriesPageProps)
   }, [filters]);
 
   return (
-    <>
+    <div className={clsx('page-wrapper', { shifted: isMenuOpen })}>
       {showLoader && <LoadingPage isLoading={loading} isHome={false} />}
       <Header borough={currentBorough} />
       {/* {boroughParam && (
         <BoroughTitle>Our {currentBorough.boroughName} Stories</BoroughTitle>
       )} */}
       <StoriesContainer>
-        <StoriesSearch 
-          filters={filters} 
-          setFilters={setFilters}
-        />
+        <StoriesSearch filters={filters} setFilters={setFilters} />
         <StoriesList stories={stories} />
       </StoriesContainer>
-    </>
+    </div>
   );
 }

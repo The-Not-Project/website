@@ -18,4 +18,11 @@ export const StoriesContainer = styled.div`
     padding-inline: 60px;
     gap: 10px;
   }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    padding-inline: 20px;
+    margin-inline: 0;
+    gap: 10px;
+  }
 `;

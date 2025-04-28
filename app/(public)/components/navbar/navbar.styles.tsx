@@ -109,7 +109,7 @@ export const MenuIcon = styled.div`
 
 export const Menu = styled.div`
   @media (max-width: 600px) {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: -80%;
     height: 100dvh;
@@ -117,15 +117,15 @@ export const Menu = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background: url('/media/sidebar_bg.jpg') no-repeat center center/cover;
-    backdrop-filter: blur(20px);
+    background: url('/media/experimental-sidebar-backdrop.jpg') no-repeat center center/cover;
+    backdrop-filter: blur(15px);
     padding: 100px 20px;
     font-size: 2rem;
     
     &::before {
       content: '';
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(20px);
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(20px) saturate(0.3);
       position: absolute;
       top: 0;
       left: 0;
@@ -137,10 +137,6 @@ export const Menu = styled.div`
     a {
       color: white;
       text-shadow: 0 0 2px black;
-    }
-
-    &.open {
-      translate: 0;
     }
 
     img {

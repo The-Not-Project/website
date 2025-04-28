@@ -23,6 +23,20 @@ export default function BoroughSelectionComponent({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setShowBoroughs(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     if (showBoroughs) {
       setIsVisible(true);
     } else {

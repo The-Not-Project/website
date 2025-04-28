@@ -17,8 +17,8 @@ export const BoroughSelectionContainer = styled.nav`
   @media (max-width: 600px) {
     height: 100dvh;
     border-radius: 0;
-    position: absolute;
-    padding-block: 60% 20%;
+    position: fixed;
+    padding-block: 50% 20%;
     top: 0;
     width: 100%;
     z-index: 3;

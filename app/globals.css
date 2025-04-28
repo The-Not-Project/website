@@ -15,7 +15,14 @@
 
 body {
   background: var(--bg-color);
-  overflow: overlay;
+}
+
+.page-wrapper {
+  transition: 0.18s ease-in;
+
+  &.shifted {
+    translate: -80%;
+  }
 }
 
 button, input, textarea, select {

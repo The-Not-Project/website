@@ -5,9 +5,11 @@ export const StoriesListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 100vw;
   overflow-x: hidden;
-  /* padding-right: 500px; */
+
+  @media (max-width: 600px) {
+      gap: 20px;
+    }
 `;
 
 export const NoStoriesMessage = styled.p`

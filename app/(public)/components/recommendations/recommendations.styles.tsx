@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const RecommendationsContainer = styled.section`
   padding: 50px;
@@ -26,7 +26,7 @@ export const RecommendationsList = styled.div`
   margin-inline: auto;
   flex-wrap: wrap;
 
-  div {
+  .row {
     display: flex;
     justify-content: center;
     gap: 30px;
@@ -34,17 +34,110 @@ export const RecommendationsList = styled.div`
   }
 `;
 
-export const RecommendationCard = styled.figure`
+export const RecommendationCardContainer = styled.figure`
   width: 300px;
-  img {
-    border-radius: 2px;
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+  height: 400px;
+  background: white;
+  display: flex;
+  flex-flow: column;
+
+  
+
+  .content {
+    padding: 15px 25px;
+    min-height: 50%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    flex-grow: 1;
+    transition: 0.2s;
+    cursor: pointer;
+
+    &.expanded {
+      height: 100%;
+    }
+
+    div {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+
+      a, p {
+        color: black;
+        font-size: 1.1rem;
+      }
+      
+    }
+
+    .categories {
+      color: hsl(103, 50%, 20%);
+      font-size: 0.9rem;
+    }
+
+
   }
 
-  h3:hover {
-    cursor: pointer;
-    text-decoration: underline;
+  h3 {
+    font-size: 1.6rem;
+    font-weight: normal;
+  }
+
+  .summary {
+    rotate: x 90deg;
+    overflow: hidden;
+    transition: rotate 0.2s, opacity 0.1s;
+    opacity: 0;
+    &.expanded {
+      opacity: 1;
+      rotate: none;
+      transition: rotate 0.3s, opacity 0.5s;
+    }
   }
 `;
+
+export const Image = styled.div<{ $src: string }>`
+  height: 100%;
+  background: url(${({ $src }) => $src}) no-repeat center center/cover;
+  transition: 0.2s;
+  position: relative;
+  &.expanded {
+    height: 35%;
+  }
+
+  .date {
+      position: absolute;
+      top: 0;
+      left: 0;
+      translate: 15px 10px;
+      color: white;
+      text-shadow: 0 0 10px black;
+      font-size: 1.2rem;
+      z-index: 2;
+    }
+`;
+
+
+export const ActionButton = styled.div`
+  display: flex;
+  flex-flow: column;
+  height: 2rem;
+  padding-inline: 5px;
+  overflow: hidden;
+  border: 2px solid white;
+  
+  p {
+    transition: .2s;
+    line-height: 1.5rem;
+
+    svg {
+      font-size: small;
+      margin-right: 4px;
+    }
+  }
+
+  &.expanded p {
+    translate: 0 -100%;
+  }
+`

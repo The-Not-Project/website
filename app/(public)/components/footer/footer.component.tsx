@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useStore } from "@/app/zustand/store";
 
 import {
   FooterContainer,
@@ -18,14 +19,17 @@ import {
   Copyright,
   Footer,
 } from "./footer.styles";
+import clsx from "clsx";
 
 export default function FooterComponent() {
+
+  const isMenuOpen = useStore((state) => state.mobileLayout.isMenuOpen);
+
   return (
-    <FooterContainer>
+    <FooterContainer className={clsx('page-wrapper', { shifted: isMenuOpen })}>
       <Footer>
         <MainContent>
           <div className="logoSection">
-            {/* <h3>Logo</h3> */}
             <Image
               src="/media/logo.png"
               alt="The Not Project Logo"

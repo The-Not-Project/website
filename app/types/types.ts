@@ -15,7 +15,7 @@ export type Story = {
   title: string;
   id: string;
   content: string;
-  summary: string | null;
+  summary: string;
   borough: string;
   author: Author;
   categories: Category[];
@@ -46,7 +46,7 @@ export type RawStory = {
   title: string;
   id: string;
   content: string;
-  summary: string | null;
+  summary: string;
   borough: string;
   author: {
     id: string;

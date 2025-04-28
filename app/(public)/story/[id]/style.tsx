@@ -2,8 +2,14 @@ import styled from 'styled-components';
 
 export const StoryContainer = styled.div`
   max-width: 1400px;
+  overflow: hidden;
   margin: 0 auto;
   padding: 40px 100px 70px;
+
+  @media (max-width: 850px) {
+    width: 100%;
+    padding: 10px 20px 20px;
+  }
 
   .title {
     font-weight: normal;
@@ -13,6 +19,7 @@ export const StoryContainer = styled.div`
 
   img {
     width: 100%;
+    max-width: 100%;
     height: auto;
     margin-block: 20px;
   }

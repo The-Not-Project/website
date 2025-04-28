@@ -6,7 +6,6 @@ import { useStore } from '@/app/zustand/store';
 export default function StoriesPage() {
 
     const setIsMobile = useStore(state => state.mobileLayout.setIsMobile);
-  
 
     useEffect(() => {
       const handleResize = () => setIsMobile(window.innerWidth <= 600);
@@ -14,10 +13,9 @@ export default function StoriesPage() {
       handleResize();
       window.addEventListener('resize', handleResize);
   
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
+      return () => window.removeEventListener('resize', handleResize)
     }, []);
+
   return <StoriesPageComponent />;
 }
 
