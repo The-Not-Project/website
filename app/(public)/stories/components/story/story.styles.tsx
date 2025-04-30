@@ -14,7 +14,7 @@ export const StoryContainer = styled.div`
     margin-block: 10px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     gap: 15px;
     height: 90px;
     border: none;
@@ -55,7 +55,7 @@ export const StoryContent = styled.div`
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     order: 1;
     justify-content: center;
     gap: 10px;
@@ -92,7 +92,7 @@ export const CategoriesContainer = styled.div`
   span {
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     font-size: 0.8rem;
     color: #3b3b3b;
     text-decoration: none;

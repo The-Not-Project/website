@@ -19,7 +19,7 @@ export const StoriesContainer = styled.div`
     gap: 10px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     flex-direction: column;
     padding-inline: 20px;
     margin-inline: 0;

@@ -5,7 +5,7 @@ import { FaFilter } from 'react-icons/fa';
 export const StoriesSearchContainer = styled.div`
   margin-top: 30px;
   max-width: 250px;
-  background: var(--bg-color);
+  background: #fffdfa;
   z-index: 1;
 
   hr {

@@ -8,7 +8,7 @@ export default function StoriesPage() {
     const setIsMobile = useStore(state => state.mobileLayout.setIsMobile);
 
     useEffect(() => {
-      const handleResize = () => setIsMobile(window.innerWidth <= 600);
+      const handleResize = () => setIsMobile(window.innerWidth <= 850);
       
       handleResize();
       window.addEventListener('resize', handleResize);

@@ -7,7 +7,7 @@ export const StoriesListContainer = styled.div`
   align-items: center;
   overflow-x: hidden;
 
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
       gap: 20px;
     }
 `;

@@ -22,7 +22,7 @@ export default function StoryPage() {
   }, [id, getStory]);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 600)
+    const handleResize = () => setIsMobile(window.innerWidth <= 850)
 
     handleResize();
     window.addEventListener("resize", handleResize);

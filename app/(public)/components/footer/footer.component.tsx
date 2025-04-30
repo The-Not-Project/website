@@ -91,8 +91,8 @@ export default function FooterComponent() {
           <SignUpForm>
             <p>Be the first to know about our new stories.</p>
             <SignUp>
-              <input type="email" placeholder="Enter your Email Address" />
-              <input type="tel" placeholder="Phone Number" />
+              <input type="email" placeholder="Email address" />
+              <input type="tel" placeholder="Phone number" />
               <button type="submit">Sign Up</button>
             </SignUp>
           </SignUpForm>

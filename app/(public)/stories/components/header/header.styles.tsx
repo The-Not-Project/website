@@ -20,7 +20,7 @@ export const HeaderContainer = styled.header<{ $filename: string }>`
     pointer-events: none;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     height: 80vh;
     &:before {
       background: none;
@@ -43,7 +43,7 @@ export const BoroughDescription = styled.div`
   text-shadow: 0 0 20px black;
   z-index: 1;
 
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     width: 100%;
     padding-inline: 5px;
     /* top: auto;

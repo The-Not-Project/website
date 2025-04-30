@@ -13,7 +13,7 @@ export const NavBarContainer = styled.nav`
   background: var(--bg-color);
   color: black;
 
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     padding-inline: 20px;
     height: 60px;
 
@@ -51,8 +51,9 @@ export const NavBarContainer = styled.nav`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    cursor: pointer;
 
-    @media (max-width: 600px) {
+    @media (max-width: 850px) {
       font-size: 1.5rem;
     }
   }
@@ -81,6 +82,8 @@ export const Link = styled(NextLink)`
   display: inline-flex;
   align-items: center;
 
+  
+
   &.solid {
     color: white;
   }
@@ -108,7 +111,7 @@ export const MenuIcon = styled.div`
 `;
 
 export const Menu = styled.div`
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     position: fixed;
     top: 0;
     right: -80%;

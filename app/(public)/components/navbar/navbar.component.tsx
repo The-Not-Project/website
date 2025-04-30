@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import useHeaderScroll from "@/app/hooks/useHeaderScroll";
 import { useStore } from "@/app/zustand/store";
 import {
@@ -24,7 +24,7 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const isSpecialPage = pathname === "/" || pathname.startsWith("/stories");
   const isBgSolid = isSpecialPage && transparency;
   const isMobile = useStore((state) => state.mobileLayout.isMobile);
-  // const router = useRouter();
+  const router = useRouter();
 
   const isMenuOpen = useStore((state) => state.mobileLayout.isMenuOpen);
   const setIsMenuOpen = useStore((state) => state.mobileLayout.setIsMenuOpen);
@@ -54,7 +54,7 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
     <NavBarContainer
       className={`${navContainerClass} ${isMenuOpen && "shifted"}`}
     >
-      <h1 className="title-lg">THE NOT PROJECT</h1>
+      <h1 className="title-lg" onClick={() => router.push('/')}>THE NOT PROJECT</h1>
       {!isMobile && (
         <Link href="/">
           <Image
