@@ -116,16 +116,12 @@ export const SVGContainer = styled.div`
 `;
 
 export const Path = styled.path<{ x: number; y: number }>`
-  transition: 0.2s;
   cursor: pointer;
-  /* fill: white; */
 
   @media (min-width: 600px) {
     fill: hsl(36, 47%, 95%, 0.8);
 
     &.active {
-      opacity: 1;
-      filter: none;
       fill: hsl(36, 47%, 95%);
       stroke: hsl(0, 0%, 0%, 0.5);
       filter: drop-shadow(0 0 20px hsl(36, 47%, 0%, 0.5));
@@ -136,11 +132,16 @@ export const Path = styled.path<{ x: number; y: number }>`
     stroke: hsl(0, 0%, 0%, 0);
     transition: 0.2s;
     &.active {
-      filter: none;
       scale: 1.1;
       translate: ${({ x, y }) => `${x}% ${y}%`};
       opacity: 0.8;
     }
+    
+    &.shrinking {
+      scale: 1.1;
+      translate: ${({ x, y }) => `${x}% ${y}%`};
+      opacity: 0.8;
+  }
 
     &.hidden {
       display: none;
@@ -166,10 +167,11 @@ export const BoroughPopup = styled.div`
   h2 {
     font-size: 2rem;
     font-weight: 500;
+    text-transform: capitalize;
   }
 `;
 
 export const Link = styled(NextLink)`
   color: black;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 `;

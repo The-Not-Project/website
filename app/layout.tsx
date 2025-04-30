@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { Oswald } from 'next/font/google';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { getSession } from '@auth0/nextjs-auth0';
@@ -35,7 +36,10 @@ export default async function RootLayout({
 
       </head>
       <body className={oswald.className}>
-        <UserProvider>{children}</UserProvider>
+        <UserProvider>
+          {children}
+          <Analytics />
+          </UserProvider>
       </body>
     </html>
   );

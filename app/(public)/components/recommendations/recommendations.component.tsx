@@ -31,24 +31,14 @@ export default function Recommendations() {
   return (
     <RecommendationsContainer>
       <BigTitle>Stories we think you&apos;ll like</BigTitle>
-      <SecondaryTitle>Check out our recommended stories below</SecondaryTitle>
+      <SecondaryTitle>Our recommended stories below</SecondaryTitle>
       <RecommendationsList>
-        <div className="row">
-          {recommendations.slice(0, 2).map((recommendation) => (
+          {recommendations.map((recommendation) => (
             <RecommendationCard
               key={recommendation.id}
               recommendation={recommendation}
             />
           ))}
-        </div>
-        <div className="row">
-          {recommendations.slice(2, 4).map((recommendation) => (
-            <RecommendationCard
-              key={recommendation.id}
-              recommendation={recommendation}
-            />
-          ))}
-        </div>
       </RecommendationsList>
     </RecommendationsContainer>
   );

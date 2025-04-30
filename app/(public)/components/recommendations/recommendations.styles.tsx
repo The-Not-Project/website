@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const RecommendationsContainer = styled.section`
   padding: 50px;
+  @media (max-width: 600px) {
+    padding-inline: 0;
+  }
 `;
 
 export const BigTitle = styled.h1`
@@ -9,12 +12,22 @@ export const BigTitle = styled.h1`
   font-size: 2rem;
   margin-bottom: 5px;
   font-weight: 500;
+
+  @media (max-width: 600px) {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
 `;
 
 export const SecondaryTitle = styled.h2`
   text-align: center;
   font-weight: 300;
   color: #222222;
+
+  @media (max-width: 600px) {
+    font-size: 1.5rem;
+    text-wrap: balance;
+  }
 `;
 
 export const RecommendationsList = styled.div`
@@ -26,11 +39,20 @@ export const RecommendationsList = styled.div`
   margin-inline: auto;
   flex-wrap: wrap;
 
-  .row {
-    display: flex;
-    justify-content: center;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
     gap: 30px;
-    flex-wrap: wrap;
+    overflow-x: scroll;
+    max-width: 100vw;
+    flex-wrap: nowrap;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    padding-inline: 50px;
   }
 `;
 
@@ -41,7 +63,12 @@ export const RecommendationCardContainer = styled.figure`
   display: flex;
   flex-flow: column;
 
-  
+
+
+  @media (max-width: 600px) {
+    scroll-snap-align: center;
+    flex: 0 0 100%;
+  }
 
   .content {
     padding: 15px 25px;
@@ -64,19 +91,17 @@ export const RecommendationCardContainer = styled.figure`
       align-items: center;
       margin-top: auto;
 
-      a, p {
+      a,
+      p {
         color: black;
         font-size: 1.1rem;
       }
-      
     }
 
     .categories {
       color: hsl(103, 50%, 20%);
       font-size: 0.9rem;
     }
-
-
   }
 
   h3 {
@@ -107,17 +132,16 @@ export const Image = styled.div<{ $src: string }>`
   }
 
   .date {
-      position: absolute;
-      top: 0;
-      left: 0;
-      translate: 15px 10px;
-      color: white;
-      text-shadow: 0 0 10px black;
-      font-size: 1.2rem;
-      z-index: 2;
-    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    translate: 15px 10px;
+    color: white;
+    text-shadow: 0 0 10px black;
+    font-size: 1.2rem;
+    z-index: 2;
+  }
 `;
-
 
 export const ActionButton = styled.div`
   display: flex;
@@ -126,9 +150,9 @@ export const ActionButton = styled.div`
   padding-inline: 5px;
   overflow: hidden;
   border: 2px solid white;
-  
+
   p {
-    transition: .2s;
+    transition: 0.2s;
     line-height: 1.5rem;
 
     svg {
@@ -140,4 +164,4 @@ export const ActionButton = styled.div`
   &.expanded p {
     translate: 0 -100%;
   }
-`
+`;

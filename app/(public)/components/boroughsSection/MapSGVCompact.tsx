@@ -5,17 +5,22 @@ import { useEffect, useState } from "react";
 type SVGProps = {
   activeBorough: string | undefined;
   onClickAction: (borough: string) => void;
+  shrinkingBorough: string | undefined;
 };
 
-export default function SVG({ activeBorough, onClickAction }: SVGProps) {
+export default function SVG({ activeBorough, onClickAction, shrinkingBorough }: SVGProps) {
   const [transitionReady, setTransitionReady] = useState(false);
+  
 
   useEffect(() => {
-    setTransitionReady(false); // Reset transition state
     requestAnimationFrame(() => {
       setTransitionReady(true);
     });
   }, [activeBorough]);
+
+  function handleClick(borough: string) {
+    onClickAction(borough)
+  }
 
   return (
     <svg
@@ -100,9 +105,10 @@ export default function SVG({ activeBorough, onClickAction }: SVGProps) {
       <Path
         x={-6}
         y={-1}
-        onClick={() => onClickAction("bronx")}
+        onClick={() => onClickAction('bronx')}
         className={clsx({
           active: transitionReady && activeBorough === "bronx",
+          shrinking: shrinkingBorough === "bronx",
           hidden: !!activeBorough && activeBorough !== "bronx",
         })}
         fill="url(#bronxpattern)"
@@ -116,6 +122,7 @@ export default function SVG({ activeBorough, onClickAction }: SVGProps) {
         onClick={() => onClickAction("manhattan")}
         className={clsx({
           active: transitionReady && activeBorough === "manhattan",
+          shrinking: shrinkingBorough === "manhattan",
           hidden: !!activeBorough && activeBorough !== "manhattan",
         })}
         fill="url(#manhattanpattern)"
@@ -128,6 +135,7 @@ export default function SVG({ activeBorough, onClickAction }: SVGProps) {
         onClick={() => onClickAction("queens")}
         className={clsx({
           active: transitionReady && activeBorough === "queens",
+          shrinking: shrinkingBorough === "queens",
           hidden: !!activeBorough && activeBorough !== "queens",
         })}
         fill="url(#queenspattern)"
@@ -141,6 +149,7 @@ export default function SVG({ activeBorough, onClickAction }: SVGProps) {
         onClick={() => onClickAction("brooklyn")}
         className={clsx({
           active: transitionReady && activeBorough === "brooklyn",
+          shrinking: shrinkingBorough === "brooklyn",
           hidden: !!activeBorough && activeBorough !== "brooklyn",
         })}
         fill="url(#brooklynpattern)"
@@ -154,6 +163,7 @@ export default function SVG({ activeBorough, onClickAction }: SVGProps) {
         onClick={() => onClickAction("statenisland")}
         className={clsx({
           active: transitionReady && activeBorough === "statenisland",
+          shrinking: shrinkingBorough === "statenisland",
           hidden: !!activeBorough && activeBorough !== "statenisland",
         })}
         fill="url(#statenislandpattern)"
