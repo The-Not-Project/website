@@ -18,10 +18,6 @@ export default function SVG({ activeBorough, onClickAction, shrinkingBorough }: 
     });
   }, [activeBorough]);
 
-  function handleClick(borough: string) {
-    onClickAction(borough)
-  }
-
   return (
     <svg
       width="780"
