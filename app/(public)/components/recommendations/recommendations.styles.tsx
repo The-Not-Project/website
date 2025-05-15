@@ -63,8 +63,6 @@ export const RecommendationCardContainer = styled.figure`
   display: flex;
   flex-flow: column;
 
-
-
   @media (max-width: 600px) {
     scroll-snap-align: center;
     flex: 0 0 100%;
@@ -83,19 +81,11 @@ export const RecommendationCardContainer = styled.figure`
     &.expanded {
       height: 100%;
     }
-
-    div {
-      margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    a {
+      color: black;
+      font-size: 1.1rem;
+      display: block;
       margin-top: auto;
-
-      a,
-      p {
-        color: black;
-        font-size: 1.1rem;
-      }
     }
 
     .categories {
@@ -140,28 +130,5 @@ export const Image = styled.div<{ $src: string }>`
     text-shadow: 0 0 10px black;
     font-size: 1.2rem;
     z-index: 2;
-  }
-`;
-
-export const ActionButton = styled.div`
-  display: flex;
-  flex-flow: column;
-  height: 2rem;
-  padding-inline: 5px;
-  overflow: hidden;
-  border: 2px solid white;
-
-  p {
-    transition: 0.2s;
-    line-height: 1.5rem;
-
-    svg {
-      font-size: small;
-      margin-right: 4px;
-    }
-  }
-
-  &.expanded p {
-    translate: 0 -100%;
   }
 `;

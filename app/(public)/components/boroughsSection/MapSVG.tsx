@@ -1,4 +1,4 @@
-import { Path } from './boroughs.styles';
+import { DesktopPath as Path } from './boroughs.styles';
 import clsx from 'clsx';
 
 type SVGProps = {
@@ -21,8 +21,6 @@ export default function SVG({
       xmlns='http://www.w3.org/2000/svg'
     >
       <Path
-        x={0}
-        y={0}
         onMouseEnter={() => onMouseEnterAction('bronx')}
         onClick={() => onClickAction('bronx')}
         className={clsx({ active: activeBorough === 'bronx' })}
@@ -30,8 +28,6 @@ export default function SVG({
         stroke='black'
       />
       <Path
-        x={0}
-        y={0}
         onMouseEnter={() => onMouseEnterAction('manhattan')}
         onClick={() => onClickAction('manhattan')}
         className={clsx({ active: activeBorough === 'manhattan' })}
@@ -39,8 +35,6 @@ export default function SVG({
         stroke='black'
       />
       <Path
-        x={0}
-        y={0}
         onMouseEnter={() => onMouseEnterAction('queens')}
         onClick={() => onClickAction('queens')}
         className={clsx({ active: activeBorough === 'queens' })}
@@ -48,8 +42,6 @@ export default function SVG({
         stroke='black'
       />
       <Path
-        x={0}
-        y={0}
         onMouseEnter={() => onMouseEnterAction('brooklyn')}
         onClick={() => onClickAction('brooklyn')}
         className={clsx({ active: activeBorough === 'brooklyn' })}
@@ -57,8 +49,6 @@ export default function SVG({
         stroke='black'
       />
       <Path
-        x={0}
-        y={0}
         onMouseEnter={() => onMouseEnterAction('statenisland')}
         onClick={() => onClickAction('statenisland')}
         className={clsx({ active: activeBorough === 'statenisland' })}

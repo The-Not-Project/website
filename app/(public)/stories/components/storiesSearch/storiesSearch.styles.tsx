@@ -5,15 +5,15 @@ import { FaFilter } from 'react-icons/fa';
 export const StoriesSearchContainer = styled.div`
   margin-top: 30px;
   max-width: 250px;
-  background: #fffdfa;
   z-index: 1;
-
+  
   hr {
     margin: 30px 10px 20px 10px;
     opacity: 0.5;
   }
-
+  
   @media (max-width: 1600px) {
+    background: #fffdfa;
     position: absolute;
     margin-top: 0;
     border-radius: 5px;

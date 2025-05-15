@@ -1,38 +1,58 @@
 import styled from "styled-components";
 import NextLink from "next/link";
 
-export const BoroughsSectionContainer = styled.section`
+type PathElementProps = {
+  x: number;
+  y: number;
+  scale: number;
+  shrinkx: number;
+  shrinky: number;
+  $scatterprogress: number;
+  $scatteroffsetx: number;
+  $scatteroffsety: number;
+  $scatterrotate: number;
+};
+
+export const BoroughsSectionContainer = styled.section<{ $fileName: string }>`
   height: calc(100vh - 80px);
   max-height: 60vw;
   position: relative;
   color: white;
   text-shadow: 0 0 20px hsl(0, 0%, 0%, 0.3);
   overflow: hidden;
+  background: linear-gradient(var(--bg-color), transparent);
 
   @media (max-width: 600px) {
+    /* --faded: ${({ $fileName }) => ($fileName === "nyc" ? 0.5 : 0.3)}; */
     height: max-content;
     max-height: unset;
-    box-sizing: content-box;
-    background: linear-gradient(
-      var(--bg-color),
-      hsl(35, 46%, 95%, 0.3) 20%,
-      hsl(35, 46%, 95%, 0.3) 80%,
-      var(--bg-color)
-    );
-    padding-block: 40px 60px;
+
+    ${({ $fileName }) =>
+      $fileName === "nyc"
+        ? `
+        background: linear-gradient(
+          var(--bg-color),
+          hsl(35, 46%, 95%, 0.5) 20%,
+          hsl(35, 46%, 95%, 0.5) 80%,
+          var(--bg-color)
+        );
+      `
+        : `background: none`}
   }
 
   h1 {
-    font-size: clamp(3rem, 5rem, 4vw);
+    font-size: 10vw;
     position: absolute;
-    font-weight: 500;
-    top: 5%;
-    left: 10%;
+    top: 30px;
+    left: 50%;
+    translate: -50%;
+    width: 100%;
+    text-align: center;
+    z-index: -1;
   }
 
   .description {
     text-align: center;
-
 
     h2 {
       margin-top: 10px;
@@ -50,7 +70,7 @@ export const BoroughsSectionContainer = styled.section`
   }
 `;
 
-export const Background = styled.div<{ $fileName: string }>`
+export const Background = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -58,24 +78,10 @@ export const Background = styled.div<{ $fileName: string }>`
   height: 100%;
   z-index: -1;
 
-  .background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
+  img {
     width: 100%;
     height: 100%;
-    background: ${({ $fileName }) =>
-      `url('/media/boroughBackdrops/${$fileName}.jpg') no-repeat center center/cover`};
-    filter: grayscale(50%);
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(var(--bg-color), transparent);
+    object-fit: cover;
   }
 
   animation: fadepulsatefast 0.66s;
@@ -83,12 +89,6 @@ export const Background = styled.div<{ $fileName: string }>`
   @media (max-width: 600px) {
     z-index: -1;
     animation: none;
-    ${({ $fileName }) =>
-      $fileName !== "nyc" &&
-      `
-      &::after {
-        background: none;
-      }`}
   }
 `;
 
@@ -99,6 +99,7 @@ export const SVGContainer = styled.div`
   left: 50%;
   bottom: 0;
   translate: -50%;
+  z-index: 2;
 
   @media (max-width: 600px) {
     position: unset;
@@ -115,59 +116,80 @@ export const SVGContainer = styled.div`
   }
 `;
 
-export const Path = styled.path<{ x: number; y: number }>`
+export const DesktopPath = styled.path`
   cursor: pointer;
+  fill: hsl(36, 47%, 95%, 0.8);
 
-  @media (min-width: 600px) {
-    fill: hsl(36, 47%, 95%, 0.8);
-
-    &.active {
-      fill: hsl(36, 47%, 95%);
-      stroke: hsl(0, 0%, 0%, 0.5);
-      filter: drop-shadow(0 0 20px hsl(36, 47%, 0%, 0.5));
-    }
+  &.active {
+    fill: hsl(36, 47%, 95%);
+    stroke: hsl(0, 0%, 0%, 0.5);
+    filter: drop-shadow(0 0 20px hsl(36, 47%, 0%, 0.5));
   }
+`;
 
-  @media (max-width: 600px) {
+export const MobilePath = styled.path<PathElementProps>`
     stroke: hsl(0, 0%, 0%, 0);
+    fill: white;
     transition: 0.2s;
-    &.active {
-      scale: 1.1;
-      translate: ${({ x, y }) => `${x}% ${y}%`};
-      opacity: 0.8;
-    }
-    
+    transition-property: scale, translate, fill, stroke;
+
+    &.active,
     &.shrinking {
       scale: 1.1;
       translate: ${({ x, y }) => `${x}% ${y}%`};
-      opacity: 0.8;
-  }
+      fill: hsl(0, 0%, 0%, 0.2);
+      stroke: white;
+      stroke-width: 4px;
+    }
+
+    &.scatter {
+      transform: ${({
+        $scatteroffsetx,
+        $scatteroffsety,
+        $scatterprogress,
+        $scatterrotate,
+      }) =>
+        `translate(${$scatteroffsetx * $scatterprogress}px, ${
+          $scatteroffsety * $scatterprogress
+        }px) rotate(${$scatterrotate * $scatterprogress}deg)`};
+      opacity: ${({ $scatterprogress }) => 1 - $scatterprogress};
+    }
 
     &.hidden {
       display: none;
     }
-  }
 `;
 
 export const BoroughPopup = styled.div`
   position: absolute;
-  background: hsl(35, 46%, 95%, 0.9);
-  text-shadow: none;
-  color: black;
+  top: 0;
+  left: 0;
   width: 100%;
-  border-radius: 3px;
-  text-align: center;
-  padding: 20px;
-  bottom: 0;
-
+  height: 100%;
+  background: linear-gradient(transparent, black);
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: space-between;
-
+  padding: 0 10px 30px 20px;
   h2 {
-    font-size: 2rem;
+    font-size: 14vw;
     font-weight: 500;
-    text-transform: capitalize;
+    text-transform: uppercase;
+    color: white;
+    display: flex;
+    align-items: center;
+
+    .icon {
+      scale: 0.8;
+      translate: 0 2px;
+      display: none;
+    }
+  }
+
+  a {
+    color: white;
+    font-size: 1.8rem;
+    text-decoration: none;
   }
 `;
 
