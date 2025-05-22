@@ -9,11 +9,11 @@ export async function createAccessToken(): Promise<string> {
             grant_type: "client_credentials",
             client_id: process.env.AUTH0_CLIENT_ID!,
             client_secret: process.env.AUTH0_CLIENT_SECRET!,
-            audience: `${process.env.AUTH0_ISSUER_BASE_URL}/api/v2/`,
+            audience: `${process.env.AUTH0_MANAGEMENT_API_DOMAIN}/api/v2/`,
         });
 
         const response = await fetch(
-            `${process.env.AUTH0_ISSUER_BASE_URL}/oauth/token`,
+            `${process.env.AUTH0_MANAGEMENT_API_DOMAIN}/oauth/token`,
             {
                 method: 'POST',
                 headers: {
