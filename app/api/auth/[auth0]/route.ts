@@ -4,13 +4,13 @@ export const GET = handleAuth({
   login: handleLogin({
     returnTo: "/",
     authorizationParams: {
-      audience: "http://localhost:3000/",
+      audience: process.env.AUTH0_BASE_URL,
     }
   }),
   signup: handleLogin({
     authorizationParams: {
       screen_hint: "signup",
-      audience: "http://localhost:3000/",
+      audience: process.env.AUTH0_BASE_URL,
     },
     returnTo: "/",
   }),
