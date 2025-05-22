@@ -3,11 +3,12 @@ import NavBar from './components/navbar/navbar.component';
 import Footer from './components/footer/footer.component';
 import { getSession } from '@auth0/nextjs-auth0';
 import { isUserAdmin } from '../auth-actions/isUserAdmin';
-import { getUser } from '../database/repositories/user.repository';
+import { getUser, UpdateUser } from '../database/repositories/user.repository';
 import { getCategories } from '../database/repositories/category.repository';
 import { getStories, getStory } from '../database/repositories/story.repository.';
 import { getRecommendations } from '../database/repositories/recommendation.repository';
 import { getRadarStory } from '../database/repositories/radar.repository';
+import { createStorySave, deleteStorySave, getSavedStories, isStorySaved } from '../database/repositories/storySaves.repository';
 
 export default async function PublicLayout({
   children,
@@ -24,11 +25,16 @@ export default async function PublicLayout({
 
   const groupedActions = {
     getUser,
+    UpdateUser,
     getStories,
     getStory,
     getRadarStory,
     getRecommendations,
     getCategories,
+    getSavedStories,
+    createStorySave,
+    deleteStorySave,
+    isStorySaved,
   };
 
   return (

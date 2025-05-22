@@ -19,6 +19,7 @@ model User {
   lastName  String
   email     String  @unique
   stories   Story[]
+  saves     Save[]
 
   @@map("user")
 }
@@ -37,6 +38,7 @@ model Story {
   updatedAt      DateTime        @updatedAt
   Recommendation Recommendation?
   Radar Radar?
+  saves          Save[]
 
   @@map("story")
 }
@@ -82,4 +84,17 @@ model Radar {
   story   Story  @relation(fields: [storyId], references: [id], onDelete: Cascade)
 
   @@map("radar")
+}
+
+model Save {
+  id        String  @id @default(uuid())
+  userId    String
+  storyId   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  story    Story  @relation(fields: [storyId], references: [id], onDelete: Cascade)
+
+  @@map("save")
 }

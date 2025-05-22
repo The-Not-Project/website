@@ -64,3 +64,9 @@ export type RawMedia = {
   storyId: string;
   isThumbnail: boolean;
 }
+export type StorySave = {
+  id: string;
+  storyId: string;
+  userId: string;
+  createdAt: Date;
+}

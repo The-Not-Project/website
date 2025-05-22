@@ -38,6 +38,7 @@ export const StoryContainer = styled.div`
 export const CategoriesContainer = styled.div`
   display: flex;
   gap: 5px;
+  position: relative;
   
   .divider {
     scale: 0.7;
@@ -48,3 +49,25 @@ export const CategoriesContainer = styled.div`
     text-decoration: underline;
   }
 `;
+
+export const SaveButton = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+
+  span {
+    text-decoration: none;
+    font-size: 1rem;
+    margin-right: 5px;
+    opacity: 0;
+    transition: .1s;  
+    pointer-events: none;
+    &.visible {
+      opacity: 1;
+    }
+  }
+`

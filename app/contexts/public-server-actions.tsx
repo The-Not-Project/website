@@ -5,11 +5,17 @@ import { Story, Filters, User, Category } from '@/app/types/types';
 
 type PublicServerActions = {
   getUser: (id: string) => Promise<User | null>;
+  UpdateUser: (data: FormData, user: User) => Promise<void>;
   getStories: (filters?: Filters, compression?: number) => Promise<Story[]>;
   getStory: (id: string, compression?: number) => Promise<Story>
   getRadarStory : (compression?: number) => Promise<Story | null>;
   getRecommendations: (compression?: number) => Promise<Story[]>;
   getCategories: () => Promise<Category[]>;
+  getSavedStories: (userId: string) => Promise<Story[]>;
+  createStorySave: (storyId: string, userId: string) => Promise<void>;
+  deleteStorySave: (storyId: string, userId: string) => Promise<void>;
+  isStorySaved: (storyId: string, userId: string) => Promise<boolean>;
+
 };
 
 const PublicServerActionsContext = createContext<PublicServerActions | null>(null);
