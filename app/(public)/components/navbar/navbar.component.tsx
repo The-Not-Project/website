@@ -104,7 +104,7 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
               ADMIN
             </Link>
           ) : (
-            <Link href="/profile" className={solidClass}>
+            <Link href="/profile" className={solidClass} onClick={() => setIsMenuOpen(false)}>
               ME
             </Link>
           ))}

@@ -42,7 +42,7 @@ export default function FooterComponent() {
               <Link href="/contact">Contact Us</Link>
             </li>
             <li>
-              <Link href="/collaborations">Collaborations</Link>
+              <Link href="/contact">Collaborations</Link>
             </li>
             <li>
               <Link href="/faq">FAQ</Link>

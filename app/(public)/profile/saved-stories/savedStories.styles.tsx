@@ -12,12 +12,17 @@ export const StoryContainer = styled.div`
   gap: 15px;
   height: 120px;
 
+  @media (max-width: 850px) {
+    height: 90px;
+  }
+
   img {
     object-fit: cover;
     width: 40%;
     min-width: 40%;
     height: 100%;
     border-radius: 3px;
+
   }
 `;
 

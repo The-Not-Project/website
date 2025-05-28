@@ -40,6 +40,10 @@ export const FormLabel = styled.label`
   font-size: 1.2rem;
   margin-bottom: 5px;
   padding-left: 2px;
+
+    @media (max-width: 850px) {
+   font-size: 1rem;
+  } 
 `;
 
 export const FormButton = styled.button`
@@ -65,4 +69,8 @@ export const ButtonsContainer = styled.div`
   gap: 10px;
   margin-top: 20px;
   margin-left: auto;
+
+  @media (max-width: 850px) {
+    margin-top: 5px;
+  } 
 `;

@@ -37,7 +37,7 @@ export default function SVG({
       xmlns="http://www.w3.org/2000/svg"
       ref={ref}
     >
-      <defs>
+      {/* <defs>
         <pattern
           id="bronxpattern"
           patternUnits="userSpaceOnUse"
@@ -108,7 +108,7 @@ export default function SVG({
             height="800"
           />
         </pattern>
-      </defs>
+      </defs> */}
       <Path
         x={-6}
         y={-3}

@@ -9,6 +9,10 @@ export const StoryContainer = styled.div`
   @media (max-width: 850px) {
     width: 100%;
     padding: 10px 20px 20px;
+
+    .title {
+      margin-top: 10px;
+    }
   }
 
   .title {
@@ -69,5 +73,11 @@ export const SaveButton = styled.div`
     &.visible {
       opacity: 1;
     }
+  }
+
+  @media (max-width: 850px) {
+    font-size: 1.1rem;
+    top: 5px;
+    right: 0;
   }
 `

@@ -52,7 +52,7 @@ export const getSavedStories = async (userId: string): Promise<Story[]> => {
     include: STORY_INCLUDE,
   });
 
-  return processStories(stories)
+  return processStories(stories, 250)
 };
 
 export const deleteStorySave = async (
