@@ -182,7 +182,7 @@ export const BoroughPopup = styled.div`
     .icon {
       scale: 0.8;
       translate: 0 2px;
-      display: none;
+      /* display: none; */
     }
   }
 

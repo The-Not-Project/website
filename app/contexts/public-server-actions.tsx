@@ -15,7 +15,7 @@ type PublicServerActions = {
   createStorySave: (storyId: string, userId: string) => Promise<void>;
   deleteStorySave: (storyId: string, userId: string) => Promise<void>;
   isStorySaved: (storyId: string, userId: string) => Promise<boolean>;
-
+  createSubscriber: (email: string) => Promise<string>;
 };
 
 const PublicServerActionsContext = createContext<PublicServerActions | null>(null);

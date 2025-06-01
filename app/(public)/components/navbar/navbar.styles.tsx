@@ -1,14 +1,18 @@
-import NextLink from 'next/link';
-import styled from 'styled-components';
+import styled from "styled-components";
+import NextLink from "next/link";
+import { FaRegCircleUser } from "react-icons/fa6";
 
 export const NavBarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-inline: 40px;
-  height: 80px;
+  height: 70px;
   border-bottom: 2px solid var(--bg-color);
-  transition: background 0.3s, color 0.3s, border-color 0.3s,
+  transition:
+    background 0.3s,
+    color 0.3s,
+    border-color 0.3s,
     translate 0.18s ease-in;
   background: var(--bg-color);
   color: black;
@@ -82,8 +86,6 @@ export const Link = styled(NextLink)`
   display: inline-flex;
   align-items: center;
 
-  
-
   &.solid {
     color: white;
   }
@@ -96,6 +98,12 @@ export const AuthLink = styled.a`
 
   &.solid {
     color: white;
+  }
+
+  @media (max-width: 850px) {
+    &.bottom {
+      margin-top: auto;
+    }
   }
 `;
 
@@ -111,7 +119,12 @@ export const MenuIcon = styled.div`
 `;
 
 export const Menu = styled.div`
+  display: flex;
+  align-items: center;
+  height: 100%;
+
   @media (max-width: 850px) {
+    align-items: flex-start;
     position: fixed;
     top: 0;
     right: -80%;
@@ -120,13 +133,14 @@ export const Menu = styled.div`
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background: url('/media/experimental-sidebar-backdrop.jpg') no-repeat center center/cover;
+    background: url("/media/experimental-sidebar-backdrop.jpg") no-repeat center
+      center/cover;
     backdrop-filter: blur(15px);
-    padding: 100px 20px;
+    padding: 100px 20px 30px 20px;
     font-size: 2rem;
-    
+
     &::before {
-      content: '';
+      content: "";
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(20px) saturate(0.3);
       position: absolute;
@@ -156,5 +170,76 @@ export const Menu = styled.div`
       font-size: 1.6rem;
       color: #eaeaea;
     }
+  }
+`;
+
+export const Dropdown = styled.div`
+  position: absolute;
+  bottom: 15px;
+  right: 20px;
+  translate: 0 100%;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  color: black;
+  border-radius: 10px;
+  overflow: hidden;
+  padding-bottom: 5px;
+  transition: 0.2s;
+  transition-property: opacity, translate, rotate;
+
+  @media (max-width: 850px) {
+    position: unset;
+    margin-top: auto;
+    background: none;
+    flex-direction: row;
+    translate: 0;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+    color: white;
+  }
+
+  &.closed {
+    opacity: 0;
+    rotate: x 90deg;
+    translate: 0 60%;
+    pointer-events: none;
+  }
+
+  p {
+    color: #ccc;
+    padding: 10px 20px 5px 10px;
+    margin-inline: 10px;
+    border-bottom: #ccc solid 1px;
+  }
+
+  a {
+    margin: 0;
+    padding: 5px 20px;
+
+    &:hover {
+      background: #f0f0f0;
+    }
+  }
+`;
+
+export const ProfileDropdown = styled.div`
+  height: 100%;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 850px) {
+    width: 100%;
+  }
+`;
+
+export const ProfileIcon = styled(FaRegCircleUser)`
+  scale: 1.3;
+  margin-left: 10px;
+
+  @media (max-width: 850px) {
+    margin-left: 15px;
   }
 `;

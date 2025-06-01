@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import useHeaderScroll from "@/app/hooks/useHeaderScroll";
@@ -10,8 +10,12 @@ import {
   Link,
   MenuIcon,
   Menu,
+  Dropdown,
+  ProfileIcon,
+  ProfileDropdown,
 } from "./navbar.styles";
 import { FaBars, FaXmark } from "react-icons/fa6";
+import clsx from "clsx";
 
 type NavBarProps = {
   isAdmin: boolean;
@@ -28,6 +32,8 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
 
   const isMenuOpen = useStore((state) => state.mobileLayout.isMenuOpen);
   const setIsMenuOpen = useStore((state) => state.mobileLayout.setIsMenuOpen);
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,8 +52,8 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const navContainerClass = isBgSolid
     ? "solid isSpecialPage"
     : isSpecialPage
-    ? "isSpecialPage"
-    : undefined;
+      ? "isSpecialPage"
+      : undefined;
   const solidClass = isBgSolid ? "solid" : undefined;
 
   return (
@@ -98,16 +104,6 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
           </>
         )}
 
-        {authenticated &&
-          (isAdmin ? (
-            <Link href="/admin" className={solidClass}>
-              ADMIN
-            </Link>
-          ) : (
-            <Link href="/profile" className={solidClass} onClick={() => setIsMenuOpen(false)}>
-              ME
-            </Link>
-          ))}
         <Link
           href="/stories"
           className={solidClass}
@@ -122,12 +118,44 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
         >
           ABOUT US
         </Link>
-        <AuthLink
-          href={`/api/auth/${authenticated ? "logout" : "login"}`}
-          className={solidClass}
-        >
-          {authenticated ? "LOG OUT" : "SIGN IN"}
-        </AuthLink>
+
+        {authenticated ? (
+          <ProfileDropdown
+            onMouseEnter={() => setIsDropdownOpen(true)}
+            onMouseLeave={() => setIsDropdownOpen(false)}
+          >
+            {!isMobile ? (
+              <>
+                <ProfileIcon />
+                <Dropdown className={clsx({ closed: !isDropdownOpen })}>
+                  <p>MY ACCOUNT</p>
+                  {isAdmin ? (
+                    <Link href="/admin">ADMIN</Link>
+                  ) : (
+                    <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
+                      PROFILE
+                    </Link>
+                  )}
+                  <AuthLink href="/api/auth/logout">LOG OUT</AuthLink>
+                </Dropdown>
+              </>
+            ) : (
+              <Dropdown>
+                <ProfileIcon />
+                <AuthLink
+                  href="/api/auth/logout"
+                  className={clsx(solidClass, "mobile")}
+                >
+                  LOG OUT
+                </AuthLink>
+              </Dropdown>
+            )}
+          </ProfileDropdown>
+        ) : (
+          <AuthLink href="/api/auth/login" className={`${solidClass} bottom`}>
+            SIGN IN
+          </AuthLink>
+        )}
 
         {/* <DonateButton
           className={solidClass}

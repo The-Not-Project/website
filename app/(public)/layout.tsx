@@ -9,6 +9,7 @@ import { getStories, getStory } from '../database/repositories/story.repository.
 import { getRecommendations } from '../database/repositories/recommendation.repository';
 import { getRadarStory } from '../database/repositories/radar.repository';
 import { createStorySave, deleteStorySave, getSavedStories, isStorySaved } from '../database/repositories/storySaves.repository';
+import { createSubscriber } from '../database/repositories/subscriber.repository';
 
 export default async function PublicLayout({
   children,
@@ -35,6 +36,7 @@ export default async function PublicLayout({
     createStorySave,
     deleteStorySave,
     isStorySaved,
+    createSubscriber
   };
 
   return (

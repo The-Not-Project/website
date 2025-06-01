@@ -100,7 +100,7 @@ export default function Boroughs() {
         <>
           {fileName != 'nyc' ? (
             <BoroughPopup onClick={() => handleClick(activeBorough ?? '')}>
-               <h2>{visibleName} <IoChevronForwardSharp className="icon" /></h2>
+               <h2 onClick={() => router.push(`stories/${activeBorough}`)}>{visibleName} <IoChevronForwardSharp className="icon" /></h2>
               {/* <Link href={`stories/${activeBorough}`}>See stories</Link> */}
               {/* <button onClick={() => handleClick(activeBorough ?? '')}>collapse</button> */}
             </BoroughPopup>

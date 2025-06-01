@@ -23,7 +23,7 @@ Email: ${email?.trim() ? email : "not provided"}
   try {
     await resend.emails.send({
       from: "The Not Project <contact@thenotproject.com>",
-      to: ["tariq@thenotproject.com", "lorenzo@thenotproject.com", "elghayate02@gmail.com"],
+      to: ["tariq@thenotproject.com", "lorenzo@thenotproject.com", "elghayate02@gmail.com", "sebastian.torres.codes@gmail.com"],
       subject: type === "collab" ? "New Collaboration Request" : "New Message from The Not Project",
       text: formatted,
     });
