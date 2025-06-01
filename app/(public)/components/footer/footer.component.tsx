@@ -38,7 +38,7 @@ export default function FooterComponent() {
     event.preventDefault();
     const form = event.target as HTMLFormElement & SignUpFormFields;
     const email: string = form.email.value;
-    // const phone: string = form.phone.value;
+    const phone: string = form.phone.value;
 
     if (!email) {
       Swal.fire({
@@ -54,7 +54,7 @@ export default function FooterComponent() {
       return;
     }
 
-    const response = await createSubscriber(email);
+    const response = await createSubscriber(email, phone ?? null);
 
     if (response === "Email already subscribed") {
       Swal.fire({

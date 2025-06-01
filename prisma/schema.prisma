@@ -102,6 +102,7 @@ model Save {
 model Subscribers {
   id        String  @id @default(uuid())
   email     String  @unique
+  phone     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
