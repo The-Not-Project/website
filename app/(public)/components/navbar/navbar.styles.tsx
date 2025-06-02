@@ -9,10 +9,7 @@ export const NavBarContainer = styled.nav`
   padding-inline: 40px;
   height: 70px;
   border-bottom: 2px solid var(--bg-color);
-  transition:
-    background 0.3s,
-    color 0.3s,
-    border-color 0.3s,
+  transition: background 0.3s, color 0.3s, border-color 0.3s,
     translate 0.18s ease-in;
   background: var(--bg-color);
   color: black;
@@ -135,11 +132,14 @@ export const Menu = styled.div`
     gap: 20px;
     background: url("/media/experimental-sidebar-backdrop.jpg") no-repeat center
       center/cover;
+    background: url("/media/experimental-sidebar-backdrop.jpg") no-repeat center
+      center/cover;
     backdrop-filter: blur(15px);
     padding: 100px 20px 30px 20px;
     font-size: 2rem;
 
     &::before {
+      content: "";
       content: "";
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(20px) saturate(0.3);

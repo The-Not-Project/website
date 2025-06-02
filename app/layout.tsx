@@ -6,7 +6,7 @@ import { getSession } from '@auth0/nextjs-auth0';
 import { createUser, getUser } from './database/repositories/user.repository';
 import './globals.css';
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'The Not Project',
   description: 'Unbridled Stories, Untamed Voices. Human-centered stories from NYC: blogs, interviews, films, and more.',
   keywords: ['The Not Project', 'NYC storytelling', 'independent journalism', 'community voices', 'documentary', 'true stories'],

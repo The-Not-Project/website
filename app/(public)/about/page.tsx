@@ -13,13 +13,13 @@ import {
   WhatWeDoDifferentContent,
   WhatWeDoDifferentImage,
   WhoIsItForContainer,
-  VisionContainer,
-  OurTeamContainer,
-  DonationContainer,
-  TeamMember,
-  TeamMemberImage,
-  TeamMemberName,
-  TeamMemberRole,
+  // VisionContainer,
+  // OurTeamContainer,
+  // DonationContainer,
+  // TeamMember,
+  // TeamMemberImage,
+  // TeamMemberName,
+  // TeamMemberRole,
 } from "./styles";
 import { useStore } from "@/app/zustand/store";
 import clsx from "clsx";
@@ -40,7 +40,6 @@ export default function About() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-
 
   return (
     <div className={clsx("page-wrapper", { shifted: isMenuOpen })}>
@@ -112,6 +111,7 @@ export default function About() {
           do here.  We see you. We hear you. We’re with you. 
         </p>
       </WhoIsItForContainer>
+
       {/* <VisionContainer>
         <h1>OUR VISION</h1>
         <p>
