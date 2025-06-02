@@ -6,9 +6,37 @@ import { getSession } from '@auth0/nextjs-auth0';
 import { createUser, getUser } from './database/repositories/user.repository';
 import './globals.css';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'The Not Project',
+  description: 'Unbridled Stories, Untamed Voices. Human-centered stories from NYC: blogs, interviews, films, and more.',
+  keywords: ['The Not Project', 'NYC storytelling', 'independent journalism', 'community voices', 'documentary', 'true stories'],
+  authors: [{ name: 'Tariq El Ghayate' }],
+  creator: 'The Not Project',
+  metadataBase: new URL('https://www.thenotproject.com'),
+  openGraph: {
+    title: 'The Not Project',
+    description: 'Explore meaningful stories from New York City, told without constraint or commercial pressure.',
+    url: 'https://www.thenotproject.com',
+    siteName: 'The Not Project',
+    images: [
+      {
+        url: '/media/LoAndDavid.png',
+        width: 1200,
+        height: 630,
+        alt: 'The Not Project Cover Image',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The Not Project',
+    description: 'NYC stories with soul. Told raw and unfiltered.',
+    images: ['/media/LoAndDavid.png'],
+  },
 };
+
 
 const oswald = Oswald({ weight: '400', subsets: ['latin'] });
 
@@ -33,7 +61,6 @@ export default async function RootLayout({
     <html lang='en'>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-
       </head>
       <body className={oswald.className}>
         <UserProvider>
