@@ -25,7 +25,7 @@ type NavBarProps = {
 export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
   const pathname = usePathname();
   const { transparency } = useHeaderScroll();
-  const isSpecialPage = pathname === "/" || pathname.startsWith("/stories");
+  const isSpecialPage = pathname === "/" || pathname.startsWith("/stories") || pathname === "/about";
   const isBgSolid = isSpecialPage && transparency;
   const isMobile = useStore((state) => state.mobileLayout.isMobile);
   const router = useRouter();
