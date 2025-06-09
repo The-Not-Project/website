@@ -1,15 +1,13 @@
-'use server'
+"use server";
 
-import { getUsersRoles } from "./getUserRoles"
+import { getUsersRoles } from "./getUserRoles";
 
-export async function isUserAdmin(): Promise<boolean> {
-
-    try {
-        const roles = await getUsersRoles()
-        return roles.some(role => role.name === 'admin')
-    } catch  (error) {
-        console.error('Error checking admin status', error)
-        
-        return false
-    }
+export async function isUserAdmin(id: string): Promise<boolean> {
+  try {
+    const roles = await getUsersRoles(id);
+    return roles.some((role) => role.name === "admin");
+  } catch (error) {
+    console.error("Error checking admin status", error);
+    return false;
+  }
 }

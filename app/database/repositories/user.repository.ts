@@ -1,11 +1,8 @@
 import { User } from "../../types/types";
 import { prisma } from "../prisma";
 
-export async function createUser(FormData: FormData) {
+export async function createUser({id, email}: {id: string, email: string}) {
   'use server';
-
-  const id = FormData.get('id')?.toString();
-  const email = FormData.get('email')?.toString();
 
   if (!id || !email) {
     return;

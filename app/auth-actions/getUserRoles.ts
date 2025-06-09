@@ -1,6 +1,5 @@
 'use server'
 
-import { getSession } from '@auth0/nextjs-auth0';
 import { createAccessToken } from './createAccessToken';
 type Role = {
   id: string;
@@ -8,20 +7,12 @@ type Role = {
   description: string;
 };
 
-export async function getUsersRoles(): Promise<Role[]> {
-  const session = await getSession();
-  const user = session?.user;
-
-  if (!user) {
-    throw new Error('User not authenticated');
-  }
+export async function getUsersRoles(id: string): Promise<Role[]> {
 
   const token = await createAccessToken();
 
-  
-
   const response = await fetch(
-    `${process.env.AUTH0_ISSUER_BASE_URL}/api/v2/users/${user.sub}/roles`,
+    `${process.env.AUTH0_ISSUER_BASE_URL}/api/v2/users/${id}/roles`,
     {
       method: 'GET',
       headers: {

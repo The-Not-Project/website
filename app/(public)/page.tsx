@@ -10,6 +10,7 @@ import Recommendations from './components/recommendations/recommendations.compon
 import LoadingPage from './components/loadingPage/loadingPage.component';
 
 export default function PublicPage() {
+
   const [isLoading, setIsLoading] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
 
@@ -18,6 +19,9 @@ export default function PublicPage() {
 
 
   useEffect(() => {
+
+
+
     const handleResize = () => setIsMobile(window.innerWidth <= 850);
     
     handleResize();

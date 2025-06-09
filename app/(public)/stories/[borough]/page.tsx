@@ -1,24 +1,63 @@
-// stories/[borough]/page.tsx
-"use client";
-import { useParams } from "next/navigation";
+import seoKeywords from "@/app/constants/seoKeywords";
 import StoriesPageComponent from "../components/StoriesPage/storiesPage.component";
-import { useStore } from "@/app/zustand/store";
-import { useEffect } from "react";
+// import StoriesPageComponent from "../components/StoriesPage/storiesPage.component";
 
-export default function StoriesPage() {
-  const { borough } = useParams() as { borough: string };
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ borough: string }>;
+}) {
+  const { borough } = await params;
 
-  const setIsMobile = useStore((state) => state.mobileLayout.setIsMobile);
+  const formatBoroughName = (slug: string) => {
+    switch (slug) {
+      case "bronx":
+        return "The Bronx";
+      case "statenisland":
+        return "Staten Island";
+      default:
+        return slug;
+    }
+  };
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 600);
+  const properBorough = formatBoroughName(borough);
+  const title = `${properBorough} Stories | The Not Project`;
+  const description = `Explore stories from ${properBorough} on The Not Project.`;
+  const url = `https://www.thenotproject.com/stories/${borough}`;
+  const image = `/media/boroughBackdrops/${borough}.png`;
 
-    handleResize();
-    window.addEventListener("resize", handleResize);
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      type: "website",
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: `Stories from ${properBorough}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [image],
+    },
+    keywords: [...seoKeywords.stories, properBorough],
+  };
+}
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ borough: string }>;
+}) {
+  const { borough } = await params;
   return <StoriesPageComponent boroughParam={borough} />;
 }

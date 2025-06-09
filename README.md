@@ -11,8 +11,8 @@ This repository contains the complete source code for the web platform. It is bu
 ## ✍️ Founders
 
 - **Lorenzo Gonzalez** — Creator of the concept and lead content producer  
-- **Tariq El Ghayate** — Developer of the platform
-- **Sebastian Torres** — Co-founder and secondary developer, involved throughout ideation and execution
+- **Tariq El Ghayate** — Lead developer of the platform
+- **Sebastian Torres** — Creative Producer & Co-Developer
 
 ---
 

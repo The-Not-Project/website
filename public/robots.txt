@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /admin
+
+# Host
+Host: https://www.thenotproject.com
+
+# Sitemaps
+Sitemap: https://www.thenotproject.com/sitemap.xml

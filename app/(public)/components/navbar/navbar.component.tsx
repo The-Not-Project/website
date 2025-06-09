@@ -16,26 +16,50 @@ import {
 } from "./navbar.styles";
 import { FaBars, FaXmark } from "react-icons/fa6";
 import clsx from "clsx";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
-type NavBarProps = {
-  isAdmin: boolean;
-  authenticated: boolean;
-};
 
-export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
-  const pathname = usePathname();
-  const { transparency } = useHeaderScroll();
-  const isSpecialPage = pathname === "/" || pathname.startsWith("/stories") || pathname === "/about";
-  const isBgSolid = isSpecialPage && transparency;
-  const isMobile = useStore((state) => state.mobileLayout.isMobile);
+export default function NavBar() {
+
+  const { user, isLoading } = useUser();
+
+  const [authenticated, setAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const router = useRouter();
+  const pathname = usePathname();
 
+  const { transparency } = useHeaderScroll();
+  const isSpecialPage =
+    pathname === "/" ||
+    pathname.startsWith("/stories") ||
+    pathname === "/about";
+  const isBgSolid = isSpecialPage && transparency;
+  
+  const isMobile = useStore((state) => state.mobileLayout.isMobile);
   const isMenuOpen = useStore((state) => state.mobileLayout.isMenuOpen);
   const setIsMenuOpen = useStore((state) => state.mobileLayout.setIsMenuOpen);
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
+    if (isLoading) return
+    
+    if (user) {
+      setAuthenticated(true);
+      fetch("/api/auth/is-admin", {
+        method: "POST",
+        body: JSON.stringify({ userId: user.sub }),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((data) => setIsAdmin(data.isAdmin))
+        .catch(() => setIsAdmin(false));
+    } else {
+      setAuthenticated(false);
+      setIsAdmin(false);
+    }
+
     const handleScroll = () => {
       if (window.scrollY > 0) {
         setIsMenuOpen(false);
@@ -47,7 +71,7 @@ export default function NavBar({ isAdmin, authenticated }: NavBarProps) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [user, isLoading]);
 
   const navContainerClass = isBgSolid
     ? "solid isSpecialPage"

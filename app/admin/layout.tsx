@@ -1,7 +1,4 @@
 import { AdminServerActionsProvider } from '@/app/contexts/admin-server-actions';
-import { getSession } from '@auth0/nextjs-auth0';
-import { isUserAdmin } from '../auth-actions/isUserAdmin';
-import { redirect } from 'next/navigation';
 import NavBar from './components/navbar/navbar.component';
 import { AdminContainer } from './components/shared/layout.styles';
 import Back from './components/backButton/backButton.component';
@@ -17,7 +14,7 @@ import {
   deleteStory,
   editStory,
   getStories,
-} from '../database/repositories/story.repository.';
+} from '../database/repositories/story.repository';
 import {
   addRecommendation,
   getRecommendations,
@@ -34,12 +31,6 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getSession();
-  const isAdmin = await isUserAdmin();
-
-  if (!isAdmin || !session?.user) {
-    redirect('/');
-  }
 
   const groupedActions = {
     getUser,

@@ -13,6 +13,7 @@ export const NavBarContainer = styled.nav`
     translate 0.18s ease-in;
   background: var(--bg-color);
   color: black;
+  position: relative;
 
   @media (max-width: 850px) {
     padding-inline: 20px;

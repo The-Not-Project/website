@@ -37,6 +37,16 @@ export default function StoriesPageComponent({
   const [filters, setFilters] = useState<Filters>(defaultFilters);
   const [showLoader, setShowLoader] = useState(true);
   const isMenuOpen = useStore((state) => state.mobileLayout.isMenuOpen);
+  const setIsMobile = useStore(state => state.mobileLayout.setIsMobile);
+
+    useEffect(() => {
+      const handleResize = () => setIsMobile(window.innerWidth <= 850);
+      
+      handleResize();
+      window.addEventListener('resize', handleResize);
+  
+      return () => window.removeEventListener('resize', handleResize)
+    }, []);
 
   const fetchStories = useCallback(
     async (appliedFilters: Filters = defaultFilters) => {
