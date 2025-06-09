@@ -30,6 +30,7 @@ export default function ProfilePage() {
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isLoading]);
 
   if (isLoading || !user || !user.sub) return null;

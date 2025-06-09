@@ -3,7 +3,7 @@ import Link from "next/link";
 import clsx from "clsx";
 import { useStore } from "@/app/zustand/store";
 import { Story } from "@/app/types/types";
-import { Image, RecommendationCardContainer } from "./recommendations.styles";
+import { ImageDiv, RecommendationCardContainer } from "./recommendations.styles";
 
 export default function RecommendationCard({
   recommendation,
@@ -53,15 +53,17 @@ export default function RecommendationCard({
     [recommendation.createdAt]
   );
 
+  const thumbnail = recommendation.media.find((media) => media.isThumbnail)?.url || "";
+
   return (
     <RecommendationCardContainer
       ref={cardRef}
       onMouseEnter={() => !isMobile && setExpanded(true)}
       onMouseLeave={() => !isMobile && setExpanded(false)}
     >
-      <Image $src={recommendation.media[0].url} className={clsx({ expanded })}>
+      <ImageDiv $src={thumbnail} className={clsx({ expanded })}>
         <span className="date">{formattedDate}</span>
-      </Image>
+      </ImageDiv>
       <div className={clsx("content", { expanded })}>
         <p className="categories">
           {recommendation.categories.map((category, index) => (

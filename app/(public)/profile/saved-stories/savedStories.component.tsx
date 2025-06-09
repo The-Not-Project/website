@@ -5,46 +5,39 @@ import { useEffect, useState } from "react";
 import { Story } from "@/app/types/types";
 import SavedStory from "./savedStory.component";
 
-export default function SavedStories({userId}: { userId: string }) {
+export default function SavedStories({ userId }: { userId: string }) {
+  const { getSavedStories } = usePublicServerActions();
 
-    const { getSavedStories } = usePublicServerActions();
+  const [savedStories, setSavedStories] = useState<Story[] | null>([]);
 
-    const [savedStories, setSavedStories] = useState<Story[] | null>([]);
-
+  useEffect(() => {
     const fetchSavedStories = async () => {
-        try {
-            const stories = await getSavedStories(userId);
-            setSavedStories(stories);
-        } catch (error) {
-            console.error("Failed to fetch saved stories:", error);
-        }
+      try {
+        const stories = await getSavedStories(userId);
+        setSavedStories(stories);
+      } catch (error) {
+        console.error("Failed to fetch saved stories:", error);
+      }
     };
+    fetchSavedStories();
+  }, [userId, getSavedStories]);
 
-    useEffect(() => {
-        fetchSavedStories();
-    }, [userId]);
-
-
-
-
-    return (
-        <PageSection>
-
-        <SectionDescription>
+  return (
+    <PageSection>
+      <SectionDescription>
         <h2>Saved Stories</h2>
         <p>Here you can find all the stories you have saved.</p>
-        </SectionDescription>
+      </SectionDescription>
 
-        <StoriesContainer>
-
-            {savedStories && savedStories.length > 0 ? (
-                savedStories.map((story) => (
-                    <SavedStory key={story.id} story={story} />
-                ))
-            ) : (
-                <p>You have no saved stories.</p>
-            )}
-        </StoriesContainer>
-        </PageSection>
-    );
+      <StoriesContainer>
+        {savedStories && savedStories.length > 0 ? (
+          savedStories.map((story) => (
+            <SavedStory key={story.id} story={story} />
+          ))
+        ) : (
+          <p>You have no saved stories.</p>
+        )}
+      </StoriesContainer>
+    </PageSection>
+  );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePublicServerActions } from "@/app/contexts/public-server-actions";
 import { Filters, Story } from "@/app/types/types";
 import StoriesList from "../storiesList/storiesList.component";
@@ -25,11 +25,14 @@ export default function StoriesPageComponent({
       ]
     : BoroughSummaries.nyc;
 
-  const defaultFilters: Filters = {
-    search: "",
-    boroughs: boroughParam ? [boroughParam.toLowerCase()] : [],
-    categories: [],
-  };
+  const defaultFilters = useMemo<Filters>(
+    () => ({
+      search: "",
+      boroughs: boroughParam ? [boroughParam.toLowerCase()] : [],
+      categories: [],
+    }),
+    [boroughParam]
+  );
 
   const { getStories } = usePublicServerActions();
   const [loading, setLoading] = useState(true);
@@ -37,17 +40,24 @@ export default function StoriesPageComponent({
   const [filters, setFilters] = useState<Filters>(defaultFilters);
   const [showLoader, setShowLoader] = useState(true);
   const isMenuOpen = useStore((state) => state.mobileLayout.isMenuOpen);
-  const setIsMobile = useStore(state => state.mobileLayout.setIsMobile);
+  const setIsMobile = useStore((state) => state.mobileLayout.setIsMobile);
 
-    useEffect(() => {
-      const handleResize = () => setIsMobile(window.innerWidth <= 850);
-      
-      handleResize();
-      window.addEventListener('resize', handleResize);
-  
-      return () => window.removeEventListener('resize', handleResize)
-    }, []);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 850);
 
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      const timer = setTimeout(() => setShowLoader(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
   const fetchStories = useCallback(
     async (appliedFilters: Filters = defaultFilters) => {
       const finalFilters = boroughParam
@@ -58,22 +68,15 @@ export default function StoriesPageComponent({
       setStories(data);
       setLoading(false);
     },
-    []
+    [boroughParam, getStories, defaultFilters]
   );
 
   useEffect(() => {
-    if (!loading) {
-      const timer = setTimeout(() => setShowLoader(false), 300);
-      return () => clearTimeout(timer);
-    }
-  }, [loading]);
-
-  useEffect(() => {
     fetchStories(filters);
-  }, [filters]);
+  }, [filters, fetchStories]);
 
   return (
-    <div className={clsx('page-wrapper', { shifted: isMenuOpen })}>
+    <div className={clsx("page-wrapper", { shifted: isMenuOpen })}>
       {showLoader && <LoadingPage isLoading={loading} isHome={false} />}
       <Header borough={currentBorough} />
       {/* {boroughParam && (

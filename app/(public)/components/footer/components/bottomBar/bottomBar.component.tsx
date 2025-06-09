@@ -1,11 +1,8 @@
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import ReactDOMServer from "react-dom/server";
 import { BottomBarContainer, LegalLinks } from "./bottomBar.styles";
 import PrivacyPolicy from "@/app/constants/privacyPolicy";
 import TermsAndConditions from "@/app/constants/termsConditions";
-
-const MySwal = withReactContent(Swal);
 
 export default function BottomBar({ isMobile }: { isMobile: boolean }) {
   const handleClick = (type: "privacy" | "terms") => {

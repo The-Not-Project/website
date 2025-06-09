@@ -9,6 +9,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import LoadingPage from "../../components/loadingPage/loadingPage.component";
 import { CategoriesContainer, StoryContainer, SaveButton } from "./style";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
+import Image from "next/image";
 
 export default function StoryPage({id}: { id: string }) {
 
@@ -86,10 +87,12 @@ export default function StoryPage({id}: { id: string }) {
     }
     if (index < contentParts.length - 1 && additionalMedia[index]) {
       contentElements.push(
-        <img
+        <Image
           key={`media-${index}`}
           src={additionalMedia[index].url}
           alt="additional media"
+          width={600}
+          height={400}
         />
       );
     }
@@ -118,6 +121,7 @@ export default function StoryPage({id}: { id: string }) {
       )}
       <h1 className="title">{story.title}</h1>
       <p className="summary">{story.summary}</p>
+      {/*eslint-disable-next-line @next/next/no-img-element*/}
       <img src={thumbnail || ""} alt="thumbnail" />
       <hr />
       <div className="info">

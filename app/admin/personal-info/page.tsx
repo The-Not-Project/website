@@ -29,7 +29,7 @@ export default function PersonalInformation() {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [user?.sub]);
+  }, [user?.sub, getUser]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

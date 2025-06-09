@@ -93,7 +93,8 @@ export default function Boroughs() {
   return (
     <BoroughsSectionContainer key={activeBorough} $fileName={fileName}>
       <Background>
-        <img src={`/media/boroughBackdrops/${fileName}.jpg`} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={`/media/boroughBackdrops/${fileName}.jpg`} alt={fileName}/>
       </Background>
 
       {isMobile ? (

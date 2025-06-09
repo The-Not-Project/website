@@ -59,7 +59,7 @@ export default function Page() {
       setSearchResults(data.filter(story => story.id !== radarId));
       setsearchIsLoading(false);
     },
-    [filters, radarStory]
+    [filters, radarStory, getStories]
   );
 
   const handleSetRadarStory = useCallback(

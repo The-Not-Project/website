@@ -29,7 +29,7 @@ export default function Page({userId}: { userId: string }) {
       .catch((error) => {
         console.error("Failed to fetch user:", error);
       })
-  }, [userId]);
+  }, [userId, getUser]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

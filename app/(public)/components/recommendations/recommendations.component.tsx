@@ -22,7 +22,7 @@ export default function Recommendations() {
 
   useEffect(() => {
     fetchRecommendations();
-  }, []);
+  }, [fetchRecommendations]);
 
   if (recommendations.length === 0) {
     return null; 

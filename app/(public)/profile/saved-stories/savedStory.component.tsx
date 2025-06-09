@@ -32,6 +32,7 @@ export default function SavedStory({ story }: { story: Story }) {
             </div>
             
       </StoryContent>
+      {/*eslint-disable-next-line @next/next/no-img-element*/}
       <img src={thumbnail} alt="thumbnail" />
 
     </StoryContainer>

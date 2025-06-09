@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
-import { usePublicServerActions } from '@/app/contexts/public-server-actions';
-import { Category, Filters } from '@/app/types/types';
+import { useEffect, useState } from "react";
+import { usePublicServerActions } from "@/app/contexts/public-server-actions";
+import { Category, Filters } from "@/app/types/types";
 import {
   StoriesSearchContainer,
   SearchInput,
@@ -13,8 +13,8 @@ import {
   FilterCheckbox,
   FilterLabel,
   FilterIcon,
-} from './storiesSearch.styles';
-import { FaMagnifyingGlass as SearchIcon } from 'react-icons/fa6';
+} from "./storiesSearch.styles";
+import { FaMagnifyingGlass as SearchIcon } from "react-icons/fa6";
 
 type StoriesSearchProps = {
   filters: Filters;
@@ -25,21 +25,20 @@ export default function StoriesSearch({
   filters,
   setFilters,
 }: StoriesSearchProps) {
-
   const { getCategories } = usePublicServerActions();
   const [categories, setCategories] = useState<Category[]>([]);
   const [localFilters, setLocalFilters] = useState<Filters>(filters);
   const [categoriesVisible, setCategoriesVisible] = useState(false);
 
   useEffect(() => {
+    async function fetchCategories() {
+      const data = await getCategories();
+      setCategories(data);
+    }
+
     setCategoriesVisible(window.innerWidth > 1600);
     fetchCategories();
-  }, []);
-
-  async function fetchCategories() {
-    const data = await getCategories();
-    setCategories(data);
-  }
+  }, [getCategories]);
 
   function handleSearchChange(e: React.ChangeEvent<HTMLInputElement>) {
     setLocalFilters({ ...localFilters, search: e.target.value });
@@ -47,14 +46,14 @@ export default function StoriesSearch({
 
   function handleCategoryClick(category: Category) {
     const newCategories = localFilters.categories.includes(category.id)
-      ? localFilters.categories.filter(c => c !== category.id)
+      ? localFilters.categories.filter((c) => c !== category.id)
       : [...localFilters.categories, category.id];
     setLocalFilters({ ...localFilters, categories: newCategories });
   }
 
   return (
     <form
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault();
         setFilters(localFilters);
         if (window.innerWidth < 1600) {
@@ -72,12 +71,12 @@ export default function StoriesSearch({
         <FilterIcon />
         Filter Stories
       </SearchTitle>
-      <StoriesSearchContainer className={categoriesVisible ? 'visible' : ''}>
+      <StoriesSearchContainer className={categoriesVisible ? "visible" : ""}>
         <SearchContainer>
           <SearchIcon />
           <SearchInput
-            id='search'
-            placeholder='Search...'
+            id="search"
+            placeholder="Search..."
             value={localFilters.search}
             onChange={handleSearchChange}
           />
@@ -91,17 +90,17 @@ export default function StoriesSearch({
               }
             }}
           >
-            <ArrowIcon className={categoriesVisible ? 'rotated' : undefined} />
+            <ArrowIcon className={categoriesVisible ? "rotated" : undefined} />
             Categories
           </SecondaryTitle>
           <FilterOptionsContainer
-            className={categoriesVisible ? 'visible' : ''}
+            className={categoriesVisible ? "visible" : ""}
           >
-            {categories.map(category => (
-              <div key={category.id} className='checkbox-wrapper-47'>
+            {categories.map((category) => (
+              <div key={category.id} className="checkbox-wrapper-47">
                 <FilterCheckbox
-                  type='checkbox'
-                  name='cb'
+                  type="checkbox"
+                  name="cb"
                   id={`category-${category.id}`}
                   checked={localFilters.categories.includes(category.id)}
                   onChange={() => handleCategoryClick(category)}

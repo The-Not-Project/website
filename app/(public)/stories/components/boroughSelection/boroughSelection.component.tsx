@@ -34,7 +34,7 @@ export default function BoroughSelectionComponent({
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [setShowBoroughs]);
 
   useEffect(() => {
     if (showBoroughs) {

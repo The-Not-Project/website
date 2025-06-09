@@ -112,7 +112,7 @@ export const RecommendationCardContainer = styled.figure`
   }
 `;
 
-export const Image = styled.div<{ $src: string }>`
+export const ImageDiv = styled.div<{ $src: string }>`
   height: 100%;
   background: url(${({ $src }) => $src}) no-repeat center center/cover;
   transition: 0.2s;

@@ -48,7 +48,7 @@ export default async function RootLayout({
 }>) {
 
   return (
-    <html lang="en" style={{ backgroundColor: '#1c1c1c' }}>
+    <html lang="en">
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <meta name="theme-color" content="#1c1c1c" />
