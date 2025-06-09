@@ -21,6 +21,7 @@ export type Story = {
   categories: Category[];
   media: Media[];
   createdAt: Date;
+  updatedAt: Date;
 };
 
 export type Media = {
