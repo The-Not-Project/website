@@ -77,7 +77,7 @@ select {
   }
 }
 
-.neutral-button {
+.popup-button {
   display: inline-block;
   outline: none;
   cursor: pointer;
@@ -95,7 +95,30 @@ select {
   padding: 0 18px;
 }
 
-.neutral-button :hover {
+.popup-button :hover {
   color: #ffffff;
   background-color: #006570;
+}
+
+.swal2-popup.custom-swal-popup {
+  width: 90vw !important;
+  max-width: 800px;
+  border-radius: 20px;
+  padding: 2rem;
+
+  h3 {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
+
+  .last-updated {
+    margin-top: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+
+  @media (max-width: 850px) {
+    padding: 0;
+    padding-bottom: 20px;
+  }
 }

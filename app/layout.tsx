@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Oswald } from "next/font/google";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import seoKeywords from "./constants/seoKeywords";
-import "./globals.css";
+import "./globals.scss";
 import AuthSyncer from "./(public)/components/auth/AuthSyncer";
 
 export const metadata: Metadata = {
@@ -48,9 +48,10 @@ export default async function RootLayout({
 }>) {
 
   return (
-    <html lang="en">
+    <html lang="en" style={{ backgroundColor: '#1c1c1c' }}>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
+        <meta name="theme-color" content="#1c1c1c" />
       </head>
       <body className={oswald.className}>
         <UserProvider>
