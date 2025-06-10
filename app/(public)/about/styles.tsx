@@ -2,156 +2,182 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   display: block;
-  height: 35vh;
-  max-height: 70vw;
-  color: white;
-  position: relative;
-  text-shadow: 0 0 20px black;
-
-  @media (max-width: 600px) {
-    max-height: none;
-  }
-`;
-
-export const HeaderBackground = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
+  max-height: auto;
   width: 100%;
-  height: 100%;
-  translate: 0;
-  overflow: hidden;
+  color: white;
 `;
 
 export const HeaderImage = styled.img`
   object-fit: cover;
   width: 100%;
-  height: 100%;
+  height: 40vh;
+  @media (max-width: 1000px) {
+    max-height: none;
+  }
 `;
 
 export const AboutContainer = styled.div`
-  padding-left: 30px;
-  padding-top: 20px;
+  height: auto;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  height: 20vh;
-
+  height: auto;
+  width: 100%;
   h1 {
-    font-size: 40px;
+    font-size: 2rem;
     text-align: left;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
   }
 
   p {
-    font-size: 20px;
-    text-align: left;
-    text-wrap: balance;
+    font-size: clamp(1rem, 2rem, 1vw);
+    max-width: 60%;
+  }
+
+  @media (max-width: 1000px) {
+    p {
+      max-width: none;
+    }
   }
 `;
 
 export const WhatWeDoContainer = styled.div`
   display: flex;
-  height: 60vh;
-  padding: 30px;
-  padding-top: 0px;
-  gap: 30px;
+  flex-direction: row;
+  height: auto;
+  padding: 2rem;
+  gap: 2rem;
+
+  @media (max-width: 1000px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 `;
 
 export const WhatWeDoContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
   width: 50%;
-  padding: 50px;
+  padding: 3rem;
+
   h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: clamp(1rem, 2rem, 1vw);
+    padding-bottom: 1rem;
   }
 
-  p {
-    font-size: 20px;
-    text-wrap: balance;
-    padding-bottom: 30px;
+  @media (max-width: 1000px) {
+    padding: 2rem 0rem;
+    width: 100%;
   }
 `;
 
 export const WhatWeDoImage = styled.img`
   object-fit: cover;
   width: 50%;
-  height: 100%;
+  height: auto;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 export const WhatWeDoDifferentContainer = styled.div`
   display: flex;
-  height: 60vh;
-  padding: 30px;
-  padding-top: 0px;
-  gap: 30px;
+  flex-direction: row;
+  height: auto;
+  padding: 2rem;
+  gap: 2rem;
+
+  @media (max-width: 1000px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const WhatWeDoDifferentContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
   width: 50%;
-  padding: 60px;
+  padding: 3rem;
+
   h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-size: clamp(1rem, 2rem, 1vw);
+    padding-bottom: 1rem;
   }
 
-  p {
-    font-size: 20px;
-    text-wrap: balance;
-    padding-bottom: 30px;
+  @media (max-width: 1000px) {
+    padding: 2rem 0rem;
+    width: 100%;
   }
 `;
 
 export const WhatWeDoDifferentImage = styled.img`
   object-fit: cover;
   width: 50%;
-  height: 100%;
+  height: auto;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 export const WhoIsItForContainer = styled.div`
-  height: 30vh;
-  color: white;
-  background-color: #454c42;
+  margin: 2rem;
+  height: 90vh;
+  background-image: url("/media/thePeople.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 1000px) {
+    margin: 2rem 0rem;
+    height: 70vh;
+  }
+`;
+
+export const WhoIsItForContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #f8f3ec;
+  height: 50vh;
+  width: 50vh;
+  padding: 3rem;
+
+  h1 {
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+
+  p {
+    font-size: clamp(1rem, 2rem, 1vw);
+  }
+
+  @media (max-width: 1000px) {
+    height: 40vh;
+    width: 40vh;
+    padding: 1rem;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 0.75rem;
+    }
+  }
 `;
-
-export const VisionContainer = styled.div``;
-
-export const OurTeamContainer = styled.div`
-  height: 60vh;
-  color: white;
-  background-color: #454c42;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-export const TeamMember = styled.div``;
-
-export const TeamMemberImage = styled.img`
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-`;
-
-export const TeamMemberName = styled.h3`
-  font-size: 24px;
-  font-weight: 600;
-`;
-
-export const TeamMemberRole = styled.p`
-  font-size: 16px;
-`;
-
-export const DonationContainer = styled.div``;
