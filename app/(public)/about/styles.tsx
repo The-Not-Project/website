@@ -58,17 +58,12 @@ export const WhatWeDoContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-<<<<<<< HEAD
-
-=======
->>>>>>> c7a71fdbccab0044ccee3d512d8f0a9bb640298a
   width: 50%;
   padding: 3rem;
 
   h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
-<<<<<<< HEAD
   }
 
   p {
@@ -76,14 +71,6 @@ export const WhatWeDoContent = styled.div`
     padding-bottom: 1rem;
   }
 
-=======
-  }
-  p {
-    font-size: clamp(1rem, 2rem, 1vw);
-    padding-bottom: 1rem;
-  }
-
->>>>>>> c7a71fdbccab0044ccee3d512d8f0a9bb640298a
   @media (max-width: 1000px) {
     padding: 2rem 0rem;
     width: 100%;
@@ -117,17 +104,12 @@ export const WhatWeDoDifferentContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-<<<<<<< HEAD
-
-=======
->>>>>>> c7a71fdbccab0044ccee3d512d8f0a9bb640298a
   width: 50%;
   padding: 3rem;
 
   h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
-<<<<<<< HEAD
   }
 
   p {
@@ -135,14 +117,6 @@ export const WhatWeDoDifferentContent = styled.div`
     padding-bottom: 1rem;
   }
 
-=======
-  }
-  p {
-    font-size: clamp(1rem, 2rem, 1vw);
-    padding-bottom: 1rem;
-  }
-
->>>>>>> c7a71fdbccab0044ccee3d512d8f0a9bb640298a
   @media (max-width: 1000px) {
     padding: 2rem 0rem;
     width: 100%;
