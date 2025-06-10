@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
@@ -7,7 +8,7 @@ export const HeaderContainer = styled.div`
   color: white;
 `;
 
-export const HeaderImage = styled.img`
+export const HeaderImage = styled(Image)`
   object-fit: cover;
   width: 100%;
   height: 40vh;

@@ -40,7 +40,7 @@ export default function About() {
   return (
     <div className={clsx("page-wrapper", { shifted: isMenuOpen })}>
       <HeaderContainer>
-        <HeaderImage src="/media/LorenzoInFlushing.png" alt="About Us" />
+        <HeaderImage src="/media/LorenzoInFlushing.jpg" alt="About Us" width={1920} height={1080} />
       </HeaderContainer>
       <AboutContainer>
         <h1>ABOUT US</h1>
