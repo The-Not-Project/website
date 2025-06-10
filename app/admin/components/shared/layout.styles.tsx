@@ -14,6 +14,7 @@ export const AdminContainer = styled.section`
 
     h1 {
       font-weight: 500;
+      font-size: 1.8rem;
     }
   }
 `;
