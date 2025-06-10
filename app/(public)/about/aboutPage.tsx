@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useEffect } from "react";
 import {
@@ -40,7 +40,12 @@ export default function About() {
   return (
     <div className={clsx("page-wrapper", { shifted: isMenuOpen })}>
       <HeaderContainer>
-        <HeaderImage src="/media/LorenzoInFlushing.jpg" alt="About Us" width={1920} height={1080} />
+        <HeaderImage
+          src="/media/LorenzoInflushing.jpg"
+          alt="About Us"
+          width={1920}
+          height={1080}
+        />
       </HeaderContainer>
       <AboutContainer>
         <h1>ABOUT US</h1>
