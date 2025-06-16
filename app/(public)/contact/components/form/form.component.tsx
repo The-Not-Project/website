@@ -38,7 +38,11 @@ export default function ContactForm({ type }: { type: string }) {
 
       {!anonymous && (
         <>
-          <label htmlFor="email">{type == 'feedback' ? 'Your email (optional)': 'Best email to reach you (required)'}</label>
+          <label htmlFor="email">
+            {type == "feedback"
+              ? "Your email (optional)"
+              : "Best email to reach you (required)"}
+          </label>
           <input
             type="email"
             id="email"

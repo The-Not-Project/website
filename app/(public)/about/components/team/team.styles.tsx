@@ -13,8 +13,10 @@ export const OurTeamContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  @media (max-width: 600px) {
-    height: 220vh;
+
+  @media (max-width: 1000px) {
+    height: auto;
+    padding: 2rem;
   }
 `;
 
@@ -33,14 +35,9 @@ export const TeamBanner = styled.div`
   }
 
   @media (max-width: 1000px) {
-    height: 90vh;
-    width: 55rem;
-  }
-
-  @media (max-width: 600px) {
-    height: 200vh;
+    height: auto;
     width: auto;
-    padding: 0.5rem;
+    padding: 1rem 0rem;
   }
 `;
 export const TeamList = styled.div`
@@ -50,12 +47,11 @@ export const TeamList = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0rem 1rem;
   }
 `;
 export const TeamMemberCard = styled.div`
@@ -89,14 +85,8 @@ export const ProfileImage = styled(Image)`
   object-fit: cover;
   transition: 0.4s ease;
   filter: grayscale(100%);
-
   &:hover {
     filter: none;
     scale: 1.05;
-  }
-
-  @media (max-width: 1000px) {
-    width: 35vh;
-    height: 40vh;
   }
 `;
