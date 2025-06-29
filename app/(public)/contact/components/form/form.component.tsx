@@ -32,9 +32,6 @@ export default function ContactForm({ type }: { type: string }) {
     <FormContainer onSubmit={handleSubmit}>
       <h2>We’d love to hear from you</h2>
 
-<<<<<<< HEAD
-          <label htmlFor="email">{type == 'feedback' ? 'Your email (optional)': 'Best email to reach you (required)'}</label>
-=======
       {!anonymous && (
         <>
           <label htmlFor="email">
@@ -42,7 +39,6 @@ export default function ContactForm({ type }: { type: string }) {
               ? "Your email (optional)"
               : "Best email to reach you (required)"}
           </label>
->>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
           <input
             type="email"
             id="email"
@@ -50,7 +46,8 @@ export default function ContactForm({ type }: { type: string }) {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
+        </>
+      )}
       {type !== "collab" && (
         <label>
           <input

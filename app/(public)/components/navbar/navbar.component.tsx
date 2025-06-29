@@ -31,13 +31,9 @@ export default function NavBar() {
   const isSpecialPage =
     pathname === "/" ||
     pathname.startsWith("/stories") ||
-<<<<<<< HEAD
-    pathname === "/about"
-=======
     pathname === "/about" ||
     pathname === "/contact";
 
->>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
   const isBgSolid = isSpecialPage && transparency;
 
   const isMobile = useStore((state) => state.mobileLayout.isMobile);
