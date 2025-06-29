@@ -18,9 +18,7 @@ import { FaBars, FaXmark } from "react-icons/fa6";
 import clsx from "clsx";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-
 export default function NavBar() {
-
   const { user, isLoading } = useUser();
 
   const [authenticated, setAuthenticated] = useState(false);
@@ -33,9 +31,15 @@ export default function NavBar() {
   const isSpecialPage =
     pathname === "/" ||
     pathname.startsWith("/stories") ||
+<<<<<<< HEAD
     pathname === "/about"
+=======
+    pathname === "/about" ||
+    pathname === "/contact";
+
+>>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
   const isBgSolid = isSpecialPage && transparency;
-  
+
   const isMobile = useStore((state) => state.mobileLayout.isMobile);
   const isMenuOpen = useStore((state) => state.mobileLayout.isMenuOpen);
   const setIsMenuOpen = useStore((state) => state.mobileLayout.setIsMenuOpen);
@@ -43,8 +47,8 @@ export default function NavBar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
-    if (isLoading) return
-    
+    if (isLoading) return;
+
     if (user) {
       setAuthenticated(true);
       fetch("/api/auth/is-admin", {

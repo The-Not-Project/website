@@ -1,12 +1,30 @@
 import styled from "styled-components";
 
 export const OurTeamContainer = styled.div`
+<<<<<<< HEAD
   margin-block: 4rem;
   background: url("/media/texture.png") no-repeat center center/cover;
   padding: 200px 100px;
   @media (max-width: 1100px) {
     padding: 50px 10px;
     margin-bottom: 0;
+=======
+  margin: 4rem 0rem;
+  height: 130vh;
+  background-image: url("/media/texture.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: screen;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 1000px) {
+    height: auto;
+    padding: 2rem;
+>>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
   }
   `;
 
@@ -25,6 +43,13 @@ export const TeamBanner = styled.div`
   h1 {
     font-size: 2rem;
 
+<<<<<<< HEAD
+=======
+  @media (max-width: 1000px) {
+    height: auto;
+    width: auto;
+    padding: 1rem 0rem;
+>>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
   }
 `;
 export const TeamList = styled.div`
@@ -35,10 +60,18 @@ export const TeamList = styled.div`
   flex-wrap: wrap;
   gap: 10px;
 
+<<<<<<< HEAD
   @media (max-width: 1100px) {
+=======
+  @media (max-width: 1000px) {
+    display: flex;
+>>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
     flex-direction: column;
     align-items: center;
+<<<<<<< HEAD
     gap: 50px;
+=======
+>>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
   }
 `;
 export const TeamMemberCard = styled.div`
@@ -72,7 +105,6 @@ export const ProfileImage = styled.img`
   object-fit: cover;
   transition: 0.4s ease;
   filter: grayscale(100%);
-
   &:hover {
     filter: none;
     scale: 1.05;
