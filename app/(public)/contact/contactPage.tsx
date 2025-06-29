@@ -4,11 +4,7 @@ import clsx from "clsx";
 import { useEffect } from "react";
 import CollabForm from "./components/collab";
 import ContactForm from "./components/feedback";
-<<<<<<< HEAD
-import { ContactContainer, FormImage } from "./styles";
-=======
 import { ContactContainer, HeaderContainer, HeaderImage } from "./styles";
->>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
 import { useStore } from "@/app/zustand/store";
 
 export default function ContactPage() {
@@ -31,13 +27,6 @@ export default function ContactPage() {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <ContactContainer  className={clsx('page-wrapper', { shifted: isMenuOpen })}>
-      <ContactForm />
-      {/* <CollabForm /> */}
-      <FormImage src="/media/LorenzoInFlushing.jpg" alt="Lorenzo in Flushing" />
-    </ContactContainer>
-=======
     <>
       <HeaderContainer>
         <HeaderImage
@@ -54,6 +43,5 @@ export default function ContactPage() {
         <CollabForm />
       </ContactContainer>
     </>
->>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
   );
 }

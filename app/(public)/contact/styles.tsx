@@ -1,13 +1,4 @@
 import styled from "styled-components";
-<<<<<<< HEAD
-
-export const ContactContainer = styled.main`
-  padding-block: 20px;
-  display: flex;
-  align-items: center;
-  background: url("media/texture.png") no-repeat center center/cover;
-  color: white;
-=======
 import Image from "next/image";
 
 export const HeaderContainer = styled.div`
@@ -34,7 +25,6 @@ export const ContactContainer = styled.main`
   display: flex;
   flex-flow: column;
   gap: 100px;
->>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
 
   @media (max-width: 850px) {
     padding: 20px;
@@ -42,12 +32,3 @@ export const ContactContainer = styled.main`
     margin-block: 20px;
   }
 `;
-<<<<<<< HEAD
-
-export const FormImage = styled.img`
-  width: 40%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-`;
-=======
->>>>>>> b296d47fb34ec12cdc05ebf4ff1eabf6df62daf6
