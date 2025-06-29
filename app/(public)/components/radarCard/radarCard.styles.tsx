@@ -33,7 +33,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   height: 100%;
   position: relative;
   transition: 0.3s ease-out;
-  background: #454d42;
+  background: var(--radar-bg);
 
   @media (max-width: 600px) {
     position: absolute;
@@ -110,7 +110,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
 
     &::after {
       content: 'Our Radar';
-      background: hsl(104, 8%, 25%, 0.7);
+      background: var(--radar-overlay);
       color: hsl(104, 8%, 90%);
       position: absolute;
       top: 0;

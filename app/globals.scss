@@ -1,7 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Rubik+Glitch+Pop&display=swap");
 
 :root {
-  --bg-color: #f8f3ec;
+  --bg-color: #F1EFEC;
+  --radar-bg: hsl(210.85714285714286, 50%, 15%);
+  --radar-overlay: hsl(210.85714285714286, 60.03773584905662%, 10.784313725490193%, 0.7);
+  --footer-bg: hsl(210.85714285714286, 50%, 15%);
+  --accent-text: hsl(210.85714285714286, 50%, 85%);
   interpolate-size: allow-keywords;
 }
 
