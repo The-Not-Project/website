@@ -1,18 +1,21 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ContactContainer = styled.main`
-    display: block;
-    padding: 80px;
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    flex-flow: column;
-    gap: 100px;
+  padding-block: 20px;
+  display: flex;
+  align-items: center;
+  background: url("media/texture.png") no-repeat center center/cover;
+  color: white;
 
-    @media (max-width: 850px) {
-        padding: 20px;
-        gap: 50px;
-        margin-block: 20px;
-    }
-    
-`
+  @media (max-width: 850px) {
+    padding: 20px;
+    gap: 50px;
+    margin-block: 20px;
+  }
+`;
+
+export const FormImage = styled.img`
+  width: 40%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+`;

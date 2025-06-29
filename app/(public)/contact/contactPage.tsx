@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { useEffect } from "react";
 import CollabForm from "./components/collab";
 import ContactForm from "./components/feedback";
-import { ContactContainer } from "./styles";
+import { ContactContainer, FormImage } from "./styles";
 import { useStore } from "@/app/zustand/store";
 
 export default function ContactPage() {
@@ -31,7 +31,8 @@ export default function ContactPage() {
   return (
     <ContactContainer  className={clsx('page-wrapper', { shifted: isMenuOpen })}>
       <ContactForm />
-      <CollabForm />
+      {/* <CollabForm /> */}
+      <FormImage src="/media/LorenzoInFlushing.jpg" alt="Lorenzo in Flushing" />
     </ContactContainer>
   );
 }

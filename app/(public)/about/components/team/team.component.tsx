@@ -12,7 +12,7 @@ export default function Team() {
     {
       name: "Tariq El Ghayate",
       role: "Co Founder",
-      imageSrc: "tariqElWithShades"
+      imageSrc: "tariqWithHeadphones"
     },
     {
       name: "Sebastian Torres",

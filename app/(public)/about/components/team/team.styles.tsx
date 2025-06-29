@@ -1,89 +1,72 @@
-import Image from "next/image";
 import styled from "styled-components";
 
 export const OurTeamContainer = styled.div`
-  margin: 4rem 0rem;
-  height: 130vh;
-  background-image: url("/media/texture.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-blend-mode: screen;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @media (max-width: 600px) {
-    height: 220vh;
+  margin-block: 4rem;
+  background: url("/media/texture.png") no-repeat center center/cover;
+  padding: 200px 100px;
+  @media (max-width: 1100px) {
+    padding: 50px 10px;
+    margin-bottom: 0;
   }
-`;
+  `;
 
 export const TeamBanner = styled.div`
-  height: 100vh;
-  width: 90rem;
-  color: black;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 50px 60px;
   background-color: #f8f3ec;
+
+  @media (max-width: 1100px) {
+    padding: 40px 10px;
+  }
 
   h1 {
     font-size: 2rem;
-  }
 
-  @media (max-width: 1000px) {
-    height: 90vh;
-    width: 55rem;
-  }
-
-  @media (max-width: 600px) {
-    height: 200vh;
-    width: auto;
-    padding: 0.5rem;
   }
 `;
 export const TeamList = styled.div`
+  width: 100%;
   margin-top: 1rem;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 10px;
 
-  @media (max-width: 600px) {
-    display: flex;
+  @media (max-width: 1100px) {
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 0rem 1rem;
+    gap: 50px;
   }
 `;
 export const TeamMemberCard = styled.div`
-  overflow: hidden;
-  position: relative;
-  margin: 1rem;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
+  width: 30%;
 
-  h1 {
-    font-size: 1.5rem;
+  @media (max-width: 1100px) {
+    width: 100%;
+    padding-inline: 10%;
+  }
+  h2 {
+    font-size: 1.8rem;
   }
 
   p {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    color: #3b3b3b;
   }
 `;
 
 export const ProfileImageContainer = styled.figure`
-  width: 45vh;
-  height: 50vh;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   overflow: hidden;
+  width: 100%;
+  aspect-ratio: 6 / 7;
 `;
 
-export const ProfileImage = styled(Image)`
+export const ProfileImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -93,10 +76,5 @@ export const ProfileImage = styled(Image)`
   &:hover {
     filter: none;
     scale: 1.05;
-  }
-
-  @media (max-width: 1000px) {
-    width: 35vh;
-    height: 40vh;
   }
 `;

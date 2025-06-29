@@ -14,9 +14,9 @@ export default function TeamMember({ name, role, imageSrc }: TeamMemberProps) {
   return (
     <TeamMemberCard>
       <ProfileImageContainer>
-        <ProfileImage src={`/media/${imageSrc}.jpg`} alt={name} width={450} height={500} />
+        <ProfileImage src={`/media/${imageSrc}.jpg`} alt={name}/>
       </ProfileImageContainer>
-      <h1>{name}</h1>
+      <h2>{name}</h2>
       <p>{role}</p>
     </TeamMemberCard>
   );
