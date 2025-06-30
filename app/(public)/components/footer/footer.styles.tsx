@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Footer = styled.footer`
   height: auto;
   background-color: var(--footer-bg);
-  color: white;
+  color: var(--footer-text);
   width: 100%;
   position: relative;
 `;
@@ -51,7 +51,7 @@ export const NavSection = styled.div`
       margin-bottom: 1rem;
 
       a {
-        color: white;
+        color: inherit;
         text-decoration: none;
         transition: opacity 0.2s;
 
@@ -68,7 +68,6 @@ export const SocialLinks = styled.div`
   gap: 10px;
 
   a {
-    color: white;
     transition: opacity 0.2s;
 
     &:hover {

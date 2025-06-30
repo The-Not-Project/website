@@ -22,7 +22,6 @@ export const BigTitle = styled.h1`
 export const SecondaryTitle = styled.h2`
   text-align: center;
   font-weight: 300;
-  color: #222222;
 
   @media (max-width: 600px) {
     font-size: 1.5rem;
@@ -62,6 +61,8 @@ export const RecommendationCardContainer = styled.figure`
   background: white;
   display: flex;
   flex-flow: column;
+  background: var(--cards-bg);
+  color: var(--cards-text);
 
   @media (max-width: 600px) {
     scroll-snap-align: center;
@@ -89,7 +90,7 @@ export const RecommendationCardContainer = styled.figure`
     }
 
     .categories {
-      color: hsl(103, 50%, 20%);
+      color: var(--accent-text);
       font-size: 0.9rem;
     }
   }

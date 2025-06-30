@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Rubik+Glitch+Pop&display=swap");
 
 :root {
-  --bg-color: #F1EFEC;
-  --radar-bg: hsl(210.85714285714286, 50%, 15%);
-  --radar-overlay: hsl(210.85714285714286, 60.03773584905662%, 10.784313725490193%, 0.7);
-  --footer-bg: hsl(210.85714285714286, 50%, 15%);
-  --accent-text: hsl(210.85714285714286, 50%, 85%);
+  --text-color: rgb(0, 0, 0);
+  --bg-color: #f8f5de;
+  --radar-bg: #9b9b9b;
+  --radar-overlay: #0b1b2cb3;
+  --footer-bg: #132639;
+  --footer-text: rgb(255, 255, 255);
+  --accent-text: #000000;
+  --cards-bg: #817d7d;
+  --cards-text: #fff;
   interpolate-size: allow-keywords;
 }
 
@@ -19,6 +23,7 @@
 
 body {
   background: var(--bg-color);
+  color: var(--text-color);
 }
 
 .page-wrapper {
