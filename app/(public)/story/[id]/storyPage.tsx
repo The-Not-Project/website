@@ -121,7 +121,6 @@ export default function StoryPage({id}: { id: string }) {
       )}
       <h1 className="title">{story.title}</h1>
       <p className="summary">{story.summary}</p>
-      {/*eslint-disable-next-line @next/next/no-img-element*/}
       <img src={thumbnail || ""} alt="thumbnail" />
       <hr />
       <div className="info">

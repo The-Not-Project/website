@@ -2,7 +2,6 @@
 
 import clsx from "clsx";
 import { useEffect } from "react";
-import CollabForm from "./components/collab";
 import ContactForm from "./components/feedback";
 import { ContactContainer, HeaderContainer, HeaderImage } from "./styles";
 import { useStore } from "@/app/zustand/store";

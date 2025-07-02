@@ -112,7 +112,6 @@ export default function Story({ story }: { story: StoryType }) {
           </>
         )}
       </StoryContent>
-      {/*eslint-disable-next-line @next/next/no-img-element*/}
       <img src={thumbnail} alt="thumbnail" />
       {/* {hoveredStory.isHovered && (
         <StoryPopup
