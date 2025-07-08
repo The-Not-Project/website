@@ -1,15 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&family=Rubik+Glitch+Pop&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap');
 
 :root {
   --text-color: rgb(0, 0, 0);
-  --bg-color: #f8f5df;
-  --radar-bg: #9b9b9b;
-  --radar-overlay: #0b1b2cb3;
-  --footer-bg: #132639;
-  --footer-text: rgb(255, 255, 255);
+  --bg-color: #f9faf9;
+  --radar-bg: #3c5544;
+  --radar-overlay: #33464d83;
+  --footer-bg: #3c5544;
+  --footer-text: #f9faf9;
   --accent-text: #000000;
-  --cards-bg: #817d7d;
-  --cards-text: #fff;
+  --cards-bg: #dfe8e2;
+  --cards-text: unset;
   interpolate-size: allow-keywords;
 }
 

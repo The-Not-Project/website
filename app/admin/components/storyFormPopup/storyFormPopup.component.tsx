@@ -111,9 +111,9 @@ export default function StoryFormPopup({
         <FormSelect
           name='borough'
           required
-          defaultValue={story?.borough || 'brooklyn'}
+          defaultValue={story?.borough || 'new york'}
         >
-          {['brooklyn', 'manhattan', 'bronx', 'queens', 'staten island'].map(
+          {['new york', 'brooklyn', 'manhattan', 'bronx', 'queens', 'staten island'].map(
             borough => (
               <option key={borough} value={borough}>
                 {capitalizeWords(borough)}

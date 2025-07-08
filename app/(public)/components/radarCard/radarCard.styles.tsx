@@ -12,6 +12,7 @@ export const RadarCardContainer = styled.section`
   overflow: hidden;
   cursor: pointer;
   position: relative;
+  color: #040605;
 
   @media (max-width: 600px) {
     margin-block: 20px 0;
@@ -28,7 +29,7 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: white;
+  color: #f9faf9;
   width: ${({ $isVisible }) => ($isVisible ? '50%' : '100%')};
   height: 100%;
   position: relative;
@@ -159,7 +160,7 @@ export const CategoriesContainer = styled.div`
 `;
 
 export const Category = styled.div`
-  background: red;
+  background: maroon;
   font-size: 0.8rem;
   padding: 10px 4px;
   line-height: 0;
