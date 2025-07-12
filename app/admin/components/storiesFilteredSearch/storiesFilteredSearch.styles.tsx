@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StoriesSearchContainer = styled.div`
   margin-bottom: 20px;
+  width: 25%;
 `;
 
 export const SearchInput = styled.input`

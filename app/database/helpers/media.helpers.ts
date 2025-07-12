@@ -46,25 +46,46 @@ export async function transformMedia(media: RawMedia, compression?: number): Pro
   }
 }
 
-export async function deleteMedia(id: string) {
-  'use server';
+export async function deleteMedia(mediaId: string) {
+  'use server';  
 
-  const mediaIds = await prisma.media.findMany({
+  const cid = await prisma.media.findUnique({
     where: {
-      storyId: id,
+      id: mediaId,
     },
     select: {
       cid: true,
     },
   });
-  const cids = mediaIds.map(media => media.cid);
 
-  await pinata.files.delete(cids);
+  console.log(mediaId, "OF TYPE", typeof mediaId);
+  
+  await prisma.media.delete(
+    {
+      where: {
+        id: mediaId,
+      },
+    }
+  )
 
-  await prisma.media.deleteMany({
-    where: {
-      storyId: id,
-    },
-  });
+  await pinata.files.delete([cid?.cid || '']);
 }
 
+export async function deleteMediaByStoryId(storyId: string) {
+  'use server';
+
+  const media = await prisma.media.findMany({
+    where: {
+      storyId,
+    },
+  });
+
+  if (media.length > 0) {
+    await pinata.files.delete(media.map(m => m.cid));
+    await prisma.media.deleteMany({
+      where: {
+        storyId,
+      },
+    });
+  }
+}

@@ -11,15 +11,15 @@ export function getStoryData(formData: FormData) {
   ].map(field => formData.get(field)?.toString());
 
   const categoryIds = formData.getAll('categories').map(val => val.toString());
-  const files = formData
-    .getAll('files')
-    .filter(file => file instanceof File && file.size > 0) as File[];
+
+  const thumbnail = formData.get('thumbnail');
+  const additionalFiles = formData.getAll('additionalFiles')
 
   if (!title || !content || !borough || !summary) {
     throw new Error('Missing required story fields');
   }
 
-  return { title, content, borough, summary, categoryIds, files };
+  return { title, content, borough, summary, categoryIds, thumbnail, additionalFiles };
 }
 
 export async function processCategories(
@@ -46,17 +46,28 @@ export async function deleteStoryCategories(id: string) {
   });
 }
 
-export async function processFiles(storyId: string, files: File[]) {
+export async function processAdditionalFiles(storyId: string, files: File[]) {
   for (let i = 0; i < files.length; i++) {
     const cid = await uploadFileToPinata(files[i]);
     await prisma.media.create({
       data: {
         cid,
         storyId,
-        isThumbnail: i === 0,
+        isThumbnail: false,
       },
     });
   }
+}
+
+export async function processThumbnail(storyId: string, file: File) {
+  const cid = await uploadFileToPinata(file);
+  await prisma.media.create({
+    data: {
+      cid,
+      storyId,
+      isThumbnail: true,
+    },
+  });
 }
 
 export async function processStories(

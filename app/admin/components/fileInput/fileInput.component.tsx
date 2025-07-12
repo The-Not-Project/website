@@ -1,41 +1,62 @@
 import {
   FileInput,
   FileInputLabel,
-  FormLabel,
-} from '@/app/admin/components/shared/Form';
-import { useState } from 'react';
+} from "@/app/admin/components/shared/Form";
+import { useEffect, useState } from "react";
 import {
-  FaUpload as IconUpload,
-  FaCheck as IconSuccess,
-} from 'react-icons/fa6';
+  FaPlus as IconAdd,
+} from "react-icons/fa6";
 
-export default function FileInputContainer({ id }: { id: string }) {
-  const [isfileUploaded, setIsfileUploaded] = useState(false);
+export default function FileInputContainer({ id, onFileUpload, url }: { id: string, onFileUpload: (file: File) => void, url?: string }) {
+  const [URL, setURL] = useState<string | ArrayBuffer | null>(null);
 
-  const formattedId = id === 'thumbnail' ? 'Thmbnail' : `Additional File ${id}`;
+  useEffect(() => {
+    if (url) {
+      setURL(url);
+    }
+  }, [url]);
+
+  const addThumbnailAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setURL(reader.result);
+      };
+      reader.readAsDataURL(file);
+      onFileUpload(file);
+    }
+  };
+
+  const addAdditionalFilesAction = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      onFileUpload(file);
+    } else {
+      console.error("No file selected");
+    }
+  };
 
   return (
     <>
-      <FormLabel>{formattedId}</FormLabel>
-      <FileInputLabel htmlFor={formattedId}>
-        {isfileUploaded ? (
-          <>
-            <IconSuccess /> File Uploaded
-          </>
+      <FileInputLabel htmlFor={id}>
+        {URL && id === "thumbnail" ? (
+          <div className="file-preview">
+            <img src={URL as string} alt="Preview" />
+          </div>
         ) : (
-          <>
-            <IconUpload /> Upload file
-          </>
+          <div className="file-placeholder">
+            <IconAdd className="icon" />
+          </div>
         )}
+        <FileInput
+          id={id}
+          type="file"
+          name="files"
+          accept="image/*"
+          onChange={id === "thumbnail" ? addThumbnailAction : addAdditionalFilesAction}
+        />
       </FileInputLabel>
-      <FileInput
-        type='file'
-        id={formattedId}
-        name='files'
-        accept='image/*'
-        required
-        onChange={() => setIsfileUploaded(true)}
-      />
     </>
   );
 }

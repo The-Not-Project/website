@@ -108,7 +108,7 @@ export default function StoriesPage() {
       <SectionTitle>Stories</SectionTitle>
       <StoriesSection>
         <StoriesSearch filters={filters} setFilters={setFilters} />
-        <div>
+        <div style={{ flexGrow: 1, marginTop: '10px'}}>
           <StoriesList
             isLoading={isLoading}
             stories={stories}
@@ -116,6 +116,7 @@ export default function StoriesPage() {
             onDelete={handleDeleteStory}
           />
 
+          {formState.isOpen && (
           <StoryFormPopup
             isOpen={formState.isOpen}
             isEditing={formState.isEditing}
@@ -132,6 +133,7 @@ export default function StoriesPage() {
             createStoryAction={createStory}
             editStoryAction={editStory}
           />
+          )}
 
           <Button className='cornered' onClick={handleOpenCreate}>
             Add

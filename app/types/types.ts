@@ -26,6 +26,7 @@ export type Story = {
 
 export type Media = {
   id: string;
+  cid: string;
   url: string;
   storyId: string;
   isThumbnail: boolean;

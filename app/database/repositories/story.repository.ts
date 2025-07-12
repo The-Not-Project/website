@@ -5,13 +5,14 @@ import { getUser } from './user.repository';
 import {
   deleteStoryCategories,
   getStoryData,
+  processAdditionalFiles,
   processCategories,
-  processFiles,
   processStories,
   processStory,
+  processThumbnail,
   STORY_INCLUDE,
 } from '../helpers/story.helpers';
-import { deleteMedia } from '../helpers/media.helpers';
+import { deleteMedia, deleteMediaByStoryId } from '../helpers/media.helpers';
 import { Filters, RawStory, Story } from '../../types/types';
 
 export async function getStories(
@@ -60,7 +61,7 @@ export async function createStory(formData: FormData) {
     redirect('/admin/personal-info');
   }
 
-  const { title, content, borough, summary, categoryIds, files } =
+  const { title, content, borough, summary, categoryIds, thumbnail, additionalFiles } =
     getStoryData(formData);
 
   const newStory = await prisma.story.create({
@@ -74,14 +75,24 @@ export async function createStory(formData: FormData) {
   });
 
   await processCategories(newStory.id, categoryIds);
-  await processFiles(newStory.id, files);
+  if (!thumbnail) {
+    throw new Error('Thumbnail is required');
+  }
+  await processThumbnail(newStory.id, thumbnail as File);
+  if (additionalFiles.length > 0) {
+    await processAdditionalFiles(newStory.id, additionalFiles as File[]);
+  }
+
+  
 }
 
 export async function editStory(id: string, formData: FormData) {
   'use server';
 
-  const { title, content, borough, summary, categoryIds, files } =
+  const { title, content, borough, summary, categoryIds, thumbnail, additionalFiles } =
     getStoryData(formData);
+
+  const removedMediaIds = JSON.parse(formData.getAll('deletedMediaIds')[0] as string) as string[];
 
   await prisma.story.update({
     where: { id },
@@ -91,16 +102,22 @@ export async function editStory(id: string, formData: FormData) {
   await deleteStoryCategories(id);
   await processCategories(id, categoryIds);
 
-  if (files.length > 0) {
-    await deleteMedia(id);
+  removedMediaIds.forEach(async (mediaId) => {    
+    await deleteMedia(mediaId);
+  });
+
+  if (thumbnail) {
+    await processThumbnail(id, thumbnail as File);
   }
-  await processFiles(id, files);
+  if (additionalFiles.length > 0) {
+    await processAdditionalFiles(id, additionalFiles as File[]);
+  }
 }
 
 export async function deleteStory(id: string) {
   'use server';
 
-  await deleteMedia(id);
+  await deleteMediaByStoryId(id);
   await deleteStoryCategories(id);
 
   await prisma.story.delete({
