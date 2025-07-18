@@ -4,6 +4,9 @@ import { Oswald } from "next/font/google";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import seoKeywords from "./constants/seoKeywords";
 import "./globals.scss";
+// import "./tailwind.css";
+import "./styles/_keyframe-animations.scss";
+import "./styles/_variables.scss";
 import AuthSyncer from "./(public)/components/auth/AuthSyncer";
 
 export const metadata: Metadata = {

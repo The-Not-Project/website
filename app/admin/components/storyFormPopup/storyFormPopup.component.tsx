@@ -1,9 +1,9 @@
-// components/StoryFormPopup.tsx
 "use client";
 
 import { useState, FormEvent, useEffect } from "react";
 import { Category, Story } from "@/app/types/types";
 import Popup from "../popup/popup.component";
+import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import {
   FormInput,
   FormLabel,
@@ -11,6 +11,7 @@ import {
   FormSelect,
   ImagePreview,
   AdditionalFilesContainer,
+  EditorContainer,
 } from "../shared/Form";
 import { CloseButton } from "../shared/Button";
 import FileInputContainer from "@/app/admin/components/fileInput/fileInput.component";
@@ -54,16 +55,19 @@ export default function StoryFormPopup({
 }: StoryFormPopupProps) {
   const [submitting, setSubmitting] = useState(false);
   const [thumbnail, setThumbnail] = useState<UploadedMediaFile | null>(null);
-  const [additionalFiles, setAdditionalFiles] = useState<UploadedMediaFile[]>(
-    []
-  );
+  const [additionalFiles, setAdditionalFiles] = useState<UploadedMediaFile[]>([]);
+  const [editorContent, setEditorContent] = useState(story?.content || '');
   const [existingMedia, setExistingMedia] = useState<ExistingMedia[]>([]);
   const [removedMediaIds, setRemovedMediaIds] = useState<string[]>([]);
 
   useEffect(() => {
     if (story) {
       setExistingMedia(
-        story.media.map((media) => ({ id: media.id, url: media.url, isThumbnail: media.isThumbnail }))
+        story.media.map((media) => ({
+          id: media.id,
+          url: media.url,
+          isThumbnail: media.isThumbnail,
+        }))
       );
     }
   }, [story]);
@@ -84,7 +88,6 @@ export default function StoryFormPopup({
         media.isThumbnail ? { ...media, isThumbnail: false } : media
       )
     );
-
   };
 
   const handleAddMedia = (file: File) => {
@@ -103,18 +106,23 @@ export default function StoryFormPopup({
     setSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
+
+    formData.append("content", editorContent);
+
     selectedCategories.forEach((category) => {
       formData.append("categories", category.id);
     });
+
     if (thumbnail) {
       formData.append("thumbnail", thumbnail.content);
     }
+    
     additionalFiles.forEach((file) => {
       formData.append("additionalFiles", file.content);
     });
 
     if (story) {
-      formData.append("deletedMediaIds", JSON.stringify(removedMediaIds));      
+      formData.append("deletedMediaIds", JSON.stringify(removedMediaIds));
     }
 
     try {
@@ -155,11 +163,14 @@ export default function StoryFormPopup({
         <FormInput name="title" required defaultValue={story?.title || ""} />
 
         <FormLabel htmlFor="content">Content</FormLabel>
-        <FormTextArea
+        {/* <FormTextArea
           name="content"
           required
           defaultValue={story?.content || ""}
-        />
+        /> */}
+        <EditorContainer>
+          <SimpleEditor value={editorContent} onChange={setEditorContent} />
+        </EditorContainer>
         <FormLabel htmlFor="summary">Summary</FormLabel>
         <FormTextArea
           height="100"
@@ -194,43 +205,45 @@ export default function StoryFormPopup({
           setSelectedCategories={onCategoriesChangeAction}
         />
 
-            <FormLabel>Thumbnail</FormLabel>
-            <FileInputContainer
-              id="thumbnail"
-              onFileUpload={handleAddThumbnail}
-              url={existingMedia.find(media => media.isThumbnail)?.url || undefined}
-              />
-              <FormLabel>Additional Media</FormLabel>
-            <AdditionalFilesContainer>
-              {existingMedia.filter(media => !media.isThumbnail).map(media => (
-                <ImagePreview
-                  key={media.id}
-                  onClick={() =>
-                    confirm("Are you sure you want to remove this media?") &&
-                    handleRemoveExisting(media.id)
-                  }
-                >
-                  <img src={media.url} alt={media.id} />
-                </ImagePreview>
-              ))}
-              {additionalFiles.map((file) => (
-                <ImagePreview
-                  key={file.id}
-                  onClick={() =>
-                    confirm("Are you sure you want to remove this media?") &&
-                    handleRemoveMedia(file.id)
-                  }
-                >
-                  <img src={URL.createObjectURL(file.content)} alt={file.id} />
-                </ImagePreview>
-              ))}
-              <FileInputContainer
-                id="additional-files"
-                onFileUpload={handleAddMedia}
-              />
-            </AdditionalFilesContainer>
-            
-
+        <FormLabel>Thumbnail</FormLabel>
+        <FileInputContainer
+          id="thumbnail"
+          onFileUpload={handleAddThumbnail}
+          url={
+            existingMedia.find((media) => media.isThumbnail)?.url || undefined
+          }
+        />
+        <FormLabel>Additional Media</FormLabel>
+        <AdditionalFilesContainer>
+          {existingMedia
+            .filter((media) => !media.isThumbnail)
+            .map((media) => (
+              <ImagePreview
+                key={media.id}
+                onClick={() =>
+                  confirm("Are you sure you want to remove this media?") &&
+                  handleRemoveExisting(media.id)
+                }
+              >
+                <img src={media.url} alt={media.id} />
+              </ImagePreview>
+            ))}
+          {additionalFiles.map((file) => (
+            <ImagePreview
+              key={file.id}
+              onClick={() =>
+                confirm("Are you sure you want to remove this media?") &&
+                handleRemoveMedia(file.id)
+              }
+            >
+              <img src={URL.createObjectURL(file.content)} alt={file.id} />
+            </ImagePreview>
+          ))}
+          <FileInputContainer
+            id="additional-files"
+            onFileUpload={handleAddMedia}
+          />
+        </AdditionalFilesContainer>
 
         <CreateStoryButton type="submit" disabled={submitting}>
           {submitting ? "Saving..." : isEditing ? "Save" : "Create Story"}

@@ -10,9 +10,9 @@ import LoadingPage from "../../components/loadingPage/loadingPage.component";
 import { CategoriesContainer, StoryContainer, SaveButton } from "./style";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
 import Image from "next/image";
+import { SimpleEditor } from "../readOnlyEditor";
 
-export default function StoryPage({id}: { id: string }) {
-
+export default function StoryPage({ id }: { id: string }) {
   const { getStory, createStorySave, deleteStorySave, isStorySaved } =
     usePublicServerActions();
 
@@ -120,14 +120,16 @@ export default function StoryPage({id}: { id: string }) {
         </CategoriesContainer>
       )}
       <h1 className="title">{story.title}</h1>
-      <p className="summary">{story.summary}</p>
+      {/* <p className="summary">{story.summary}</p> */}
       <img src={thumbnail || ""} alt="thumbnail" />
       <hr />
       <div className="info">
         <p>By {author}</p>
         <p>{date}</p>
       </div>
-      <div className="content">{contentElements}</div>
+      <div className="prose">
+        <SimpleEditor value={story.content} />
+      </div>
     </StoryContainer>
   );
 }

@@ -124,7 +124,6 @@ export const ImagePreview = styled.div`
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
-
   }
 
   &:hover:after {
@@ -153,4 +152,9 @@ export const AdditionalFilesContainer = styled.div`
   label {
     margin: 0;
   }
+`;
+
+export const EditorContainer = styled.div`
+  position: relative;
+  margin-top: 15px;
 `;

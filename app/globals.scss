@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Manufacturing+Consent&display=swap');
+
 
 :root {
   --text-color: rgb(0, 0, 0);
@@ -24,6 +24,7 @@
 body {
   background: var(--bg-color);
   color: var(--text-color);
+  overflow: auto !important;
 }
 
 .page-wrapper {
@@ -129,5 +130,45 @@ select {
   @media (max-width: 850px) {
     padding: 0;
     padding-bottom: 20px;
+  }
+}
+.prose {
+
+  .simple-editor-content {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  h1 {
+    font-size: 2.5rem !important;
+
+    @media (max-width: 850px) {
+      font-size: 1.8rem !important;
+    }
+  }
+  
+  h2 {
+    font-size: 1.8rem !important;
+    @media (max-width: 850px) {
+      font-size: 1.5rem !important;
+    }
+  }
+
+  p {
+    font-size: large !important;
+  }
+
+  blockquote {
+    font-style: italic;
+  }
+
+  li {
+    margin-block: 0.3rem;
+  }
+}
+
+.simple-editor-content .tiptap.ProseMirror {
+  @media (max-width: 850px) {
+    padding: 0 !important;
   }
 }

@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const StoryContainer = styled.div`
-  max-width: 1400px;
-  overflow: hidden;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 40px 100px 70px;
 
@@ -12,13 +11,13 @@ export const StoryContainer = styled.div`
 
     .title {
       margin-top: 10px;
+      font-size: 2.4rem !important;
     }
   }
 
   .title {
     font-weight: normal;
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: .8rem;
+    font-size: 4rem
   }
 
   img {
@@ -33,10 +32,6 @@ export const StoryContainer = styled.div`
     justify-content: space-between;
     margin-block: 5px 20px;
   }
-
-  .content {
-  white-space: pre-line;
-}
 `;
 
 export const CategoriesContainer = styled.div`
@@ -56,7 +51,7 @@ export const CategoriesContainer = styled.div`
 
 export const SaveButton = styled.div`
   position: absolute;
-  top: 20px;
+  top: 10px;
   right: 20px;
   font-size: 1.4rem;
   cursor: pointer;
