@@ -9,25 +9,10 @@ import {
   CategoriesContainer,
 } from "./story.styles";
 import { useRouter } from "next/navigation";
-// import StoryPopup from '../storyPopup/storyPopup.component';
 
 export default function Story({ story }: { story: StoryType }) {
   const isMobile = useStore((state) => state.mobileLayout.isMobile);
   const router = useRouter();
-
-  // type HoveredStoryState = {
-  //   story: StoryType | null;
-  //   isHovered: boolean;
-  //   position: number;
-  // };
-
-  // const [hoveredStory, setHoveredStory] = useState<HoveredStoryState>({
-  //   story: null,
-  //   isHovered: false,
-  //   position: 0,
-  // });
-
-  // const storyContainerRef = useRef<HTMLDivElement>(null);
 
   const thumbnail = story.media.find((media) => media.isThumbnail)?.url;
   const date = new Date(story.createdAt).toLocaleDateString("en-US", {
@@ -36,44 +21,9 @@ export default function Story({ story }: { story: StoryType }) {
     year: "numeric",
   });
 
-  // const handleMouseEnter = (event: React.MouseEvent) => {
-  //   const storyElement = event.currentTarget.getBoundingClientRect();
-  //   const parentElement =
-  //     event.currentTarget.parentElement?.getBoundingClientRect();
-
-  //   if (!parentElement) return;
-
-  //   let newPosition = storyElement.top + storyElement.height / 2;
-  //   const popupHeight = 250;
-
-  //   if (newPosition - popupHeight / 2 < parentElement.top) {
-  //     newPosition = parentElement.top + popupHeight / 2;
-  //   }
-  //   if (newPosition + popupHeight / 2 > parentElement.bottom) {
-  //     newPosition = parentElement.bottom - popupHeight / 2;
-  //   }
-
-  //   setHoveredStory({
-  //     story: story,
-  //     isHovered: true,
-  //     position: newPosition - storyElement.top,
-  //   });
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setHoveredStory({
-  //     story: null,
-  //     isHovered: false,
-  //     position: 0,
-  //   });
-  // };
-
   return (
     <StoryContainer
-    // ref={storyContainerRef}
-    // onMouseEnter={handleMouseEnter}
-    // onMouseLeave={handleMouseLeave}
-    onClick={() => isMobile && router.push(`/story/${story.id}`)}
+      onClick={() => isMobile && router.push(`/story/${story.id}`)}
     >
       <StoryContent>
         {isMobile ? (
@@ -113,12 +63,6 @@ export default function Story({ story }: { story: StoryType }) {
         )}
       </StoryContent>
       <img src={thumbnail} alt="thumbnail" />
-      {/* {hoveredStory.isHovered && (
-        <StoryPopup
-          story={hoveredStory.story!}
-          position={hoveredStory.position}
-        />
-      )} */}
     </StoryContainer>
   );
 }

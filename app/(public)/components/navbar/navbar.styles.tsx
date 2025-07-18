@@ -47,6 +47,7 @@ export const NavBarContainer = styled.nav`
   }
 
   .title-lg {
+    font-family: "Abyssinica SIL", serif;
     font-size: 2.5rem;
     font-weight: normal;
     text-align: center;
@@ -57,6 +58,7 @@ export const NavBarContainer = styled.nav`
 
     @media (max-width: 850px) {
       font-size: 1.5rem;
+      width: max-content;
     }
   }
 `;

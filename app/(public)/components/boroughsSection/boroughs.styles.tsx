@@ -14,6 +14,7 @@ type PathElementProps = {
 };
 
 export const BoroughsSectionContainer = styled.section<{ $fileName: string }>`
+font-family: 'Oswald', sans-serif;
   height: calc(100vh - 80px);
   max-height: 60vw;
   position: relative;

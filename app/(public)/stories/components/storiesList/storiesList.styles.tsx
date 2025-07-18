@@ -6,6 +6,7 @@ export const StoriesListContainer = styled.div`
   flex-direction: column;
   align-items: center;
   overflow-x: hidden;
+  height: max-content;
 
   @media (max-width: 850px) {
       gap: 20px;

@@ -23,6 +23,7 @@ export const HeaderContainer = styled.header`
   }
 
   .center-title {
+    font-family: "Abyssinica SIL", serif;
     text-align: center;
     position: absolute;
     font-size: 3vw;
@@ -32,6 +33,7 @@ export const HeaderContainer = styled.header`
 
     @media (max-width: 600px) {
       font-size: 7vw;
+      width: 100%;
       text-wrap: balance;
     }
   }

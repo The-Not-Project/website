@@ -1,4 +1,5 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Abyssinica+SIL&family=Manufacturing+Consent&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
 :root {
   --text-color: rgb(0, 0, 0);
@@ -24,11 +25,11 @@
 body {
   background: var(--bg-color);
   color: var(--text-color);
-  overflow: auto !important;
+  // overflow: auto !important;
 }
 
 .page-wrapper {
-  transition: 0.18s ease-in;
+  transition: .18s ease-in !important;
 
   &.shifted {
     translate: -80%;

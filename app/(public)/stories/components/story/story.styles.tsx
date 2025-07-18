@@ -9,6 +9,7 @@ export const StoryContainer = styled.div`
 
   img {
     object-fit: cover;
+    width: 280px;
     min-width: 280px;
     height: 150px;
     margin-block: 10px;

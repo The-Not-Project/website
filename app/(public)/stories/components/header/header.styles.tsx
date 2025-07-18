@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.header<{ $filename: string }>`
+font-family: "Abyssinica SIL", serif;
   height: 100dvh;
   max-height: 1000px;
   background: url(${({ $filename }) => `../media/boroughBackdrops/${$filename}.jpg`})

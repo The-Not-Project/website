@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 type RadarDescriptionProps = { $isVisible: boolean; $url: string };
 
@@ -30,13 +30,13 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
   justify-content: center;
   text-align: center;
   color: #f9faf9;
-  width: ${({ $isVisible }) => ($isVisible ? '50%' : '100%')};
+  width: ${({ $isVisible }) => ($isVisible ? "50%" : "100%")};
   height: 100%;
   position: relative;
   transition: 0.3s ease-out;
   background: var(--radar-bg);
 
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     position: absolute;
     top: 0;
     left: 0;
@@ -50,17 +50,19 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     text-align: left;
     z-index: 2;
 
-    transition: opacity 0.3s ease-out 0.3s, translate 0.3s ease-out 0.3s;
-    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
-    translate: 0 ${({ $isVisible }) => ($isVisible ? '0' : '10px')};
+    transition:
+      opacity 0.3s ease-out 0.3s,
+      translate 0.3s ease-out 0.3s;
+    opacity: ${({ $isVisible }) => ($isVisible ? "1" : "0")};
+    translate: 0 ${({ $isVisible }) => ($isVisible ? "0" : "10px")};
   }
 
   .title {
     text-wrap: balance;
     font-size: clamp(2rem, 3rem, 3vw);
     transition: opacity 0.3s ease-out 0.5s;
-    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
-    @media (max-width: 600px) {
+    opacity: ${({ $isVisible }) => ($isVisible ? "1" : "0")};
+    @media (max-width: 850px) {
       transition: none;
       opacity: 1;
       font-weight: normal;
@@ -72,8 +74,8 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     font-size: clamp(1rem, 2rem, 1.5vw);
     font-style: italic;
     transition: opacity 0.3s ease-out 0.5s;
-    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
-    @media (max-width: 600px) {
+    opacity: ${({ $isVisible }) => ($isVisible ? "1" : "0")};
+    @media (max-width: 850px) {
       display: none;
     }
   }
@@ -83,8 +85,8 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     bottom: 30px;
     font-size: 1.5rem;
     transition: opacity 0.3s ease-out 0.5s;
-    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
-    @media (max-width: 600px) {
+    opacity: ${({ $isVisible }) => ($isVisible ? "1" : "0")};
+    @media (max-width: 850px) {
       transition: none;
 
       opacity: 1;
@@ -103,14 +105,14 @@ export const RadarDescription = styled.div<RadarDescriptionProps>`
     width: 100%;
     height: 100%;
     transition: opacity 0.3s ease-out;
-    opacity: ${({ $isVisible }) => ($isVisible ? '0' : '1')};
+    opacity: ${({ $isVisible }) => ($isVisible ? "0" : "1")};
 
-    @media (max-width: 600px) {
+    @media (max-width: 850px) {
       display: none;
     }
 
     &::after {
-      content: 'Our Radar';
+      content: "Our Radar";
       background: var(--radar-overlay);
       color: hsl(104, 8%, 90%);
       position: absolute;
@@ -132,10 +134,10 @@ export const RadarPhoto = styled.div<{ $url: string }>`
   background: url(${({ $url }) => $url}) no-repeat center center/cover;
   transition: 0.3s ease-out;
   position: relative;
-  @media (max-width: 600px) {
+  @media (max-width: 850px) {
     transition: none;
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       top: 0;
       left: 0;
@@ -154,7 +156,7 @@ export const CategoriesContainer = styled.div`
   display: flex;
   gap: 5px;
 
-  @media (min-width: 600px) {
+  @media (min-width: 850px) {
     display: none;
   }
 `;

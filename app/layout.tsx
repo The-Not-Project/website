@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { Oswald } from "next/font/google";
+import { Outfit as Font } from "next/font/google";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import seoKeywords from "./constants/seoKeywords";
 import "./globals.scss";
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   keywords: seoKeywords.home,
 };
 
-const oswald = Oswald({ weight: "400", subsets: ["latin"] });
+const oswald = Font({ weight: "400", subsets: ["latin"] });
 
 export default async function RootLayout({
   children,

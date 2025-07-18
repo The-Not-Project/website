@@ -124,7 +124,7 @@ export default function NavBar() {
               className={solidClass}
               onClick={() => setIsMenuOpen(false)}
             >
-              HOME
+              Home
             </Link>
           </>
         )}
@@ -134,14 +134,14 @@ export default function NavBar() {
           className={solidClass}
           onClick={() => setIsMenuOpen(false)}
         >
-          STORIES
+          Stories
         </Link>
         <Link
           href="/about"
           className={solidClass}
           onClick={() => setIsMenuOpen(false)}
         >
-          ABOUT US
+          About Us
         </Link>
 
         {authenticated ? (
@@ -153,15 +153,15 @@ export default function NavBar() {
               <>
                 <ProfileIcon />
                 <Dropdown className={clsx({ closed: !isDropdownOpen })}>
-                  <p>MY ACCOUNT</p>
+                  <p>My Profile</p>
                   {isAdmin ? (
-                    <Link href="/admin">ADMIN</Link>
+                    <Link href="/admin">Admin</Link>
                   ) : (
                     <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
-                      PROFILE
+                      Profile
                     </Link>
                   )}
-                  <AuthLink href="/api/auth/logout">LOG OUT</AuthLink>
+                  <AuthLink href="/api/auth/logout">Log Out</AuthLink>
                 </Dropdown>
               </>
             ) : (
@@ -171,14 +171,14 @@ export default function NavBar() {
                   href="/api/auth/logout"
                   className={clsx(solidClass, "mobile")}
                 >
-                  LOG OUT
+                  Log Out
                 </AuthLink>
               </Dropdown>
             )}
           </ProfileDropdown>
         ) : (
           <AuthLink href="/api/auth/login" className={`${solidClass} bottom`}>
-            SIGN IN
+            Sign In
           </AuthLink>
         )}
 
