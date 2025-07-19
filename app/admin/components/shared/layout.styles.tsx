@@ -13,7 +13,6 @@ export const AdminContainer = styled.section`
     max-width: 1000px;
 
     h1 {
-      font-weight: 500;
       font-size: 1.8rem;
       margin-bottom: 20px;
     }

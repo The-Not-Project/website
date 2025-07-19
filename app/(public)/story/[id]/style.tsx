@@ -38,6 +38,7 @@ export const CategoriesContainer = styled.div`
   display: flex;
   gap: 5px;
   position: relative;
+  margin-bottom: 20px;
   
   .divider {
     scale: 0.7;
