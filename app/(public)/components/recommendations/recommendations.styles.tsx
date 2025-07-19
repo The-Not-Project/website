@@ -34,7 +34,7 @@ export const RecommendationsList = styled.div`
   margin-block: 40px;
   justify-content: center;
   width: fit-content;
-  gap: 30px;
+  /* gap: 30px; */
   margin-inline: auto;
   flex-wrap: wrap;
 
@@ -55,81 +55,66 @@ export const RecommendationsList = styled.div`
   }
 `;
 
-export const RecommendationCardContainer = styled.figure`
-  width: 300px;
-  height: 400px;
-  background: white;
+export const RecommendationCardContainer = styled.div`
+  width: 400px;
+  padding: 40px 35px;
   display: flex;
   flex-flow: column;
-  background: var(--cards-bg);
-  color: var(--cards-text);
+  background: transparent;
+  border: 2px solid #9d9d9d;
+  margin-left: -2px;
 
-  @media (max-width: 600px) {
+  .first-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-size: 0.8rem;
+    color: #454545;
+    
+    .category {
+      border: 1.5px solid #454545;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: 50px;
+    }
+  }
+
+  img {
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    height: auto;
+    object-fit: cover;
+    margin-bottom: 15px;
+  }
+
+
+  /* @media (max-width: 600px) {
     scroll-snap-align: center;
     flex: 0 0 100%;
-  }
+  } */
 
   .content {
-    padding: 15px 25px;
-    min-height: 50%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    flex-grow: 1;
-    transition: 0.2s;
-    cursor: pointer;
-
-    &.expanded {
-      height: 100%;
-    }
-    a {
-      color: black;
-      font-size: 1.1rem;
-      display: block;
-      margin-top: auto;
+    .title {
+      font-size: 1.6rem;
+      font-weight: normal;
     }
 
-    .categories {
-      color: var(--accent-text);
-      font-size: 0.9rem;
+    .summary {
+      margin-block: 10px;
+      color: #454545;
+      line-height: 1.4em;
     }
   }
 
-  h3 {
-    font-size: 1.6rem;
-    font-weight: normal;
-  }
-
-  .summary {
-    rotate: x 90deg;
-    overflow: hidden;
-    transition: rotate 0.2s, opacity 0.1s;
-    opacity: 0;
-    &.expanded {
-      opacity: 1;
-      rotate: none;
-      transition: rotate 0.3s, opacity 0.5s;
-    }
-  }
-`;
-
-export const ImageDiv = styled.div<{ $src: string }>`
-  height: 100%;
-  background: url(${({ $src }) => $src}) no-repeat center center/cover;
-  transition: 0.2s;
-  position: relative;
-  &.expanded {
-    height: 35%;
-  }
-
-  .date {
-    position: absolute;
-    top: 0;
-    left: 0;
-    translate: 15px 10px;
-    color: white;
-    text-shadow: 0 0 10px black;
-    font-size: 1.2rem;
-    z-index: 2;
+  a {
+    width: fit-content;
+    color: #454545;
+    margin-top: auto;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    text-decoration: none;
+    border-bottom: 1.3px solid #454545;
   }
 `;

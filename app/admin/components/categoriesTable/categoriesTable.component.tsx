@@ -36,7 +36,7 @@ export default function CategoriesTable({
         <tr>
           <th>Category</th>
           <th>Description</th>
-          <th></th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>

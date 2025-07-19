@@ -54,7 +54,7 @@ export default function CategoryFormPopup({
     <Popup>
       <CloseButton onClick={onCloseAction} />
       <SectionTitle>
-        {isEditing ? 'Edit Category' : 'Create New Category'}
+        {isEditing ? 'Edit Category' : 'Create Category'}
       </SectionTitle>
 
       <form onSubmit={handleSubmit}>

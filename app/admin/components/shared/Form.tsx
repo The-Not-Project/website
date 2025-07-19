@@ -15,28 +15,30 @@ export const FormInput = styled.input`
   width: 300px;
   text-indent: 5px;
   font-size: 1.2rem;
-  border-radius: 5px;
   outline: none;
-  border: 1px gray solid;
-  background: hsl(36, 47%, 98%);
+  border: none;
+  border-bottom: 3px gray solid;
+  background: hsl(0, 0%, 98%);
 
   &:disabled {
-    background: hsl(36, 20%, 90%);
+    background: hsl(0, 0%, 90%);
+    border-color: black;
   }
 `;
 
 export const FormTextArea = styled.textarea<{ height?: string }>`
   display: block;
-  margin-block: 4px 15px;
+  margin-block: 10px 15px;
+  padding: 10px;
   min-height: ${(props) => props.height || "300"}px;
-  width: 700px;
+  width: 100%;
   max-width: 100%;
   text-indent: 5px;
   font-size: 1.2rem;
-  border-radius: 5px;
+  border-radius: 3px;
   outline: none;
   border: 1px gray solid;
-  background: hsl(36, 47%, 98%);
+  background: white;
 
   &:disabled {
     background: hsl(36, 20%, 90%);
@@ -45,7 +47,8 @@ export const FormTextArea = styled.textarea<{ height?: string }>`
 
 export const FormSelect = styled.select`
   display: block;
-  margin-block: 4px 15px;
+  height: 35px;
+  margin-block: 10px 15px;
   text-indent: 5px;
   font-size: 1.2rem;
   border-radius: 5px;

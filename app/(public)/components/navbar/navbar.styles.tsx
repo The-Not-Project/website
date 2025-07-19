@@ -47,7 +47,7 @@ export const NavBarContainer = styled.nav`
   }
 
   .title-lg {
-    font-family: "Abyssinica SIL", serif;
+    font-family: "Oswald", sans-serif;
     font-size: 2.5rem;
     font-weight: normal;
     text-align: center;

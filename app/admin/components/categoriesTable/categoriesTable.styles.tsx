@@ -7,7 +7,7 @@ export const CategoriesTable = styled.table`
 
   tbody tr {
     &:nth-child(odd) {
-      background-color: hsl(36, 47%, 97%);
+      background-color: hsl(0, 0%, 100%);
     }
   }
 

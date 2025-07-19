@@ -12,7 +12,11 @@ export const CategoriesInput = styled(FormInput)`
 
   &.expanded {
     border-bottom: none;
-    border-radius: 5px 5px 0 0;
+    /* border-radius: 5px 5px 0 0; */
+  }
+
+  &::placeholder {
+    font-size: 0.9em;
   }
 `;
 
@@ -21,9 +25,8 @@ export const CategoriesList = styled.ul`
   padding: 0.5rem;
   max-height: 150px;
   overflow-y: auto;
-  background: hsl(36, 47%, 99%);
-  border: 1px solid gray;
-  border-top: none;
+  background: hsl(0, 0%, 98%);
+  border-bottom: 3px solid gray;
   border-radius: 0 0 5px 5px;
   width: 100%;
 `;

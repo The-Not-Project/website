@@ -7,7 +7,7 @@ export const StoriesSearchContainer = styled.div`
 
 export const SearchInput = styled.input`
   width: 200px;
-  height: 35px;
+  height: 40px;
   background: transparent;
   outline: none;
   border: 1px solid #bdbdbd;
@@ -22,6 +22,7 @@ export const SearchTitle = styled.h3`
 `;
 
 export const SecondaryTitle = styled.h4`
+  margin-top: 10px;
   display: inline-block;
   font-weight: lighter;
 `;
@@ -36,7 +37,7 @@ export const FilterOptionsContainer = styled.div`
 export const FilterOption = styled.span`
   color: #bebebe;
   border: 2px solid #bebebe;
-  padding: 0 8px;
+  padding: 3px 8px;
   font-size: 0.9rem;
   border-radius: 3px;
   cursor: pointer;
@@ -48,10 +49,11 @@ export const FilterOption = styled.span`
 `;
 
 export const ApplyFiltersButton = styled.button`
+  font-size: 1em;
   margin-top: 10px;
   background: black;
   color: white;
-  padding: 5px 10px;
+  padding: 10px 15px;
   border: none;
   border-radius: 3px;
   cursor: pointer;

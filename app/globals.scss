@@ -23,9 +23,9 @@
 }
 
 body {
-  background: var(--bg-color);
+  background: #f9faf9 !important;
   color: var(--text-color);
-  // overflow: auto !important;
+  overflow: auto !important;
 }
 
 .page-wrapper {
@@ -40,7 +40,7 @@ button,
 input,
 textarea,
 select {
-  font-family: "Oswald", sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
 
 @keyframes fadepulsatefast {

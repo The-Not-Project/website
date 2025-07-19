@@ -3,6 +3,7 @@ import styled from "styled-components";
 type RadarDescriptionProps = { $isVisible: boolean; $url: string };
 
 export const RadarCardContainer = styled.section`
+  font-family: 'Oswald', sans-serif;
   display: flex;
   max-width: 1920px;
   height: calc(50vw - 80px);

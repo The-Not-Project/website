@@ -10,7 +10,7 @@ export const Table = styled.table`
 
   tbody tr {
     &:nth-child(odd) {
-      background-color: hsl(36, 47%, 97%);
+      background-color: white;
     }
   }
 
