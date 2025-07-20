@@ -10,6 +10,7 @@ import {
   getCategories,
 } from '../database/repositories/category.repository';
 import {
+  createEmptyStory,
   createStory,
   deleteStory,
   editStory,
@@ -25,6 +26,8 @@ import {
   getRadarStory,
   updateRadarStory,
 } from '../database/repositories/radar.repository';
+import { getMediaSignedUrl } from '../database/helpers/media.helpers';
+import { processMediaFile } from '../database/helpers/story.helpers';
 
 export default async function AdminLayout({
   children,
@@ -40,6 +43,7 @@ export default async function AdminLayout({
     editCategory,
     deleteCategory,
     createStory,
+    createEmptyStory,
     getStories,
     editStory,
     deleteStory,
@@ -49,6 +53,8 @@ export default async function AdminLayout({
     getRadarStory,
     updateRadarStory,
     deleteRadarStory,
+    getMediaSignedUrl,
+    processMediaFile
   };
 
   return (

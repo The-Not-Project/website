@@ -3,7 +3,8 @@ import { Category, RawMedia, RawStory, Story } from '@/app/types/types';
 import { transformMedia, uploadFileToPinata } from './media.helpers';
 
 export function getStoryData(formData: FormData) {
-  const [title, content, borough, summary] = [
+  const [id, title, content, borough, summary] = [
+    'id',
     'title',
     'content',
     'borough',
@@ -19,7 +20,7 @@ export function getStoryData(formData: FormData) {
     throw new Error('Missing required story fields');
   }
 
-  return { title, content, borough, summary, categoryIds, thumbnail, additionalFiles };
+  return { id, title, content, borough, summary, categoryIds, thumbnail, additionalFiles };
 }
 
 export async function processCategories(
@@ -68,6 +69,20 @@ export async function processThumbnail(storyId: string, file: File) {
       isThumbnail: true,
     },
   });
+}
+
+export async function processMediaFile(stotyId: string, file: File) {
+  'use server';
+  const cid = await uploadFileToPinata(file);
+  await prisma.media.create({
+    data: {
+      cid,
+      storyId: stotyId,
+      isThumbnail: false,
+    },
+  });
+
+  return cid;
 }
 
 export async function processStories(

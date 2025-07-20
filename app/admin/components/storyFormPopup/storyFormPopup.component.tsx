@@ -9,8 +9,8 @@ import {
   FormLabel,
   FormTextArea,
   FormSelect,
-  ImagePreview,
-  AdditionalFilesContainer,
+  // ImagePreview,
+  // AdditionalFilesContainer,
   EditorContainer,
 } from "../shared/Form";
 import { CloseButton } from "../shared/Button";
@@ -23,8 +23,9 @@ interface StoryFormPopupProps {
   isOpen: boolean;
   isEditing: boolean;
   story: Story | null;
+  storyId: string;
   selectedCategories: Category[];
-  onCloseAction: () => void;
+  onCloseAction: (isSaved: boolean) => void;
   onSubmitSuccessAction: () => void;
   onCategoriesChangeAction: (categories: Category[]) => void;
   createStoryAction: (formData: FormData) => Promise<void>;
@@ -46,6 +47,7 @@ export default function StoryFormPopup({
   isOpen,
   isEditing,
   story,
+  storyId,
   selectedCategories,
   onCloseAction,
   onSubmitSuccessAction,
@@ -55,7 +57,7 @@ export default function StoryFormPopup({
 }: StoryFormPopupProps) {
   const [submitting, setSubmitting] = useState(false);
   const [thumbnail, setThumbnail] = useState<UploadedMediaFile | null>(null);
-  const [additionalFiles, setAdditionalFiles] = useState<UploadedMediaFile[]>([]);
+  // const [additionalFiles, setAdditionalFiles] = useState<UploadedMediaFile[]>([]);
   const [editorContent, setEditorContent] = useState(story?.content || '');
   const [existingMedia, setExistingMedia] = useState<ExistingMedia[]>([]);
   const [removedMediaIds, setRemovedMediaIds] = useState<string[]>([]);
@@ -90,16 +92,16 @@ export default function StoryFormPopup({
     );
   };
 
-  const handleAddMedia = (file: File) => {
-    setAdditionalFiles((prev) => [
-      ...prev,
-      { id: crypto.randomUUID(), content: file },
-    ]);
-  };
+  // const handleAddMedia = (file: File) => {
+  //   setAdditionalFiles((prev) => [
+  //     ...prev,
+  //     { id: crypto.randomUUID(), content: file },
+  //   ]);
+  // };
 
-  const handleRemoveMedia = (id: string) => {
-    setAdditionalFiles((prev) => prev.filter((file) => file.id !== id));
-  };
+  // const handleRemoveMedia = (id: string) => {
+  //   setAdditionalFiles((prev) => prev.filter((file) => file.id !== id));
+  // };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -117,12 +119,14 @@ export default function StoryFormPopup({
       formData.append("thumbnail", thumbnail.content);
     }
     
-    additionalFiles.forEach((file) => {
-      formData.append("additionalFiles", file.content);
-    });
+    // additionalFiles.forEach((file) => {
+    //   formData.append("additionalFiles", file.content);
+    // });
 
     if (story) {
       formData.append("deletedMediaIds", JSON.stringify(removedMediaIds));
+    } else {
+      formData.append("id", storyId);
     }
 
     try {
@@ -153,7 +157,7 @@ export default function StoryFormPopup({
 
   return (
     <Popup>
-      <CloseButton onClick={onCloseAction} />
+      <CloseButton onClick={() => onCloseAction(false)} />
       <SectionTitle>
         {isEditing ? "Edit Story" : "Create New Story"}
       </SectionTitle>
@@ -169,7 +173,7 @@ export default function StoryFormPopup({
           defaultValue={story?.content || ""}
         /> */}
         <EditorContainer>
-          <SimpleEditor value={editorContent} onChange={setEditorContent} />
+          <SimpleEditor value={editorContent} onChange={setEditorContent} storyId={storyId} />
         </EditorContainer>
         <FormLabel htmlFor="summary">Summary</FormLabel>
         <FormTextArea
@@ -213,7 +217,7 @@ export default function StoryFormPopup({
             existingMedia.find((media) => media.isThumbnail)?.url || undefined
           }
         />
-        <FormLabel>Additional Media</FormLabel>
+        {/* <FormLabel>Additional Media</FormLabel>
         <AdditionalFilesContainer>
           {existingMedia
             .filter((media) => !media.isThumbnail)
@@ -243,7 +247,7 @@ export default function StoryFormPopup({
             id="additional-files"
             onFileUpload={handleAddMedia}
           />
-        </AdditionalFilesContainer>
+        </AdditionalFilesContainer> */}
 
         <CreateStoryButton type="submit" disabled={submitting}>
           {submitting ? "Saving..." : isEditing ? "Save" : "Create Story"}

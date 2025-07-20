@@ -48,6 +48,32 @@ export async function getStory(id: string, compression?: number): Promise<Story>
   return processStory(story as RawStory, compression);
 }
 
+export async function createEmptyStory(): Promise<string> {
+  'use server';
+
+  const session = await getSession();
+  if (!session) throw new Error('User not authenticated');
+
+  const user = await getUser(session.user.sub);
+  if (!user) throw new Error('User not found');
+
+  if (!user.firstName || !user.lastName) {
+    redirect('/admin/personal-info');
+  }
+
+  const newStory = await prisma.story.create({
+    data: {
+      title: '',
+      content: '',
+      borough: '',
+      summary: '',
+      author: { connect: { id: user.id } },
+    },
+  });
+
+  return newStory.id;
+}
+
 export async function createStory(formData: FormData) {
   'use server';
 
@@ -61,10 +87,15 @@ export async function createStory(formData: FormData) {
     redirect('/admin/personal-info');
   }
 
-  const { title, content, borough, summary, categoryIds, thumbnail, additionalFiles } =
+  const { id, title, content, borough, summary, categoryIds, thumbnail, additionalFiles } =
     getStoryData(formData);
 
-  const newStory = await prisma.story.create({
+  if (!id) {
+    throw new Error('Story ID is required');
+  }
+
+  const newStory = await prisma.story.update({
+    where: { id },
     data: {
       title,
       content,

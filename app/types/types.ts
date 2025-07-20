@@ -61,7 +61,7 @@ export type RawStory = {
 }
 
 export type RawMedia = {
-  id: number | string;
+  id: string;
   cid: string;
   storyId: string;
   isThumbnail: boolean;

@@ -20,7 +20,7 @@ export default function Story({ story, onDelete, onEdit }: StoryProps) {
     year: 'numeric',
   });  
 
-  const url = story.media.find(media => media.isThumbnail)?.url || "https://via.placeholder.com/150";
+  const url = story.media.find(media => media.isThumbnail)?.url || "/media/logo-inverted.png";
 
   const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure?')) {

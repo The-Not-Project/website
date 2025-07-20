@@ -15,8 +15,28 @@ export async function uploadFileToPinata(file: File): Promise<string> {
     throw new Error('File upload failed');
   }
 
-  const signedUrl = await uploadResponse.json();
-  return signedUrl;
+  const cid = await uploadResponse.json();
+  return cid;
+}
+
+export async function getMediaSignedUrl(cid: string, compression?: number): Promise<string> {
+  'use server';
+  try {
+    const signedUrl = await pinata.gateways
+      .createSignedURL({
+        cid,
+        expires: 3600 * 24 * 60, // 60 days
+      })
+      .optimizeImage({
+        width: compression ?? undefined,
+        format: 'webp',
+      });
+
+    return signedUrl;
+  } catch (error) {
+    console.error('Error generating signed URL:', error);
+    throw new Error('Failed to generate signed URL');
+  }
 }
 
 export async function transformMedia(media: RawMedia, compression?: number): Promise<Media> {
@@ -27,20 +47,20 @@ export async function transformMedia(media: RawMedia, compression?: number): Pro
         expires: 3600,
       })
       .optimizeImage({
-        width: compression ? compression : undefined,
+        width: compression ?? undefined,
         format: 'webp',
       });
 
     return {
       ...media,
-      id: media.id.toString(),
+      id: media.id,
       url: signedUrl,
     };
   } catch (error) {
     console.error('Error generating signed URL:', error);
     return {
       ...media,
-      id: media.id.toString(),
+      id: media.id,
       url: '/fallback-image.jpg',
     };
   }

@@ -11,6 +11,7 @@ type AdminServerActions = {
   editCategory: (id: string, data: FormData) => Promise<void>;
   deleteCategory: (id: string) => Promise<void>;
   createStory: (data: FormData) => Promise<void>;
+  createEmptyStory: () => Promise<string>;
   getStories: (filters?: Filters, compression?: number) => Promise<Story[]>;
   editStory: (id: string, data: FormData) => Promise<void>;
   deleteStory: (id: string) => Promise<void>;
@@ -20,6 +21,9 @@ type AdminServerActions = {
   updateRadarStory : (id: string) => Promise<void>;
   getRadarStory : (compression?: number) => Promise<Story | null>;
   deleteRadarStory : () => Promise<void>;
+  getMediaSignedUrl : (cid: string, compression?: number) => Promise<string>;
+  processMediaFile: (storyId: string, file: File) => Promise<string>;
+
 };
 
 const AdminServerActionsContext = createContext<AdminServerActions | null>(null);
