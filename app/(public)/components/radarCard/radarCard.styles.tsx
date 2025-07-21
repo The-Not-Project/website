@@ -5,9 +5,9 @@ type RadarDescriptionProps = { $isVisible: boolean; $url: string };
 export const RadarCardContainer = styled.section`
   font-family: 'Oswald', sans-serif;
   display: flex;
-  max-width: 1920px;
+  max-width: 180vh;
   height: calc(50vw - 80px);
-  max-height: 900px;
+  max-height: 90vh;
   margin: 40px auto;
   padding-inline: 40px;
   overflow: hidden;

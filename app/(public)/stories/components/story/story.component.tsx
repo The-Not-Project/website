@@ -7,7 +7,9 @@ import {
   StoryContainer,
   StoryContent,
   CategoriesContainer,
+  MobileStoryBody,
 } from "./story.styles";
+import {FaShare as ShareIcon, FaCalendar as CalenderIcon, FaCircleInfo as InfoIcon} from 'react-icons/fa6'
 import { useRouter } from "next/navigation";
 
 export default function Story({ story }: { story: StoryType }) {
@@ -25,23 +27,31 @@ export default function Story({ story }: { story: StoryType }) {
     <StoryContainer
       onClick={() => isMobile && router.push(`/story/${story.id}`)}
     >
-      <StoryContent>
-        {isMobile ? (
-          <>
-            <h2 className="title">
-              <Link href={`/story/${story.id}`}>{story.title}</Link>
-            </h2>
-            <div className="info">
-              <span className="createdAt">{date}</span>
-              {story.categories.length > 0 && (
-                <CategoriesContainer>
-                  <span>・{story.categories[0].name}</span>
-                </CategoriesContainer>
-              )}
+      {isMobile ? (
+        <MobileStoryBody>
+          <div className="first-row">
+            <img src={thumbnail} alt="thumbnail" />
+            <div className="content">
+              <h2>{story.title}</h2>
+              <p>{story.summary.slice(0, 100)}...</p>
             </div>
-          </>
-        ) : (
-          <>
+          </div>
+          <div className="second-row">
+            <span> <CalenderIcon />{" "}
+              {new Date(story.createdAt).toLocaleDateString("en-US", {
+                month: "short",
+                year: "numeric",
+              })}
+            </span>
+            {story.categories.length > 0 && (
+              <span> <InfoIcon /> {story.categories[0].name}</span>
+            )}
+            <span><ShareIcon /> Share</span>
+          </div>
+        </MobileStoryBody>
+      ) : (
+        <>
+          <StoryContent>
             {story.categories.length > 0 && (
               <CategoriesContainer>
                 {story.categories.map((category, index) => (
@@ -59,10 +69,10 @@ export default function Story({ story }: { story: StoryType }) {
             </h2>
             <p>{story.summary}</p>
             <p className="createdAt">{date}</p>
-          </>
-        )}
-      </StoryContent>
-      <img src={thumbnail} alt="thumbnail" />
+          </StoryContent>
+          <img src={thumbnail} className="desktop-thumbnail" alt="thumbnail" />
+        </>
+      )}
     </StoryContainer>
   );
 }

@@ -1,17 +1,17 @@
-import styled from 'styled-components';
-import { FaAngleDown } from 'react-icons/fa6';
-import { FaFilter } from 'react-icons/fa';
+import styled from "styled-components";
+import { FaAngleDown } from "react-icons/fa6";
+import { FaFilter } from "react-icons/fa";
 
 export const StoriesSearchContainer = styled.div`
   margin-top: 30px;
   max-width: 250px;
   z-index: 1;
-  
+
   hr {
     margin: 30px 10px 20px 10px;
     opacity: 0.5;
   }
-  
+
   @media (max-width: 1600px) {
     background: #fffdfa;
     position: absolute;
@@ -147,7 +147,7 @@ export const FilterLabel = styled.label`
 
   &:before {
     box-sizing: border-box;
-    content: ' ';
+    content: " ";
     position: absolute;
     top: 0.3em;
     left: 0;
@@ -185,7 +185,8 @@ export const ApplyFiltersButton = styled.button`
   cursor: pointer;
   font-size: 14px;
   line-height: 1;
-  transition-property: background-color, border-color, color, box-shadow, filter;
+  transition-property:
+    background-color, border-color, color, box-shadow, filter;
   transition: 0.2s;
   border: 1px solid transparent;
   letter-spacing: 2px;
@@ -202,5 +203,67 @@ export const ApplyFiltersButton = styled.button`
   }
 
   @media (max-width: 1600px) {
+  }
+`;
+
+export const MobileSearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 20px;
+`;
+
+export const MobileInputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  background: hsl(160, 10%, 90%);
+  height: 50px;
+  border-radius: 7px;
+  overflow: hidden;
+
+  input {
+    flex-grow: 1;
+    height: 100%;
+    text-indent: 10px;
+    font-size: 1em;
+    border: none;
+    outline: none;
+    background: transparent;
+  }
+
+  button {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: hsl(160, 20%, 50%);
+    color: #fff;
+    border: none;
+    font-size: 1em;
+  }
+`;
+
+export const MobileCategoriesContainer = styled.div`
+  display: flex;
+  gap: 5px;
+  padding-block: 10px;
+  max-width: 100vw;
+  overflow-x: scroll;
+  font-size: 0.9em;
+
+  .category {
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.1s;
+    &:before {
+      content: "#";
+      color: hsl(160, 10%, 60%);
+    }
+
+    &.checked {
+      background: hsl(160, 10%, 80%);
+    }
   }
 `;

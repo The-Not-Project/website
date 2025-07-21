@@ -4,9 +4,6 @@ import NextLink from "next/link";
 type PathElementProps = {
   x: number;
   y: number;
-  scale: number;
-  shrinkx: number;
-  shrinky: number;
   $scatterprogress: number;
   $scatteroffsetx: number;
   $scatteroffsety: number;

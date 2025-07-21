@@ -7,29 +7,19 @@ export const StoryContainer = styled.div`
   padding-block: 5px;
   border-bottom: 1px solid gray;
 
-  img {
-    object-fit: cover;
-    width: 280px;
-    min-width: 280px;
-    height: 150px;
-    margin-block: 10px;
-  }
-
   @media (max-width: 850px) {
-    gap: 15px;
-    height: 90px;
     border: none;
     padding: 0;
-
-    img {
-      width: 35%;
-      min-width: 35%;
-      height: 100%;
-      border-radius: 5px;
-      margin: 0;
-    }
   }
-`;
+  
+  .desktop-thumbnail {
+    object-fit: cover;
+    width: 300px;
+    min-width: 300px;
+    height: 180px;
+    margin-block: 10px;
+  }
+  `;
 
 export const StoryContent = styled.div`
   flex-grow: 1;
@@ -49,32 +39,11 @@ export const StoryContent = styled.div`
     a {
       color: black;
       text-decoration: none;
-
+      
       &:hover {
         text-decoration: underline;
       }
     }
-  }
-
-  @media (max-width: 850px) {
-    order: 1;
-    justify-content: center;
-    gap: 10px;
-
-    .info {
-      display: flex;
-    }
-
-    .title {
-      font-size: 1.4rem;
-    }
-
-    .createdAt {
-      display: inline;
-      font-size: 0.8rem;
-      margin: 0;
-    }
- 
   }
 `;
 
@@ -83,19 +52,61 @@ export const CategoriesContainer = styled.div`
   gap: 5px;
   font-size: 0.9rem;
   text-decoration: underline;
-  
 
   .divider {
     scale: 0.7;
     color: gray;
   }
+  `;
 
-  span {
+export const MobileStoryBody = styled.div`
+  background: white;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 0 100px -40px rgba(0,0,0,0.3);
+  .first-row {
+    display: flex;
+    gap: 20px;
+    
+    img {
+      width: 33%;
+      aspect-ratio: 4 / 5;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-bottom: 5px;
+
+      h2 {
+        font-size: 1.1rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: gray;
+      }
+    }
   }
 
-  @media (max-width: 850px) {
+  .second-row {
+    color: gray;
     font-size: 0.8rem;
-    color: #3b3b3b;
-    text-decoration: none;
+    padding-top: 15px;
+    padding-inline: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
     }
+
+  }
 `;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const RecommendationsContainer = styled.section`
-  padding: 50px;
+  padding: 50px 10px;
   @media (max-width: 600px) {
     padding-inline: 0;
   }
@@ -34,7 +34,6 @@ export const RecommendationsList = styled.div`
   margin-block: 40px;
   justify-content: center;
   width: fit-content;
-  /* gap: 30px; */
   margin-inline: auto;
   flex-wrap: wrap;
 
@@ -42,8 +41,8 @@ export const RecommendationsList = styled.div`
     display: none;
   }
 
-  @media (max-width: 600px) {
-    gap: 30px;
+  @media (max-width: 850px) {
+    gap: 20px;
     overflow-x: scroll;
     max-width: 100vw;
     flex-wrap: nowrap;
@@ -51,7 +50,7 @@ export const RecommendationsList = styled.div`
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     justify-content: flex-start;
-    padding-inline: 50px;
+    padding-inline: 30px;
   }
 `;
 
@@ -90,10 +89,16 @@ export const RecommendationCardContainer = styled.div`
   }
 
 
-  /* @media (max-width: 600px) {
+  @media (max-width: 850px) {
     scroll-snap-align: center;
     flex: 0 0 100%;
-  } */
+    padding: 25px 25px;
+
+    img {
+      aspect-ratio: 16 / 10;
+      margin-bottom: 10px;
+    }
+  }
 
   .content {
     .title {

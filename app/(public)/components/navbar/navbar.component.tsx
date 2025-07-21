@@ -166,7 +166,9 @@ export default function NavBar() {
               </>
             ) : (
               <Dropdown>
-                <ProfileIcon />
+                <Link href={isAdmin ? "/" : "/profile"}>
+                  <ProfileIcon />
+                </Link>
                 <AuthLink
                   href="/api/auth/logout"
                   className={clsx(solidClass, "mobile")}

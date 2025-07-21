@@ -31,8 +31,8 @@ export const HeaderContainer = styled.header`
     left: 50%;
     translate: -50% -50%;
 
-    @media (max-width: 600px) {
-      font-size: 7vw;
+    @media (max-width: 850px) {
+      font-size: 8vw;
       width: 100%;
       text-wrap: balance;
     }

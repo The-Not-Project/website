@@ -222,8 +222,10 @@ export const Dropdown = styled.div`
     margin: 0;
     padding: 5px 20px;
 
-    &:hover {
-      background: #f0f0f0;
+    @media (min-width: 850px) {
+      &:hover {
+        background: #f0f0f0;
+      }
     }
   }
 `;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { usePublicServerActions } from "@/app/contexts/public-server-actions";
 import { Category, Filters } from "@/app/types/types";
+import { useStore } from "@/app/zustand/store";
 import {
   StoriesSearchContainer,
   SearchInput,
@@ -13,8 +14,12 @@ import {
   FilterCheckbox,
   FilterLabel,
   FilterIcon,
+  MobileSearchContainer,
+  MobileInputContainer,
+  MobileCategoriesContainer,
 } from "./storiesSearch.styles";
 import { FaMagnifyingGlass as SearchIcon } from "react-icons/fa6";
+import clsx from "clsx";
 
 type StoriesSearchProps = {
   filters: Filters;
@@ -29,6 +34,7 @@ export default function StoriesSearch({
   const [categories, setCategories] = useState<Category[]>([]);
   const [localFilters, setLocalFilters] = useState<Filters>(filters);
   const [categoriesVisible, setCategoriesVisible] = useState(false);
+  const isMobile = useStore((store) => store.mobileLayout.isMobile);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -61,59 +67,101 @@ export default function StoriesSearch({
         }
       }}
     >
-      <SearchTitle
-        onClick={() => {
-          if (window.innerWidth < 1600) {
-            setCategoriesVisible(!categoriesVisible);
-          }
-        }}
-      >
-        <FilterIcon />
-        Filter Stories
-      </SearchTitle>
-      <StoriesSearchContainer className={categoriesVisible ? "visible" : ""}>
-        <SearchContainer>
-          <SearchIcon />
-          <SearchInput
-            id="search"
-            placeholder="Search..."
-            value={localFilters.search}
-            onChange={handleSearchChange}
-          />
-        </SearchContainer>
-        <hr />
-        <div>
-          <SecondaryTitle
+      {!isMobile ? (
+        <>
+          <SearchTitle
             onClick={() => {
-              if (window.innerWidth > 1600) {
+              if (window.innerWidth < 1600) {
                 setCategoriesVisible(!categoriesVisible);
               }
             }}
           >
-            <ArrowIcon className={categoriesVisible ? "rotated" : undefined} />
-            Categories
-          </SecondaryTitle>
-          <FilterOptionsContainer
+            <FilterIcon />
+            Filter Stories
+          </SearchTitle>
+          <StoriesSearchContainer
             className={categoriesVisible ? "visible" : ""}
           >
-            {categories.map((category) => (
-              <div key={category.id} className="checkbox-wrapper-47">
-                <FilterCheckbox
-                  type="checkbox"
-                  name="cb"
-                  id={`category-${category.id}`}
-                  checked={localFilters.categories.includes(category.id)}
-                  onChange={() => handleCategoryClick(category)}
+            <SearchContainer>
+              <SearchIcon />
+              <SearchInput
+                id="search"
+                placeholder="Search..."
+                value={localFilters.search}
+                onChange={handleSearchChange}
+              />
+            </SearchContainer>
+            <hr />
+            <div>
+              <SecondaryTitle
+                onClick={() => {
+                  if (window.innerWidth > 1600) {
+                    setCategoriesVisible(!categoriesVisible);
+                  }
+                }}
+              >
+                <ArrowIcon
+                  className={categoriesVisible ? "rotated" : undefined}
                 />
-                <FilterLabel htmlFor={`category-${category.id}`}>
+                Categories
+              </SecondaryTitle>
+              <FilterOptionsContainer
+                className={categoriesVisible ? "visible" : ""}
+              >
+                {categories.map((category) => (
+                  <div key={category.id} className="checkbox-wrapper-47">
+                    <FilterCheckbox
+                      type="checkbox"
+                      name="cb"
+                      id={`category-${category.id}`}
+                      checked={localFilters.categories.includes(category.id)}
+                      onChange={() => handleCategoryClick(category)}
+                    />
+                    <FilterLabel htmlFor={`category-${category.id}`}>
+                      {category.name}
+                    </FilterLabel>
+                  </div>
+                ))}
+              </FilterOptionsContainer>
+            </div>
+            <ApplyFiltersButton>Look Up</ApplyFiltersButton>
+          </StoriesSearchContainer>
+        </>
+      ) : (
+        <>
+          <SearchTitle>
+            <FilterIcon />
+            Filter Stories
+          </SearchTitle>
+          <MobileSearchContainer>
+            <MobileInputContainer>
+              <input
+                type="text"
+                id="search"
+                placeholder="Search for stories"
+                value={localFilters.search}
+                onChange={handleSearchChange}
+              />
+              <button>
+                <SearchIcon />
+              </button>
+            </MobileInputContainer>
+            <MobileCategoriesContainer>
+              {categories.map((category) => (
+                <div
+                  key={category.id}
+                  className={"category " + clsx({
+                    checked: localFilters.categories.includes(category.id),
+                  })}
+                  onClick={() => handleCategoryClick(category)}
+                >
                   {category.name}
-                </FilterLabel>
-              </div>
-            ))}
-          </FilterOptionsContainer>
-        </div>
-        <ApplyFiltersButton>Look Up</ApplyFiltersButton>
-      </StoriesSearchContainer>
+                </div>
+              ))}
+            </MobileCategoriesContainer>
+          </MobileSearchContainer>
+        </>
+      )}
     </form>
   );
 }
