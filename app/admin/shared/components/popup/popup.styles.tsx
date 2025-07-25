@@ -21,6 +21,14 @@ export const Popup = styled.div`
   top: 50%;
   translate: -50% -50%;
   border-radius: 20px;
-  padding: 30px;
+  padding: 1px;
   border: 30px solid #f7f7f7;
+
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;  
+  scrollbar-width: none;    
 `;

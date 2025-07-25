@@ -216,7 +216,7 @@ export const MobileSearchContainer = styled.div`
 export const MobileInputContainer = styled.div`
   display: flex;
   align-items: center;
-  background: hsl(160, 10%, 90%);
+  background: #e1e6ea;
   height: 50px;
   border-radius: 7px;
   overflow: hidden;
@@ -238,7 +238,7 @@ export const MobileInputContainer = styled.div`
     align-items: center;
     justify-content: center;
     border-radius: 7px;
-    background: hsl(160, 20%, 50%);
+    background: hsl(204, 25%, 50%);
     color: #fff;
     border: none;
     font-size: 1em;
@@ -259,11 +259,11 @@ export const MobileCategoriesContainer = styled.div`
     transition: background 0.1s;
     &:before {
       content: "#";
-      color: hsl(160, 10%, 60%);
+      color: hsl(204, 10%, 60%);
     }
 
     &.checked {
-      background: hsl(160, 10%, 80%);
+      background: hsl(204, 25%, 80%);
     }
   }
 `;

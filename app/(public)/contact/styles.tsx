@@ -19,16 +19,12 @@ export const HeaderImage = styled(Image)`
 `;
 
 export const ContactContainer = styled.main`
-  padding: 80px;
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  flex-flow: column;
-  gap: 100px;
+  max-width: 850px;
+  margin: 40px auto;
+
 
   @media (max-width: 850px) {
     padding: 20px;
-    gap: 50px;
     margin-block: 20px;
   }
 `;

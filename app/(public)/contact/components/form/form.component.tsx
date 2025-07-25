@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { FormContainer } from "./form.styles";
 
-export default function ContactForm({ type }: { type: string }) {
+export default function ContactForm() {
+  const [type, setType] = useState("feedback");
   const [message, setMessage] = useState("");
   const [email, setEmail] = useState("");
   const [anonymous, setAnonymous] = useState(false);
@@ -28,36 +29,56 @@ export default function ContactForm({ type }: { type: string }) {
     setStatus(res.ok ? "sent" : "error");
   }
 
+  function handleChangeAnonymous(e: React.ChangeEvent<HTMLInputElement>) {
+    setAnonymous(e.target.checked);
+    if (e.target.checked) {
+      setEmail("");
+    }
+  }
+
+  function handleChangeType(e: React.ChangeEvent<HTMLSelectElement>) {
+    setType(e.target.value);
+    if (e.target.value === "collab") {
+      setAnonymous(false);
+    }
+  }
+
   return (
     <FormContainer onSubmit={handleSubmit}>
       <h2>We’d love to hear from you</h2>
+      <label htmlFor="subject">Subject</label>
+      <select
+        id="subject"
+        value={type}
+        onChange={(e) => handleChangeType(e)}
+      >
+        <option value="feedback">Feedback</option>
+        <option value="collab">Collaboration</option>
+      </select>
 
-      {!anonymous && (
-        <>
-          <label htmlFor="email">
-            {type == "feedback"
-              ? "Your email (optional)"
-              : "Best email to reach you (required)"}
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </>
-      )}
-      {type !== "collab" && (
-        <label>
-          <input
-            type="checkbox"
-            checked={anonymous}
-            onChange={() => setAnonymous(!anonymous)}
-          />
-          {"I'd rather stay anonymous"}
-        </label>
-      )}
+      <label htmlFor="email">
+        {type == "feedback"
+          ? "Your email (optional)"
+          : "Best email to reach you (required)"}
+      </label>
+      <input
+        type="email"
+        id="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        disabled={anonymous ? true : false}
+      />
+
+      <label>
+        <input
+          type="checkbox"
+          checked={anonymous}
+          onChange={e => handleChangeAnonymous(e)}
+          disabled={type === "collab" ? true : false}
+        />
+        {"I'd rather stay anonymous"}
+      </label>
       <textarea
         required
         value={message}
@@ -70,7 +91,7 @@ export default function ContactForm({ type }: { type: string }) {
       ></textarea>
 
       <button type="submit" disabled={status === "sending"}>
-        {status === "sending" ? "Sending..." : "Send message"}
+        {status === "sending" ? "Sending..." : "Send"}
       </button>
 
       {status === "sent" && <p>Message sent!</p>}

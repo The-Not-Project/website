@@ -126,6 +126,11 @@ export default function NavBar() {
             >
               Home
             </Link>
+            {isAdmin && (
+              <Link href="/admin" onClick={() => setIsMenuOpen(false)}>
+                Admin
+              </Link>
+            )}
           </>
         )}
 
@@ -164,7 +169,7 @@ export default function NavBar() {
             ) : (
               <Dropdown>
                 <Link
-                  href={isAdmin ? "/admin" : "/profile"}
+                  href="/profile"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <ProfileIcon />

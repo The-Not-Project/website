@@ -47,20 +47,21 @@ export const FormLabel = styled.label`
 `;
 
 export const FormButton = styled.button`
-    padding: 6px 15px;
+    padding: 6px 10px;
     font-size: 1.1rem;
     border-radius: 5px;
     outline: none;
-    border-width: 1px;
-    background: #485244;
-    border-color: #485244;
+    background: hsl(204, 45%, 30%);
+    border: hsl(204, 45%, 30%) 1px solid;
     color: white;
-`;
+    `;
 
 export const FormButtonOutlined = styled(FormButton)`
     background: transparent;
-    color: black;
-    background: #eee;
+    color: hsl(204, 45%, 20%);
+    background: var(--bg-color);
+    border-width: 1.5px;
+    padding-inline: 7px;
 `;
 
 export const ButtonsContainer = styled.div`

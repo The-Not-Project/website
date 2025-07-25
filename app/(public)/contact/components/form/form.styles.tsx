@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const FormContainer = styled.form`
-  flex-grow: 1;
-  padding: 30px 5% 30px 80px;
   h2 {
     font-weight: normal;
     font-size: 2.3rem;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     text-align: center;
-
-    @media (max-width: 850px) {
+  }
+  @media (max-width: 850px) {
+    h2 {
       font-size: 2rem;
+      text-wrap: balance;
     }
   }
 
@@ -58,7 +58,7 @@ export const FormContainer = styled.form`
     display: block;
     font-size: 1.1rem;
     padding: 7px 10px;
-    background: #3c5544;
+    background: hsl(204, 45%, 30%);
     color: white;
     outline: none;
     border: none;
