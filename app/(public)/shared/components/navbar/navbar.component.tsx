@@ -153,20 +153,20 @@ export default function NavBar() {
               <>
                 <ProfileIcon />
                 <Dropdown className={clsx({ closed: !isDropdownOpen })}>
-                  <p>My Profile</p>
-                  {isAdmin ? (
-                    <Link href="/admin">Admin</Link>
-                  ) : (
-                    <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
-                      Profile
-                    </Link>
-                  )}
+                  <p>My Account</p>
+                  {isAdmin && <Link href="/admin">Admin</Link>}
+                  <Link href="/profile" onClick={() => setIsMenuOpen(false)}>
+                    Profile
+                  </Link>
                   <AuthLink href="/api/auth/logout">Log Out</AuthLink>
                 </Dropdown>
               </>
             ) : (
               <Dropdown>
-                <Link href={isAdmin ? "/admin" : "/profile"} onClick={() => setIsMenuOpen(false)}>
+                <Link
+                  href={isAdmin ? "/admin" : "/profile"}
+                  onClick={() => setIsMenuOpen(false)}
+                >
                   <ProfileIcon />
                 </Link>
                 <AuthLink

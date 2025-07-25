@@ -23,6 +23,10 @@ export const FormInput = styled.input`
     background: hsl(0, 0%, 90%);
     border-color: black;
   }
+
+  &.wide {
+    width: 100%;
+  }
 `;
 
 export const FormTextArea = styled.textarea<{ height?: string }>`

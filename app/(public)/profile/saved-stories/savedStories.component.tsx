@@ -20,7 +20,7 @@ export default function SavedStories({ userId }: { userId: string }) {
       }
     };
     fetchSavedStories();
-  }, [userId, getSavedStories]);
+  }, [userId]);
 
   return (
     <PageSection>

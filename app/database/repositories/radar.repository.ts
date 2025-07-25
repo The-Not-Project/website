@@ -27,6 +27,8 @@ export async function getRadarStory(
 export async function updateRadarStory(id: string) {
   'use server';
 
+  await prisma.radar.deleteMany();
+
   await prisma.radar.create({
     data: {
       storyId: id,

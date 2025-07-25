@@ -10,23 +10,21 @@ import { TextAlign } from "@tiptap/extension-text-align";
 import { Highlight } from "@tiptap/extension-highlight";
 import { Subscript } from "@tiptap/extension-subscript";
 import { Superscript } from "@tiptap/extension-superscript";
-import { Underline } from "@tiptap/extension-underline";
 
 // --- Custom Extensions ---
-import { Link } from "@/components/tiptap-extension/link-extension";
-import { Selection } from "@/components/tiptap-extension/selection-extension";
-import { TrailingNode } from "@/components/tiptap-extension/trailing-node-extension";
+import { Link } from "@/app/tiptap/components/tiptap-extension/link-extension";
+import { Selection } from "@/app/tiptap/components/tiptap-extension/selection-extension";
 
 // --- Tiptap Node ---
-import "@/components/tiptap-node/code-block-node/code-block-node.scss";
-import "@/components/tiptap-node/list-node/list-node.scss";
-import "@/components/tiptap-node/paragraph-node/paragraph-node.scss";
+import "@/app/tiptap/components/tiptap-node/code-block-node/code-block-node.scss";
+import "@/app/tiptap/components/tiptap-node/list-node/list-node.scss";
+import "@/app/tiptap/components/tiptap-node/paragraph-node/paragraph-node.scss";
 
 // --- Hooks ---
-import { useMobile } from "@/hooks/use-mobile";
+import { useMobile } from "@/app/tiptap/hooks/use-mobile";
 
 // --- Styles ---
-import "@/components/tiptap-templates/simple/simple-editor.scss";
+import "@/app/tiptap/components/tiptap-templates/simple/simple-editor.scss";
 
 
 export function StoryReader({
@@ -52,14 +50,11 @@ export function StoryReader({
     extensions: [
       StarterKit,
       TextAlign.configure({ types: ["heading", "paragraph"] }),
-      Underline,
       Highlight.configure({ multicolor: true }),
       Image,
       Superscript,
       Subscript,
-
       Selection,
-      TrailingNode,
       Link.configure({ openOnClick: false }),
     ],
     content: value,

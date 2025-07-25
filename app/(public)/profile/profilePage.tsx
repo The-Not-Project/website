@@ -17,7 +17,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (!isLoading && (!user || !user.sub)) {
       redirect('/');
-    }
+    }    
 
     const handleResize = () => {
       if (window.innerWidth <= 850) {

@@ -3,7 +3,7 @@
 import { useState, FormEvent, useEffect } from "react";
 import { Category, Story } from "@/app/types/types";
 import Popup from "../../../shared/components/popup/popup.component"
-import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+import { SimpleEditor } from "@/app/tiptap/components/tiptap-templates/simple/simple-editor";
 import {
   FormInput,
   FormLabel,
@@ -162,7 +162,7 @@ export default function StoryFormPopup({
 
       <form onSubmit={handleSubmit}>
         <FormLabel htmlFor="title">Title</FormLabel>
-        <FormInput name="title" required defaultValue={story?.title || ""} />
+        <FormInput name="title" required defaultValue={story?.title || ""} className="wide" />
 
         <FormLabel htmlFor="content">Content</FormLabel>
         {/* <FormTextArea

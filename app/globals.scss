@@ -23,9 +23,8 @@
 }
 
 body {
-  background: #f9faf9 !important;
+  background: #f9faf9;
   color: var(--text-color);
-  overflow: auto !important;
 }
 
 .page-wrapper {
@@ -165,11 +164,5 @@ select {
 
   li {
     margin-block: 0.3rem;
-  }
-}
-
-.simple-editor-content .tiptap.ProseMirror {
-  @media (max-width: 850px) {
-    padding: 0 !important;
   }
 }

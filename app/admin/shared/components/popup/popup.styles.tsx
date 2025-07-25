@@ -7,13 +7,13 @@ export const PopupContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  margin: 0 !important;
+  margin: 0;
 `;
 
 export const Popup = styled.div`
   position: absolute;
   background-color: #f7f7f7;
-  width: min-content !important;
+  width: min-content;
   height: max-content;
   max-height: 90%;
   overflow-y: overlay;
@@ -22,4 +22,5 @@ export const Popup = styled.div`
   translate: -50% -50%;
   border-radius: 20px;
   padding: 30px;
+  border: 30px solid #f7f7f7;
 `;

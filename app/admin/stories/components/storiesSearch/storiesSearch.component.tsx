@@ -11,6 +11,7 @@ import { FaPlus as PlusSign } from 'react-icons/fa6';
 
 
 type SearchAndResultsProps = {
+  placeholder?: string;
   searchValue: string;
   results: Story[];
   isLoading: boolean;
@@ -20,6 +21,7 @@ type SearchAndResultsProps = {
 
 export default function RecommendationSearch({
   searchValue,
+  placeholder,
   results,
   isLoading,
   onSearchChangeAction,
@@ -32,7 +34,7 @@ export default function RecommendationSearch({
           type='text'
           value={searchValue}
           onChange={e => onSearchChangeAction(e.target.value)}
-          placeholder='Search stories'
+          placeholder={placeholder || 'Search stories...'}
         />
       </SearchContainer>
 

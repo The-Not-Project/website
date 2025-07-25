@@ -8,7 +8,7 @@ export const SearchContainer = styled.div`
   height: 40px;
   border-radius: 100px;
   overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px -3px rgba(0, 0, 0, 0.1);
 
   input {
     width: 100%;
@@ -19,6 +19,12 @@ export const SearchContainer = styled.div`
     border-radius: 5px;
     border: none;
     outline: none;
+    
+
+    &::placeholder {
+      color: #aaa;
+      font-size: 1.1rem;
+    }
   }
 `;
 
