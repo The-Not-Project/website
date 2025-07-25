@@ -7,7 +7,7 @@ import "./globals.scss";
 // import "./tailwind.css";
 import "./styles/_keyframe-animations.scss";
 import "./styles/_variables.scss";
-import AuthSyncer from "./(public)/components/auth/AuthSyncer";
+import AuthSyncer from "./(public)/shared/components/auth/AuthSyncer";
 
 export const metadata: Metadata = {
   title: "The Not Project",

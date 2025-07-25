@@ -14,8 +14,20 @@ export const StoriesListContainer = styled.div`
 `;
 
 export const NoStoriesMessage = styled.p`
+margin-top: 50px;
   font-size: 1.5rem;
   height: 100%;
   display: flex;
   align-items: center;
   `
+
+export const FollowupMessage = styled.p`
+  font-size: 1.2rem;
+  margin-top: 10px;
+  text-align: center;
+  
+  a {
+    color: #333;
+
+  }
+`

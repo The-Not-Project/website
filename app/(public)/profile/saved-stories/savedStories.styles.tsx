@@ -4,6 +4,9 @@ export const StoriesContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  @media (max-width: 850px) {
+    margin-block: 20px;
+  }
 `;
 
 export const StoryContainer = styled.div`
@@ -11,9 +14,26 @@ export const StoryContainer = styled.div`
   width: 100%;
   gap: 15px;
   height: 120px;
+  position: relative;
 
   @media (max-width: 850px) {
-    height: 90px;
+    height: 200px;
+    flex-direction: column;
+    justify-content: end;
+    padding: 20px;
+
+    
+      &:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        border-radius: 3px;
+        z-index: -1;
+      }
   }
 
   img {
@@ -23,6 +43,14 @@ export const StoryContainer = styled.div`
     height: 100%;
     border-radius: 3px;
 
+    @media (max-width: 850px) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
   }
 `;
 
@@ -34,11 +62,6 @@ export const StoryContent = styled.div`
   order: 1;
   justify-content: center;
   gap: 10px;
-
-  .createdAt {
-    color: #3b3b3b;
-    font-size: 0.9rem;
-  }
 
   .title {
     font-size: 1.5rem;
@@ -52,24 +75,30 @@ export const StoryContent = styled.div`
         text-decoration: underline;
       }
     }
+    @media (max-width: 850px) {
+      text-align: center;
+      a {
+        color: white;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
   }
 
   .info {
     display: flex;
-  }
-`;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #3b3b3b;
 
-export const CategoriesContainer = styled.div`
-  display: flex;
-  gap: 5px;
-  font-size: 0.9rem;
-  .divider {
-    scale: 0.7;
-    color: gray;
-  }
+    .divider {
+      translate: 0 2px;
+    }
 
-  span {
+    @media (max-width: 850px) {
+      color: white;
+      justify-content: center;
+    }
   }
-
-  color: #3b3b3b;
 `;

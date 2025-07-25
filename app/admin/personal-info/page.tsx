@@ -1,12 +1,12 @@
 'use client';
 import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
 import { User } from '@/app/types/types';
-import { PageSection, SectionTitle } from '../components/shared/Section';
-import { FormLabel, FormInput } from '../components/shared/Form';
-import { Button, ButtonsContainer } from '../components/shared/Button';
+import { PageSection, SectionTitle } from '../shared/components/layout/Section';
+import { FormLabel, FormInput } from '../shared/components/form/FormElements';
+import { Button, ButtonsContainer } from '../shared/components/button/button';
 import { useEffect, useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
-import LoadingPage from '../components/loadingPage/loadingPage.component';
+import LoadingPage from '../shared/components/loadingPage/loadingPage.component';
 
 export default function PersonalInformation() {
   const { UpdateUser, getUser } = useAdminServerActions();

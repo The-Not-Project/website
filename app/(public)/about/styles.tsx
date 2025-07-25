@@ -156,7 +156,7 @@ export const WhoIsItForContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f8f3ec;
+  background-color: var(--bg-color);
   height: 50vh;
   width: 50vh;
   padding: 3rem;

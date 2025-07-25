@@ -17,6 +17,7 @@ export const FormContainer = styled.form`
   label {
     display: block;
     font-size: 1.1rem;
+    margin-bottom: 5px;
   }
 
   input:not([type="checkbox"]) {
@@ -24,33 +25,44 @@ export const FormContainer = styled.form`
     height: 40px;
     font-size: 1.1rem;
     text-indent: 5px;
-
-    border-radius: 25px;
+    border-radius: 3px;
     border: 1px solid #ccc;
+    outline: none;
+
+    &:focus {
+      border-color: #3c5544;
+    }
   }
 
-    input[type="checkbox"] {
-        width: auto;
-        height: auto;
-        margin-right: 5px;
-        scale: 1.1;
-    }
+  input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    margin: 15px 7px 0 0;
+    scale: 1.1;
+  }
 
-    textarea {
-        margin-block: 15px 20px;
-        width: 100%;
-        height: 200px;
-        font-size: 1.1rem;
-        text-indent: 5px;
+  textarea {
+    margin-block: 15px 20px;
+    width: 100%;
+    height: 200px;
+    font-size: 1.1rem;
+    padding: 5px;
+    outline: none;
+
+    &:focus {
+      border-color: #3c5544;
     }
+  }
 
   button {
     display: block;
     font-size: 1.1rem;
-    padding: 5px 10px;
-    background: white;
-    color: black;
-    border-radius: 4px;
+    padding: 7px 10px;
+    background: #3c5544;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 6px;
   }
 
   select {

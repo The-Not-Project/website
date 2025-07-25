@@ -1,65 +1,71 @@
-export const BoroughSummaries = {
+type Borough = {
+  fileName: string;
+  boroughName: string;
+  description: string;
+  quote: {
+    text: string;
+    author: string;
+  };
+}
+
+export const BoroughSummaries: Record<string, Borough> = {
   bronx: {
-    fileName: 'bronx',
-    boroughName: 'The Bronx',
+    fileName: "bronx",
+    boroughName: "The Bronx",
     description:
-      'The Bronx, the birthplace of hip-hop and home to the world famous Yankees, is a place of unmatched energy and pride. The borough pulses with creativity, where culture and community intertwine to shape its distinct identity.  The Bronx remains a living testament to the strength and resilience of its people.',
-    animation_offset: { x: -4, y: -3 },
+      "The birthplace of hip-hop. The Bronx pulses with unmatched energy and pride. A borough where creativity and community come together to shape a distinct identity. Its streets echo stories of resilience, strength, and unwavering spirit. The Bronx stands as a living testament to the power of culture and perseverance.",
     quote: {
       text: "The Bronx is the birthplace of hip-hop, a culture that changed the world.",
       author: "Unknown",
     },
   },
   manhattan: {
-    fileName: 'manhattan',
-    boroughName: 'Manhattan',
+    fileName: "manhattan",
+    boroughName: "Manhattan",
     description:
-      'The pulse of the world beats in Manhattan. From the flashing lights of Times Square to the echoes of history in Harlem, this borough is the epicenter of ambition, culture, and reinvention. It’s where dreams collide with reality, and only the bold leave their mark.',
-    animation_offset: { x: -8, y: -3 },
+      "The pulse of the world beats strongest in Manhattan. A global stage where history and innovation meet, shaping culture that echoes worldwide. Each street holds stories of ambition, resilience, and reinvention. This borough is a testament to New York’s enduring spirit and influence. Manhattan is NYC’s relentless heart, always evolving, always iconic.",
+
     quote: {
       text: "Manhattan is the capital of the world.",
       author: "Wallace Stevens",
     },
   },
   queens: {
-    fileName: 'queens',
-    boroughName: 'Queens',
+    fileName: "queens",
+    boroughName: "Queens",
     description:
-      'Home of countless talented individuals, The Mets and The Not Project. A borough built on resilience, strength and ambition Queens is NYC in its purest form. It isn’t just a borough-it’s a movement, a history still being written, and the bridge between past legacies and future icons.',
-    animation_offset: { x: -5, y: -5 },
+      "A borough defined by resilience, diversity, and ambition. Home to The Not Project, and countless voices that shape NYC’s culture. Queens bridges legacies and dreams, where every street corner holds a promise. It’s where the world comes together, a story waiting to be told.",
+
     quote: {
       text: "Queens is the future of New York City.",
       author: "Andrew Cuomo",
     },
   },
   brooklyn: {
-    fileName: 'brooklyn',
-    boroughName: 'Brooklyn',
+    fileName: "brooklyn",
+    boroughName: "Brooklyn",
     description:
-      'A borough that moves with grit, ambition, and an unshakable sense of identity. From the pulse of its streets to the soul of its art, this borough defines culture instead of chasing it. Brooklyn is legacy in motion.',
-    animation_offset: { x: -6, y: -3 },
+      "A borough that moves with grit, ambition, and an unshakable sense of identity. From the pulse of its streets to the soul of its art, Brooklyn defines culture instead of chasing it. Where legacy meets evolution. Brooklyn is NYC’s boldest statement. Timeless, unapologetic, and always ahead of the curve.",
     quote: {
       text: "Brooklyn is not a neighborhood, it’s a way of life.",
       author: "Unknown",
     },
   },
   statenisland: {
-    fileName: 'statenisland',
-    boroughName: 'Staten Island',
+    fileName: "statenisland",
+    boroughName: "Staten Island",
     description:
-      'Might be the city’s quietest borough, but its people are anything but subdued. A place where old-school values and modern-day energy coexist, this borough proves that strength lies in unity and a deep love for the place you call home. NYC’s underdog with heart.',
-    animation_offset: { x: -2, y: -7 },
+      "The city’s quietest borough, but its spirit is anything but subdued. Known affectionately as “Shaolin,” Staten Island blends old-school values with modern energy. Here, strength comes from unity and a deep love for the place called home. NYC’s underdog that is loyal, resilient, and full of heart.",
     quote: {
       text: "Staten Island is the borough of parks and pride.",
       author: "Unknown",
     },
   },
   nyc: {
-    fileName: 'nyc',
-    boroughName: 'New York City',
+    fileName: "nyc",
+    boroughName: "New York City",
     description:
-      'NYC is more than just five boroughs—it’s an idea, a heartbeat, a movement. It’s where cultures collide, resilience thrives, and history is made every single day. This is New York, the greatest city in the world.',
-    animation_offset: { x: 0, y: 0 },
+      "NYC is more than just five boroughs—it’s an idea, a heartbeat, a movement. It’s where cultures collide, resilience thrives, and history is made every single day. This is New York, the greatest city in the world.",
     quote: {
       text: "New York is not a city, it’s a world.",
       author: "Iman",

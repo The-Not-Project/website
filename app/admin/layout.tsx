@@ -1,7 +1,7 @@
 import { AdminServerActionsProvider } from '@/app/contexts/admin-server-actions';
-import NavBar from './components/navbar/navbar.component';
-import { AdminContainer } from './components/shared/layout.styles';
-import Back from './components/backButton/backButton.component';
+import NavBar from './shared/components/navbar/navbar.component';
+import { AdminContainer } from './shared/components/layout/layout.styles';
+import Back from './shared/components/backButton/backButton.component';
 import { getUser, UpdateUser } from '../database/repositories/user.repository';
 import {
   createCategory,

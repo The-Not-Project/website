@@ -1,5 +1,5 @@
 import { Story } from "@/app/types/types";
-import { CategoriesContainer, StoryContainer, StoryContent } from "./savedStories.styles";
+import { StoryContainer, StoryContent } from "./savedStories.styles";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -10,7 +10,6 @@ export default function SavedStory({ story }: { story: Story }) {
   const thumbnail = story.media.find((media) => media.isThumbnail)?.url;
   const date = new Date(story.createdAt).toLocaleDateString("en-US", {
     month: "short",
-    day: "numeric",
     year: "numeric",
   });
 
@@ -23,11 +22,10 @@ export default function SavedStory({ story }: { story: Story }) {
               <Link href={`/story/${story.id}`}>{story.title}</Link>
             </h2>
             <div className="info">
-              <span className="createdAt">{date}</span>
+              <span>{date}</span>
+              <span className="divider">・</span>
               {story.categories.length > 0 && (
-                <CategoriesContainer>
-                  <span>・{story.categories[0].name}</span>
-                </CategoriesContainer>
+                  <span>{story.categories[0].name}</span>
               )}
             </div>
             

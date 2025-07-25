@@ -7,11 +7,11 @@ import {
   PageSection,
   SectionTitle,
   StoriesSection,
-} from '../components/shared/Section';
-import StoriesList from '../components/storiesList/storiesList.component';
-import StoryFormPopup from '../components/storyFormPopup/storyFormPopup.component';
-import StoriesSearch from '../components/storiesFilteredSearch/storiesFilteredSearch.component';
-import { Button } from '../components/shared/Button';
+} from '../shared/components/layout/Section';
+import StoriesList from './components/storiesList/storiesList.component';
+import StoryFormPopup from './components/storyFormPopup/storyFormPopup.component';
+import StoriesSearch from './components/storiesFilteredSearch/storiesFilteredSearch.component';
+import { Button } from '../shared/components/button/button';
 
 type FormState = {
   isOpen: boolean;

@@ -91,7 +91,7 @@ export default function ContactForm() {
       ></textarea>
 
       <button type="submit" disabled={status === "sending"}>
-        {status === "sending" ? "Sending..." : "Send message"}
+        {status === "sending" ? "Sending..." : "Send"}
       </button>
 
       {status === "sent" && <p>Message sent!</p>}

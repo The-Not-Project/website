@@ -1,11 +1,11 @@
 'use client';
 
-import { PageSection, SectionTitle } from '../components/shared/Section';
+import { PageSection, SectionTitle } from '../shared/components/layout/Section';
 import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
 import { Filters, Story } from '@/app/types/types';
 import { useState, useEffect, useCallback } from 'react';
-import RecommendationsList from '../components/recommendationsList/recommendationsList.component';
-import RecommendationSearch from '../components/storiesSearch/storiesSearch.component';
+import RecommendationsList from './components/recommendationsList/recommendationsList.component';
+import RecommendationSearch from '../stories/components/storiesSearch/storiesSearch.component';
 
 const defaultFilters = {
   search: '',

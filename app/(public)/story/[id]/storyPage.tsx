@@ -6,11 +6,11 @@ import { useStore } from "@/app/zustand/store";
 import { Story } from "@/app/types/types";
 import { usePublicServerActions } from "@/app/contexts/public-server-actions";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import LoadingPage from "../../components/loadingPage/loadingPage.component";
+import LoadingPage from "../../shared/components/loadingPage/loadingPage.component";
 import { CategoriesContainer, StoryContainer, SaveButton } from "./style";
 import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
 import Image from "next/image";
-import { SimpleEditor } from "../readOnlyEditor";
+import { StoryReader } from "./storyReader";
 
 export default function StoryPage({ id }: { id: string }) {
   const { getStory, createStorySave, deleteStorySave, isStorySaved } =
@@ -128,7 +128,7 @@ export default function StoryPage({ id }: { id: string }) {
         <p>{date}</p>
       </div>
       <div className="prose">
-        <SimpleEditor value={story.content} />
+        <StoryReader value={story.content} />
       </div>
     </StoryContainer>
   );

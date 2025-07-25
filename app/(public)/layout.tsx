@@ -1,6 +1,6 @@
 import { PublicServerActionsProvider } from '@/app/contexts/public-server-actions';
-import NavBar from './components/navbar/navbar.component';
-import Footer from './components/footer/footer.component';
+import NavBar from './shared/components/navbar/navbar.component';
+import Footer from './shared/components/footer/footer.component';
 import { getUser, UpdateUser } from '../database/repositories/user.repository';
 import { getCategories } from '../database/repositories/category.repository';
 import { getStories, getStory } from '../database/repositories/story.repository';

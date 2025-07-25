@@ -1,12 +1,12 @@
 'use client';
 import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
-import { PageSection, SectionTitle } from '../components/shared/Section';
-import StoriesSearch from '../components/storiesSearch/storiesSearch.component';
+import { PageSection, SectionTitle } from '../shared/components/layout/Section';
+import StoriesSearch from '../stories/components/storiesSearch/storiesSearch.component';
 import { useCallback, useEffect, useState } from 'react';
 import { Filters, Story } from '@/app/types/types';
-import RadarStory from '../components/radarStory/radarStory.component';
-import { NoStoriesMessage } from '../components/storiesList/storiesList.styles';
-import LoadingPage from '../components/loadingPage/loadingPage.component';
+import RadarStory from './components/radarStory/radarStory.component';
+import { NoStoriesMessage } from '@/app/admin/stories/components/storiesList/storiesList.styles'; 
+import LoadingPage from '../shared/components/loadingPage/loadingPage.component';
 
 const defaultFilters = {
   search: '',

@@ -6,7 +6,7 @@ import { Filters, Story } from "@/app/types/types";
 import StoriesList from "../storiesList/storiesList.component";
 import StoriesSearch from "../storiesSearch/storiesSearch.component";
 import { StoriesContainer } from "./storiesPage.styles";
-import LoadingPage from "@/app/(public)/components/loadingPage/loadingPage.component";
+import LoadingPage from "@/app/(public)/shared/components/loadingPage/loadingPage.component";
 import Header from "../header/header.component";
 import { BoroughSummaries } from "@/app/constants/boroughs";
 import { useStore } from "@/app/zustand/store";
@@ -84,7 +84,7 @@ export default function StoriesPageComponent({
       )} */}
       <StoriesContainer>
         <StoriesSearch filters={filters} setFilters={setFilters} />
-        <StoriesList stories={stories} />
+        <StoriesList stories={stories} borough={currentBorough.boroughName} />
       </StoriesContainer>
     </div>
   );

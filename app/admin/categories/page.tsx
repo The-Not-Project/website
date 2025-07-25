@@ -1,11 +1,11 @@
 'use client';
 import { useAdminServerActions } from '@/app/contexts/admin-server-actions';
 import { Category } from '@/app/types/types';
-import { PageSection, SectionTitle } from '../components/shared/Section';
-import { Button } from '../components/shared/Button';
-import CategoriesTable from '../components/categoriesTable/categoriesTable.component';
+import { PageSection, SectionTitle } from '../shared/components/layout/Section';
+import { Button } from '../shared/components/button/button';
+import CategoriesTable from './components/categoriesTable/categoriesTable.component';
 import { useState, useCallback, useEffect } from 'react';
-import CategoryFormPopup from '../components/categoryFormPopup/categoryFormOpup.component';
+import CategoryFormPopup from './components/categoryFormPopup/categoryFormOpup.component';
 
 type FormState = {
   isOpen: boolean;
