@@ -7,14 +7,17 @@ import {
   FilterCheckbox,
   FilterLabel,
   FilterOptionsContainer,
+  Hashtag,
   SearchContainer,
   SearchInput,
   SearchTitle,
   SecondaryTitle,
   StoriesSearchContainer,
 } from "./storiesSearch.styles";
-import { FaMagnifyingGlass as SearchIcon } from "react-icons/fa6";
-import { FaArrowDownWideShort as FilterIcon } from "react-icons/fa6";
+import {
+  LuListFilter as FilterIcon,
+  LuSearch as SearchIcon,
+} from "react-icons/lu";
 
 interface StoriesSearchProps {
   initialFilters: Filters;
@@ -30,9 +33,9 @@ export default function StoriesSearch({
 
   const handleAction = (formData: FormData) => {
     const params = new URLSearchParams();
-    
+
     const search = formData.get("q") as string;
-    const cats = formData.getAll("cat") as string[]; 
+    const cats = formData.getAll("cat") as string[];
 
     if (search) params.set("q", search);
     cats.forEach((id) => params.append("cat", id));
@@ -51,7 +54,7 @@ export default function StoriesSearch({
           <SearchIcon />
           <SearchInput
             id="search"
-            name="q" 
+            name="q"
             placeholder="Search..."
             defaultValue={initialFilters.search}
           />
@@ -67,9 +70,12 @@ export default function StoriesSearch({
                   name="cat"
                   id={`category-${category.id}`}
                   value={category.id}
-                  defaultChecked={initialFilters.categories.includes(category.id)}
+                  defaultChecked={initialFilters.categories.includes(
+                    category.id,
+                  )}
                 />
                 <FilterLabel htmlFor={`category-${category.id}`}>
+                  <Hashtag size={13} /> 
                   {category.name}
                 </FilterLabel>
               </div>

@@ -1,3 +1,8 @@
+import {
+  getHiddenStoriesAction,
+  getStoriesAction,
+} from "@/lib/core-api/actions/story.actions";
+import { getCategoriesAction } from "@/lib/core-api/actions/categories.actions";
 import StoriesSearch from "./components/storiesFilteredSearch/storiesFilteredSearch.component";
 import StoriesList from "./components/storiesList/storiesList.component";
 import {
@@ -6,11 +11,6 @@ import {
   StoriesSection,
 } from "../shared/components/layout/Section";
 import StoriesToggle from "./components/StoriesToggle/storiesToggle.component";
-import {
-  getHiddenStoriesAction,
-  getStoriesAction,
-} from "@/lib/core-api/actions/story.actions";
-import { getCategoriesAction } from "@/lib/core-api/actions/categories.actions";
 
 interface PageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -19,7 +19,7 @@ interface PageProps {
 export default async function StoriesPage({ searchParams }: PageProps) {
   const params = await searchParams;
 
-  const showHidden = params.trash === "true";
+  const showHidden = params.hidden === "true";
 
   const filters = {
     search: (params.search as string) || "",

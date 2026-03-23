@@ -1,3 +1,4 @@
+import { LuHash } from "react-icons/lu";
 import styled from "styled-components";
 
 export const StoriesSearchContainer = styled.div`
@@ -140,19 +141,24 @@ export const FilterLabel = styled.label`
     transition: 0.25s all ease;
   }
   @media (max-width: 1500px) {
+    display: flex;
+    align-items: center;
     padding-inline: 6px;
     border-radius: 5px;
     font-size: 0.9rem;
+
     &:before {
-      content: "#";
-      color: hsl(35, 45%, 88%);
-      position: static;
-      border: none;
-      translate: 0;
-      width: auto;
-      height: auto;
-      margin-right: 2px;
+      display: none;
     }
+  }
+`;
+
+export const Hashtag = styled(LuHash)`
+  color: hsl(35, 45%, 88%);
+  margin-right: 1px;
+
+  @media (min-width: 1500px) {
+    display: none;
   }
 `;
 

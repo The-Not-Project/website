@@ -1,6 +1,6 @@
 import { PageSection, SectionTitle } from "../shared/components/layout/Section";
 import RecommendationsList from "./components/recommendationsList/recommendationsList.component";
-import RecommendationSearch from "../stories/components/storiesSearch/storiesSearch.component";
+import StoriesSearch from "../stories/components/storiesSearch/storiesSearch.component";
 import { addRecommendationAction, getRecommendationsAction } from "@/lib/core-api/actions/recommendations.actions";
 
 export default async function RecommendationsPage() {
@@ -14,7 +14,7 @@ export default async function RecommendationsPage() {
         recommendations={recommendations}
       />
       {recommendations.length < 4 && (
-        <RecommendationSearch
+        <StoriesSearch
           onAddAction={addRecommendationAction}
           skippedStoryIds={recommendations.map(rec => rec.id)}
         />

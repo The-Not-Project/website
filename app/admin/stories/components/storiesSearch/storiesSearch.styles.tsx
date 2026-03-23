@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { BeatLoader } from "react-spinners";
 
 export const SearchContainer = styled.div`
   margin: 40px auto 20px auto;
@@ -28,9 +27,4 @@ export const SearchContainer = styled.div`
   @media (max-width: 850px) {
     width: 100%;
   }
-`;
-
-export const Loader = styled(BeatLoader)`
-  margin: 30px auto 10px auto;
-  width: max-content;
 `;

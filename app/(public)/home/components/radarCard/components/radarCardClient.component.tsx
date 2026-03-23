@@ -4,8 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { CompactStory } from "@/app/types/types";
 import Link from "next/link";
 import clsx from "clsx";
-import { FiArrowRight as Arrow } from "react-icons/fi";
-import { BiMap as LocationPin } from "react-icons/bi";
+import { LuArrowRight as Arrow, LuMapPin as LocationPin } from "react-icons/lu";
 import RotatingTextSVG from "./rotatingTextSVG.component";
 import {
   RadarDescription,
@@ -15,7 +14,11 @@ import {
   LocationContainer,
 } from "../radarCard.styles";
 
-export default function RadarCardClient({ radarStory }: { radarStory: CompactStory }) {
+export default function RadarCardClient({
+  radarStory,
+}: {
+  radarStory: CompactStory;
+}) {
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -30,7 +33,7 @@ export default function RadarCardClient({ radarStory }: { radarStory: CompactSto
           observer.disconnect();
         }
       },
-      { threshold: 1 }
+      { threshold: 1 },
     );
 
     observer.observe(node);
@@ -47,17 +50,35 @@ export default function RadarCardClient({ radarStory }: { radarStory: CompactSto
         className={clsx({ "is-visible": isVisible })}
       >
         <div className="main-info-container">
-          <h2 className={clsx("title", "reveal-on-scroll", isVisible && "is-visible")}>
+          <h2
+            className={clsx(
+              "title",
+              "reveal-on-scroll",
+              isVisible && "is-visible",
+            )}
+          >
             {radarStory.title}
           </h2>
-          <p className={clsx("summary", "reveal-on-scroll", isVisible && "is-visible")}>
+          <p
+            className={clsx(
+              "summary",
+              "reveal-on-scroll",
+              isVisible && "is-visible",
+            )}
+          >
             “{radarStory.summary}”
           </p>
-          <p className={clsx("author", "reveal-on-scroll", isVisible && "is-visible")}>
+          <p
+            className={clsx(
+              "author",
+              "reveal-on-scroll",
+              isVisible && "is-visible",
+            )}
+          >
             By {radarStory.author.firstName} {radarStory.author.lastName}
           </p>
         </div>
-        
+
         <div className="secondary-info-container">
           <ArrowLink
             href={`story/${radarStory.id}`}
@@ -65,8 +86,16 @@ export default function RadarCardClient({ radarStory }: { radarStory: CompactSto
           >
             <Arrow />
           </ArrowLink>
-          <Link href={radarStory.borough === "new york" ? "/stories" : `/stories/${radarStory.borough}`}>
-            <LocationContainer className={clsx("slide-on-scroll", isVisible && "is-visible")}>
+          <Link
+            href={
+              radarStory.borough === "new york"
+                ? "/stories"
+                : `/stories/${radarStory.borough}`
+            }
+          >
+            <LocationContainer
+              className={clsx("slide-on-scroll", isVisible && "is-visible")}
+            >
               <LocationPin className="pin" />
               <RotatingTextSVG borough={radarStory.borough} />
             </LocationContainer>

@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import { Auth0Provider } from "@auth0/nextjs-auth0/client";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import projectMetadata from "@/static/metadata/metadata";
@@ -24,11 +23,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.className} ${georgia.variable}`}>
-        <Auth0Provider>
-          {children}
-          <Analytics />
-          <SpeedInsights />
-        </Auth0Provider>
+        {children}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

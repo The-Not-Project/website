@@ -2,7 +2,11 @@
 
 import { authClient } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState, useTransition } from "react";
+import {
+  setCooldownAction,
+  validateCooldownAction,
+} from "@/lib/auth/actions/setLinkTimeout";
 import {
   ButtonsContainer,
   Disabled,
@@ -16,14 +20,8 @@ import {
   VerifiedStatus,
 } from "./personal-info.styles";
 import { PageSection, PageSectionTitle, SectionDescription } from "../styles";
-import {
-  IoMdInformationCircleOutline as Info,
-  IoMdCheckmark as Checkmark,
-} from "react-icons/io";
-import {
-  setCooldownAction,
-  validateCooldownAction,
-} from "@/lib/auth/actions/setLinkTimeout";
+import Loader from "../../shared/components/loader/loader";
+import { LuCheck as Checkmark, LuInfo as Info } from "react-icons/lu";
 
 type FormProps = {
   user: {
@@ -36,13 +34,22 @@ type FormProps = {
 };
 
 export default function PersonalInfoForm({ user }: FormProps) {
-  const router = useRouter();
+  const router = useRouter()
   const [showSuccess, setShowSuccess] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [isPending, startTransition] = useTransition();
 
-  const splitFirstName = user.name?.split(" ")[0] || "";
-  const splitLastName = user.name?.split(" ").slice(1).join(" ") || "";
+  const defaultNames = {
+    first: user.firstName ?? user.name?.split(" ")[0] ?? "",
+    last: user.lastName ?? user.name?.split(" ").slice(1).join(" ") ?? "",
+  };
+  const [defaultUsername, setDefaultUsername] = useState(defaultNames)
+  const [username, setUsername] = useState(defaultNames);
   const isUsingSplitFallback = !user.firstName || !user.lastName;
+
+  useEffect(() => { 
+    setUsername(defaultUsername)
+  }, [disabled, defaultUsername])
 
   async function handleEmailVerification() {
     const { error: cooldownError } = await validateCooldownAction();
@@ -64,22 +71,31 @@ export default function PersonalInfoForm({ user }: FormProps) {
   }
 
   async function handleUpdate(formData: FormData) {
-    const firstName = formData.get("firstName");
-    const lastName = formData.get("lastName");
-    try {
-      const { error } = await authClient.updateUser({
-        firstName: firstName as string,
-        lastName: lastName as string,
-        name: `${firstName} ${lastName}`,
-      });
+    const firstName = formData.get("firstName") as string;
+    const lastName = formData.get("lastName") as string;
 
-      if (!error) {
-        router.refresh();
-      }
-      setDisabled(true);
-    } catch (error) {
-      console.error("Update failed:", error);
+    if (!firstName || !lastName) {
+      alert("First and last name required");
     }
+    startTransition(async () => {
+      try {
+        const { error } = await authClient.updateUser({
+          firstName: firstName,
+          lastName: lastName,
+          name: `${firstName} ${lastName}`,
+        });
+
+        if (!error) {
+          setDisabled(true);
+          setDefaultUsername({
+            first: firstName,
+            last: lastName,
+          });
+        }
+      } catch (error) {
+        console.error("Update failed:", error);
+      }
+    });
   }
 
   return (
@@ -100,7 +116,7 @@ export default function PersonalInfoForm({ user }: FormProps) {
               disabled
             />
             <VerifiedStatus>
-              {!!user.emailVerified ? (
+              {user.emailVerified ? (
                 <span>
                   <Checkmark />
                   verified
@@ -123,7 +139,10 @@ export default function PersonalInfoForm({ user }: FormProps) {
             <FormInput
               type="text"
               name="firstName"
-              defaultValue={user.firstName || splitFirstName}
+              value={username.first}
+              onChange={(e) =>
+                setUsername({ ...username, first: e.target.value })
+              }
               disabled={disabled}
               required
             />
@@ -134,7 +153,10 @@ export default function PersonalInfoForm({ user }: FormProps) {
             <FormInput
               type="text"
               name="lastName"
-              defaultValue={user.lastName || splitLastName}
+              value={username.last}
+              onChange={(e) =>
+                setUsername({ ...username, last: e.target.value })
+              }
               disabled={disabled}
               required
             />
@@ -142,7 +164,7 @@ export default function PersonalInfoForm({ user }: FormProps) {
           </FormLabel>
           {user.name !== null && isUsingSplitFallback && (
             <FallbackNotice>
-              <Info size={18} color="#3b82f6" />
+              <Info size={15} color="#3b82f6" />
               <span>
                 We've suggested these based on your Google account name.
               </span>
@@ -157,11 +179,15 @@ export default function PersonalInfoForm({ user }: FormProps) {
               <>
                 <FormButtonOutlined
                   type="button"
-                  onClick={() => setDisabled(true)}
+                  onClick={() => {
+                    setDisabled(true);
+                  }}
                 >
                   Cancel
                 </FormButtonOutlined>
-                <FormButton type="submit">Save</FormButton>
+                <FormButton type="submit">
+                  {isPending ? <Loader inverted={true} /> : "Save"}
+                </FormButton>
               </>
             )}
           </ButtonsContainer>

@@ -22,4 +22,10 @@ export const Spinner = styled.svg`
     transform-origin: center;
     animation: ${spin} 0.75s step-end infinite;
   }
+
+  &.inverted {
+    filter: none;
+    display: block;
+    margin: 0 auto;
+  }
 `;

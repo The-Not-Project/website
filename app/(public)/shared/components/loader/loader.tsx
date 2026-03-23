@@ -1,12 +1,13 @@
 import { Spinner } from "./loader.styles";
 
-export default function loader() {
+export default function Loader({ inverted = false }) {
   return (
     <Spinner
       width="24"
       height="24"
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
+      className={inverted ? "inverted" : undefined}
     >
       <g>
         <rect x="11" y="1" width="2" height="5" opacity=".14" />

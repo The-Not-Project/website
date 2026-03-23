@@ -1,15 +1,17 @@
 "use client";
+import { useCallback, useState, useTransition } from "react";
+import { getStoriesAction } from "@/lib/core-api/actions/story.actions";
 import type { CompactStory, Filters } from "@/app/types/types";
-import { Loader, SearchContainer } from "./storiesSearch.styles";
-import { NoStoriesMessage } from "../storiesList/storiesList.styles";
+import { SearchContainer } from "./storiesSearch.styles";
 import {
   ImageContainer,
   RecommendationContainer,
   RecommendationsListContainer,
 } from "../../../recommendations/components/recommendationsList/recommendationsList.styles";
-import { FaPlus as PlusSign } from "react-icons/fa6";
-import { useCallback, useState, useTransition } from "react";
-import { getStoriesAction } from "@/lib/core-api/actions/story.actions";
+import { NoStoriesMessage } from "../storiesList/storiesList.styles";
+import { LuPlus as PlusSign } from "react-icons/lu";
+import Loader from "@/app/(public)/shared/components/loader/loader";
+
 
 const defaultFilters = {
   search: "",
@@ -81,8 +83,8 @@ export default function StoriesSearch({
         />
       </SearchContainer>
 
-      {isLoading ? (
-        <Loader />
+      {!isLoading ? (
+        <Loader inverted={true} />
       ) : (
         filters.search && (
           <div className="results-container">
@@ -106,7 +108,7 @@ export default function StoriesSearch({
                       className="green"
                       onClick={() => handleAddRecommendation(story.id)}
                     >
-                      <PlusSign />
+                      <PlusSign size={20} />
                     </p>
                   </RecommendationContainer>
                 ))}

@@ -5,6 +5,10 @@ export const FooterWrapper = styled.footer`
   color: black;
   padding: 2rem 100px 20px;
 
+    @media (max-width: 1100px) {
+      padding-inline: 30px;
+  }
+
   @media (max-width: 850px) {
     padding: 50px 15px 20px 15px;
   }

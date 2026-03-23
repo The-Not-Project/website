@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { FaBan } from "react-icons/fa6";
+import { LuBan } from "react-icons/lu";
 
-export const Disabled = styled(FaBan)`
+export const Disabled = styled(LuBan)`
   position: absolute;
   bottom: 50px;
   right: 5px;

@@ -5,7 +5,7 @@ import {
   ImageContainer,
   RecommendationContainer,
 } from "../recommendationsList/recommendationsList.styles";
-import { FaTrash as TrashCan } from "react-icons/fa6";
+import { LuTrash2 as TrashCan } from "react-icons/lu";
 import { useRouter } from "next/navigation";
 
 type RecommendationCardProps = {

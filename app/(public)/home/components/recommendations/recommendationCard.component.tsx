@@ -6,7 +6,7 @@ import {
   RecommendationCardContainer,
 } from "./recommendations.styles";
 import Image from "next/image";
-import { FiArrowUpRight as Arrow } from "react-icons/fi";
+import { LuArrowUpRight as Arrow } from "react-icons/lu";
 
 export default function RecommendationCard({
   recommendation,
