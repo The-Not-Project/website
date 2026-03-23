@@ -26,7 +26,7 @@ export async function proxy(request: NextRequest) {
 
   const user = session?.user;
   const isAuthenticated = !!user;
-  const isAdmin = user?.role === "admin";
+  const isPrivileged = user?.role === "admin" || user?.role === "editor";
 
   const isAuthPage = ["/signin", "/signup", "/forgot-password"].includes(
     pathname,
@@ -42,7 +42,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/signin", request.url));
   }
 
-  if (isAdminPage && !isAdmin) {
+  if (isAdminPage && !isPrivileged) {
     return NextResponse.rewrite(new URL("/404", request.url));
   }
 

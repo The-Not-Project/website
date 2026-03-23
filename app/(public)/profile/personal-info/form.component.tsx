@@ -52,7 +52,7 @@ export default function PersonalInfoForm({ user }: FormProps) {
     }
     const { error } = await authClient.sendVerificationEmail({
       email: user.email,
-      callbackURL: "http://localhost:3000/",
+      callbackURL: process.env.NEXT_PUBLIC_APP_BASE_URL,
     });
 
     if (error) {

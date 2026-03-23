@@ -67,7 +67,11 @@ export const UserTable = styled(Table)`
   @media (max-width: 850px) {
     display: block;
     max-width: max-content;
+    td {
+      min-width: 130px;
+    }
   }
+
 
   .role {
     width: 0;

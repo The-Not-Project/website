@@ -7,8 +7,6 @@ import {
   MenuIcon,
   MobileMenu,
   Link,
-  AuthContainer,
-  AuthLink,
 } from "../navbar.styles";
 import SignOutButton from "./signoutButton.component";
 

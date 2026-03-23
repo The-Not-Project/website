@@ -10,6 +10,7 @@ import clsx from "clsx";
 import {
   LuBadgeCheck as Verified,
   LuGhost as Unverified,
+  LuUserRoundPen as EditorIcon,
 } from "react-icons/lu";
 
 export default async function Page() {
@@ -31,33 +32,46 @@ export default async function Page() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id}>
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.email}</td>
-                <td className={clsx("status", user.emailVerified ? "verified" : "unverified")}>
-                  <div>
-                    {user.emailVerified ? (
-                      <Verified size={15} />
-                    ) : (
-                      <Unverified size={15} />
+            {users.map((user) => {
+              const isAdmin = user.role === "admin";
+              const isEditor = user.role === "editor";
+              return (
+                <tr key={user.id}>
+                  <td>{user.firstName}</td>
+                  <td>{user.lastName}</td>
+                  <td>{user.email}</td>
+                  <td
+                    className={clsx(
+                      "status",
+                      user.emailVerified ? "verified" : "unverified",
                     )}
-                    {user.emailVerified ? "verified" : "unverified"}
-                  </div>
-                </td>
-                <td className={clsx("role", user.role === "admin" && "admin")}>
-                  <div>
-                    {user.role === "admin" ? (
-                      <AdminIcon size={18} />
-                    ) : (
-                      <UserIcon size={18} />
-                    )}
-                    {user.role}
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  >
+                    <div>
+                      {user.emailVerified ? (
+                        <Verified size={15} />
+                      ) : (
+                        <Unverified size={15} />
+                      )}
+                      {user.emailVerified ? "verified" : "unverified"}
+                    </div>
+                  </td>
+                  <td
+                    className={clsx("role", (isAdmin || isEditor) && "admin")}
+                  >
+                    <div>
+                      {isAdmin ? (
+                        <AdminIcon size={18} />
+                      ) : isEditor ? (
+                        <EditorIcon size={18} />
+                      ) : (
+                        <UserIcon size={18} />
+                      )}
+                      {user.role}
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </UserTable>
       ) : (
