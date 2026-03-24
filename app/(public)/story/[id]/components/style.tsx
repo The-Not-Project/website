@@ -15,7 +15,7 @@ export const StoryContainer = styled.div`
 
   @media (max-width: 850px) {
     width: 100%;
-    padding: 80px 20px;
+    padding: 80px 15px;
   }
 
   .title {

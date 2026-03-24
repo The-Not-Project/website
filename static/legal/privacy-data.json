@@ -21,27 +21,31 @@
       "id": 4,
       "heading": "Data Security",
       "content": "We implement security measures to protect your personal information from unauthorized access, alteration, or disclosure."
-    },    {
+    },
+    {
       "id": 5,
       "heading": "Cookies",
       "content": "We use cookies to enhance your experience on our website. You can choose to disable cookies through your browser settings."
-        },    {
+    },
+    {
       "id": 6,
       "heading": "Third-Party Services",
       "content": "We may share your information with trusted third-party service providers who assist us in operating our website and conducting our business."
-    }, {
+    },
+    {
       "id": 7,
       "heading": "Your Rights",
       "content": "You have the right to access, correct, or delete your personal information. Contact us to exercise these rights."
-        }, {
+    },
+    {
       "id": 8,
       "heading": "Changes to This Policy",
       "content": "We may update this privacy policy from time to time. Changes will be posted on this page."
-    }, {
+    },
+    {
       "id": 9,
       "heading": "Contact Us",
       "content": "If you have any questions about this privacy policy, please contact us at contact@thenotproject.com"
     }
   ]
 }
-

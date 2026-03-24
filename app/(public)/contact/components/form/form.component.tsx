@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import {
   CaptchaNotice,
@@ -11,38 +11,38 @@ import {
 } from "./form.styles";
 import Link from "next/link";
 import { sendContactEmailAction } from "@/lib/core-api/actions/contact.actions";
+import Loader from "@/app/(public)/shared/components/loader/loader";
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
   const [type, setType] = useState<"feedback" | "collab">("feedback");
   const { executeRecaptcha } = useGoogleReCaptcha();
 
-async function handleClientAction(formData: FormData) {
-    if (!executeRecaptcha) {
+  async function handleClientAction(formData: FormData) {
+    startTransition(async () => {
+      if (!executeRecaptcha) {
         setStatus("error");
         return;
-    }
+      }
 
-    setStatus("sending");
+      try {
+        const token = await executeRecaptcha("contact_form");
 
-    try {
-      const token = await executeRecaptcha("contact_form");
-      
-      formData.append("token", token);
-      formData.append("type", type);
+        formData.append("token", token);
+        formData.append("type", type);
 
-      const result = await sendContactEmailAction(formData);
+        const result = await sendContactEmailAction(formData);
 
-      if (result.success) {
-        setStatus("sent");
-      } else {
+        if (result.success) {
+          setStatus("success");
+        } else {
+          setStatus("error");
+        }
+      } catch (err) {
         setStatus("error");
       }
-    } catch (err) {
-      setStatus("error");
-    }
+    });
   }
 
   return (
@@ -89,11 +89,11 @@ async function handleClientAction(formData: FormData) {
           <a href="https://policies.google.com/terms">Terms</a> apply.
         </CaptchaNotice>
 
-        <button type="submit" disabled={status === "sending"}>
-          {status === "sending" ? "Sending..." : "Send"}
+        <button type="submit" disabled={isPending}>
+          {isPending ? <Loader inverted={true} /> : "Send"}
         </button>
 
-        {status === "sent" && <p>Message sent!</p>}
+        {status === "success" && <p>Thank you for your message!</p>}
         {status === "error" && <p>Something went wrong.</p>}
       </FormContainer>
     </ContactContainer>

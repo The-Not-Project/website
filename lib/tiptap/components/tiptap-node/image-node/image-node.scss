@@ -17,7 +17,7 @@
 
   > img:not([data-type="emoji"] img) {
     outline: 0.125rem solid transparent;
-    border-radius: var(--tt-radius-xs, 0.25rem);
+    // border-radius: var(--tt-radius-xs, 0.25rem);
   }
 
   &.ProseMirror-focused

@@ -11,11 +11,13 @@ export const BottomBarContainer = styled.section`
   margin-top: 20px;
 
   p {
-    cursor: pointer;
-
     a {
       color: inherit;
       text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
   

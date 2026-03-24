@@ -9,8 +9,7 @@ export const StoriesSearchContainer = styled.div`
 
   hr {
     margin: 30px 10px 20px 10px;
-    opacity: 0.5;
-    border-color: white;
+    border-color: #ffffff56;
   }
 
   @media (max-width: 1500px) {
@@ -26,13 +25,23 @@ export const SearchContainer = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
-  border: solid 1.5px hsl(35, 45%, 88%);
-  border-radius: 7px;
+  background: #181818;
+  border: solid 1px #969696be;
+  border-radius: 10px;
   padding-left: 7px;
   gap: 5px;
+  transition:
+    box-shadow 0.2s,
+    border 0.2s;
 
-  svg {
-    color: hsl(35, 45%, 88%);
+  &:has(input[type="text"]:focus) {
+    border-color: #ccccccbe;
+    box-shadow: 0 0 2px 1px #ccccccbe;
+
+    @media (max-width: 1500px) {
+      border: none;
+      box-shadow: none;
+    }
   }
 
   @media (max-width: 1500px) {
@@ -47,14 +56,18 @@ export const SearchContainer = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  color: white;
+  color: #efefef;
   width: 200px;
-  height: 40px;
+  height: 100%;
   background: transparent;
   outline: none;
   border: none;
   text-indent: 5px;
-  font-size: 1.1rem;
+  font-size: 1rem;
+
+  &::placeholder {
+    color: #949494;
+  }
 
   @media (max-width: 1500px) {
     width: calc(100% - 50px);
@@ -174,8 +187,8 @@ export const FilterCheckbox = styled.input`
       &:before {
         width: 100%;
         height: 2em;
-        background: hsl(35, 25%, 88%);
-        border-color: hsl(35, 25%, 80%);
+        background: #d8d6ce;
+        border-color: #d8d6ce;
       }
     }
   }
@@ -200,7 +213,7 @@ export const ApplyFiltersButton = styled.button`
   text-align: center;
   color: #d8d6ce;
   background: none;
-  height: 48px;
+  height: 40px;
 
   svg {
     display: none;

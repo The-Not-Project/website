@@ -7,10 +7,7 @@ import {
   CategoriesContainer,
   StoryImageContainer,
 } from "./storyCard.styles";
-import {
-  FaCalendar as CalenderIcon,
-  FaTags as InfoIcon,
-} from "react-icons/fa6";
+import { LuCalendar as CalendarIcon, LuTags as TagIcon } from "react-icons/lu";
 import Image from "next/image";
 import ShareButton from "./components/shareButton";
 
@@ -45,11 +42,11 @@ export default function StoryCard({ story }: { story: StoryType }) {
         </StoryContent>
         <div className="second-row">
           <span>
-            <CalenderIcon /> {date}
+            <CalendarIcon size={12} /> {date}
           </span>
           {story.categories.length > 0 && (
             <span>
-              <InfoIcon /> {story.categories[0].name}
+              <TagIcon size={13} /> {story.categories[0].name}
             </span>
           )}
           <ShareButton id={story.id} title={story.title} />

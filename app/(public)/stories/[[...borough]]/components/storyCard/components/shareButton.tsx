@@ -1,6 +1,6 @@
 "use client";
 
-import { FaShare as ShareIcon } from "react-icons/fa6";
+import { LuForward as ShareIcon } from "react-icons/lu";
 
 export default function ShareButton({
   id,
@@ -27,7 +27,7 @@ export default function ShareButton({
   }
   return (
     <span onClick={handleShare}>
-      <ShareIcon /> Share
+      <ShareIcon size={15} /> Share
     </span>
   );
 }

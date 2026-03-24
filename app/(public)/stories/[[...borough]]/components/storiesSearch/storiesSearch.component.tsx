@@ -51,11 +51,12 @@ export default function StoriesSearch({
       </SearchTitle>
       <StoriesSearchContainer>
         <SearchContainer>
-          <SearchIcon />
+          <SearchIcon color="#949494" />
           <SearchInput
+          type="text"
             id="search"
             name="q"
-            placeholder="Search..."
+            placeholder="Search stories"
             defaultValue={initialFilters.search}
           />
         </SearchContainer>
@@ -83,7 +84,7 @@ export default function StoriesSearch({
           </FilterOptionsContainer>
         </div>
         <ApplyFiltersButton type="submit">
-          <span>Look Up</span> <SearchIcon />
+          <span>Look Up</span> <SearchIcon size={18} />
         </ApplyFiltersButton>
       </StoriesSearchContainer>
     </form>

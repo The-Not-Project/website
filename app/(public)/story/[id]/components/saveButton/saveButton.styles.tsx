@@ -4,25 +4,26 @@ export const SaveButton = styled.div`
   position: absolute;
   top: 10px;
   right: 20px;
-  font-size: 1.4rem;
   cursor: pointer;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 
   span {
-    text-decoration: none;
-    font-size: 1rem;
-    margin-right: 5px;
+    font-size: 0.8rem;
+    margin-right: 3px;
     opacity: 0;
     transition: 0.1s;
     pointer-events: none;
+    text-transform: uppercase;
+    letter-spacing: 0.02rem;
+
+
     &.visible {
       opacity: 1;
     }
   }
 
   @media (max-width: 850px) {
-    font-size: 1.1rem;
     top: 5px;
     right: 0;
   }

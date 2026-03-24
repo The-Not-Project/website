@@ -1,15 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { FaBookmark, FaRegBookmark } from "react-icons/fa6";
+import {
+  LuBookmarkPlus,
+  LuBookmarkMinus,
+  LuBookmarkCheck,
+} from "react-icons/lu";
 import { SaveButton } from "./saveButton.styles";
 import clsx from "clsx";
-import { createStorySaveAction, deleteStorySaveAction } from "@/lib/core-api/actions/story.actions";
+import {
+  createStorySaveAction,
+  deleteStorySaveAction,
+} from "@/lib/core-api/actions/story.actions";
 
-export default function SaveButtonClient({ 
-  storyId, initialSaved, userId 
-}: { 
-  storyId: string; initialSaved: boolean; userId?: string 
+export default function SaveButtonClient({
+  storyId,
+  initialSaved,
+  userId,
+}: {
+  storyId: string;
+  initialSaved: boolean;
+  userId?: string;
 }) {
   const [isSaved, setIsSaved] = useState(initialSaved);
   const [clicked, setClicked] = useState(false);
@@ -37,8 +48,14 @@ export default function SaveButtonClient({
       className={clsx("save-button", { saved: isSaved })}
       onClick={handleSave}
     >
-      <span className={clsx({ visible: clicked })}>Saved!</span>
-      {isSaved ? <FaBookmark /> : <FaRegBookmark />}
+      <span className={clsx({ visible: clicked })}>Saved</span>
+      {clicked && isSaved ? (
+        <LuBookmarkCheck size={22}/>
+      ) : isSaved ? (
+        <LuBookmarkMinus color="#A44A3F" size={22}/>
+      ) : (
+        <LuBookmarkPlus color="#3A4D39" size={22} />
+      )}
     </SaveButton>
   );
 }

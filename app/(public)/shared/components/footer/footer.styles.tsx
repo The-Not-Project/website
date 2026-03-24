@@ -10,7 +10,7 @@ export const FooterWrapper = styled.footer`
   }
 
   @media (max-width: 850px) {
-    padding: 50px 15px 20px 15px;
+    padding: 20px 15px 20px 15px;
   }
 `;
 

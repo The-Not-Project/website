@@ -103,8 +103,9 @@ export const FormContainer = styled.form`
     color: #000;
     cursor: pointer;
     font-size: 1rem;
-    padding: 10px 40px;
     transition: 0.2s;
+    width: 117px;
+    height: 39px;
     &:hover {
       background: #b8b8b8;
     }
