@@ -83,7 +83,7 @@ export default function StoriesSearch({
         />
       </SearchContainer>
 
-      {!isLoading ? (
+      {isLoading ? (
         <Loader inverted={true} />
       ) : (
         filters.search && (

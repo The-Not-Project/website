@@ -26,6 +26,7 @@ export const Spinner = styled.svg`
   &.inverted {
     filter: none;
     display: inline-block;
+    width: 100%;
     margin: 0 auto;
   }
 `;
