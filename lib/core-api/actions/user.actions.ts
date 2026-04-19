@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { internalApiFetch } from "..";
 import { User } from "@/app/types/types";
+import { verifyCaptcha } from "@/lib/captcha/verify-captcha";
 
 export async function getUsersAction() {
   const { data, error } = await internalApiFetch<User[]>("/user", {
@@ -25,9 +26,16 @@ export async function getUsersAction() {
 
 export async function createSubscriberAction(
   email: string,
+  token: string,
   phone?: string,
 ): Promise<string> {
   try {
+    const isCaptchaValid = await verifyCaptcha(token);
+
+    if (!isCaptchaValid) {
+      throw new Error("Invalid captcha");
+    }
+
     const { data, error } = await internalApiFetch<{ message: string }>(
       "/user/subscribe",
       {

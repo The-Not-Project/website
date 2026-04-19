@@ -1,29 +1,27 @@
 import Link from "next/link";
 import styled, { keyframes } from "styled-components";
 
-type RadarCardProps = { $isVisible: boolean; $url: string };
-
 export const RadarCardContainer = styled.section`
-  height: auto;
   aspect-ratio: 21 / 9;
   margin: 100px auto;
   position: relative;
   color: #040605;
 
   @media (max-width: 1200px) {
-    min-height: fit-content;
+    min-height: max-content;
     aspect-ratio: unset;
   }
 
   @media (max-width: 850px) {
     margin-block: 30px;
-    aspect-ratio: 3 / 4;
+    height: auto;
   }
 `;
 
-export const RadarDescription = styled.div<RadarCardProps>`
-  height: 100%;
+export const RadarDescription = styled.div`
+height: 100%;
   display: flex;
+  flex-grow: 1;
   &.is-visible {
     background: linear-gradient(
       to right,
@@ -35,6 +33,7 @@ export const RadarDescription = styled.div<RadarCardProps>`
 
   @media (max-width: 850px) {
     flex-flow: column;
+    min-height: 133vw;
     &.is-visible {
       background: linear-gradient(
         to right,

@@ -12,6 +12,7 @@ import {
 import Link from "next/link";
 import { sendContactEmailAction } from "@/lib/core-api/actions/contact.actions";
 import Loader from "@/app/(public)/shared/components/loader/loader";
+import Honeypot from "@/app/utils/honeypot/honeypot.component";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<string | null>(null);
@@ -21,6 +22,12 @@ export default function ContactForm() {
 
   async function handleClientAction(formData: FormData) {
     startTransition(async () => {
+      const website = formData.get("website") as string;
+      if (website && website.length > 0) {
+        setStatus("success");
+        return;
+      }
+
       if (!executeRecaptcha) {
         setStatus("error");
         return;
@@ -69,6 +76,7 @@ export default function ContactForm() {
           <option value="feedback">Feedback</option>
           <option value="collab">Collaboration</option>
         </select>
+        <Honeypot name="website"/>
 
         <label htmlFor="email">
           Email{type === "collab" ? "*" : " (optional)"}

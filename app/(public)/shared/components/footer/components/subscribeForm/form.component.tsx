@@ -1,74 +1,74 @@
 "use client";
 
-import Swal from "sweetalert2";
-import { SignUpForm, SignUpSection } from "./form.styles";
+import * as alerts from "@/app/utils/sweetalert";
+import { CaptchaNotice, SubscribeForm, SubscribeSection } from "./form.styles";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import Honeypot from "@/app/utils/honeypot/honeypot.component";
 
 type FormProps = {
-  submitAction: (email: string, phone?: string) => Promise<string>;
+  submitAction: (
+    email: string,
+    token: string,
+    phone?: string,
+  ) => Promise<string>;
 };
 
 export default function Form({ submitAction }: FormProps) {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
   async function handleSignUp(formData: FormData): Promise<void> {
+    if (!executeRecaptcha) {
+      alert("Recaptcha not yet available");
+      return;
+    }
     const email = formData.get("email") as string;
     const phone = formData.get("phone") as string;
+    const confirmEmail = formData.get("confirm-email") as string;
+
+    if (confirmEmail && confirmEmail.length > 0) {
+      alerts.subscribeSuccessAlert()
+      return
+    }
 
     if (!email) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Please enter a valid email address.",
-        confirmButtonText: "close",
-        customClass: {
-          confirmButton: "popup-button",
-        },
-        buttonsStyling: false,
-      });
+      alerts.subscribeEmailAlert()
       return;
     }
 
-    const response = await submitAction(email, phone ?? null);
+    try {
+      const token = await executeRecaptcha("subscribe_form");
+      const response = await submitAction(email, token, phone ?? null);
 
-    if (response === "Email already subscribed") {
-      Swal.fire({
-        icon: "info",
-        title: "Already Subscribed",
-        text: "This email is already subscribed to our updates.",
-        confirmButtonText: "close",
+      if (response === "Email already subscribed") {
+        alerts.subscribeAlreadyAlert()
+        return;
+      }
 
-        customClass: {
-          confirmButton: "popup-button",
-        },
-        buttonsStyling: false,
-      });
-      return;
+      alerts.subscribeSuccessAlert()
+    } catch (error) {
+      alerts.subscribeErrorAlert()
     }
-
-    Swal.fire({
-      icon: "success",
-      title: "Thanks for subscribing!",
-      text: "You have successfully signed up for updates.",
-      confirmButtonText: "close",
-      customClass: {
-        confirmButton: "popup-button",
-      },
-      buttonsStyling: false,
-    });
   }
 
   return (
-    <SignUpSection>
-      <SignUpForm action={handleSignUp}>
+    <SubscribeSection>
+      <SubscribeForm action={handleSignUp}>
         <p>Be the first to know about our new stories.</p>
-
         <input
           type="email"
           name="email"
           placeholder="example@domain.com"
           required
         />
+        <Honeypot name="confirm-email"/>
         <input type="tel" name="phone" placeholder="Phone number (optional)" />
+        <CaptchaNotice>
+          This site is protected by reCAPTCHA; the Google{" "}
+          <a href="https://policies.google.com/privacy">Privacy Policy</a> and{" "}
+          <a href="https://policies.google.com/terms">Terms</a> apply.
+        </CaptchaNotice>
         <button type="submit">Sign Up</button>
-      </SignUpForm>
-    </SignUpSection>
+      </SubscribeForm>
+    </SubscribeSection>
   );
 }

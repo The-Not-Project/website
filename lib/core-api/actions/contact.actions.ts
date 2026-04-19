@@ -1,5 +1,6 @@
 "use server";
 
+import { verifyCaptcha } from "@/lib/captcha/verify-captcha";
 import { internalApiFetch } from "..";
 
 
@@ -13,22 +14,33 @@ export async function sendContactEmailAction(formData: FormData) {
     return { success: false, message: "Missing required fields" };
   }
 
-  const { error } = await internalApiFetch<{ success: boolean }>(
-    "/contact",
-    {
-      method: "POST",
-      body: {
-        email,
-        message,
-        type,
-        token,
-      },
+  try {
+    const isCaptchaValid = await verifyCaptcha(token);
+
+    if (!isCaptchaValid) {
+      return { success: false, message: "Invalid captcha" };
     }
-  );
-
-  if (error) {
-    return { success: false, message: error };
+    
+    const { error } = await internalApiFetch<{ success: boolean }>(
+      "/contact",
+      {
+        method: "POST",
+        body: {
+          email,
+          message,
+          type,
+          token,
+        },
+      }
+    );
+    
+    if (error) {
+      return { success: false, message: error };
+    }
+    
+    return { success: true, message: "Message sent successfully!" };
+  } catch (err) {
+    console.error("CONTACT_ACTION_ERROR:", err);
+    return { success: false, message: "Failed to send message" };
   }
-
-  return { success: true, message: "Message sent successfully!" };
 }

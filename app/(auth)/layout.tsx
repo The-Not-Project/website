@@ -1,4 +1,4 @@
-import StyledComponentsRegistry from "@/lib/styled-registry";
+import StyledComponentsRegistry from "@/app/utils/styled-registry";
 import { AuthContainer, Background, PageContainer } from "./styles";
 import Link from "next/link";
 import Image from "next/image";

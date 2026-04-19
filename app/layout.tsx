@@ -5,6 +5,7 @@ import projectMetadata from "@/static/metadata/metadata";
 import { Manrope } from "next/font/google";
 import { georgia } from "./styles/font";
 import "./globals.css";
+import CaptchaWrapper from "../lib/captcha/captcha-wrapper";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -23,9 +24,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.className} ${georgia.variable}`}>
-        {children}
-        <Analytics />
-        <SpeedInsights />
+        <CaptchaWrapper>
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </CaptchaWrapper>
       </body>
     </html>
   );

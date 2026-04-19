@@ -1,4 +1,6 @@
 "use client";
+
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import {
   validateCooldownAction,
   setCooldownAction,
@@ -11,7 +13,6 @@ import {
 } from "../styles";
 import { PiEnvelopeLight } from "react-icons/pi";
 import { useState, useTransition, useEffect } from "react";
-import Loader from "@/app/(public)/shared/components/loader/loader";
 import { requestPasswordResetAction } from "@/lib/auth/actions/requestPasswordReset";
 import {
   FormButton,
@@ -24,6 +25,7 @@ export default function Page() {
   const [emailSentTo, setEmailSentTo] = useState("");
   const [isPending, startTransition] = useTransition();
   const [timeLeft, setTimeLeft] = useState(0);
+  const {executeRecaptcha} = useGoogleReCaptcha();
 
   const getCookie = (name: string) => {
     const value = `; ${document.cookie}`;
@@ -52,18 +54,30 @@ export default function Page() {
       setError(null);
       const email = formData.get("email") as string;
 
-      const { error: cooldownError } = await validateCooldownAction();
-      if (cooldownError) return setError(cooldownError);
+      if (!executeRecaptcha) {
+        setError("Recaptcha not yet available");
+        return;
+      }
 
-      const { error: authError } = await requestPasswordResetAction(email);
-
-      if (authError) {
-        setError(authError.message || "Failed to send reset email.");
-      } else {
-        await setCooldownAction();
-        setSuccess(true);
-        setEmailSentTo(email);
-        setTimeLeft(120);
+      try {
+        const token = await executeRecaptcha("password_reset_form");
+        formData.append("token", token);
+        
+        const { error: cooldownError } = await validateCooldownAction();
+        if (cooldownError) return setError(cooldownError);
+        
+        const { error: authError } = await requestPasswordResetAction(email, token);
+        
+        if (authError) {
+          setError(authError.message || "Failed to send reset email.");
+        } else {
+          await setCooldownAction();
+          setSuccess(true);
+          setEmailSentTo(email);
+          setTimeLeft(120);
+        }
+      } catch (error) {
+        setError("An unexpected error occurred. Please try again.");
       }
     });
   };

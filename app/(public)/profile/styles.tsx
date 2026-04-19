@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
   max-width: 1000px;
-  height: 100vh;
+  min-height: 100vh;
   margin-inline: auto;
   padding: 20px;
+  padding-bottom: 30px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -19,8 +20,7 @@ export const ProfileContainer = styled.div`
   }
 
   @media (max-width: 850px) {
-    height: auto;
-    margin-block: 80px;
+    margin-top: 80px;
     hr {
       margin: 20px 0;
     }

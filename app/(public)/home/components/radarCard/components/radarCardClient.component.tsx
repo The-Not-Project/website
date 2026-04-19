@@ -44,11 +44,7 @@ export default function RadarCardClient({
 
   return (
     <RadarCardContainer ref={containerRef}>
-      <RadarDescription
-        $isVisible={isVisible}
-        $url={thumbnail}
-        className={clsx({ "is-visible": isVisible })}
-      >
+      <RadarDescription className={clsx({ "is-visible": isVisible })}>
         <div className="main-info-container">
           <h2
             className={clsx(

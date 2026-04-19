@@ -11,6 +11,7 @@ import {
   SectionTitle,
 } from "./footer.styles";
 import { createSubscriberAction } from "@/lib/core-api/actions/user.actions";
+import CaptchaWrapper from "@/lib/captcha/captcha-wrapper";
 
 export default function Footer() {
   return (

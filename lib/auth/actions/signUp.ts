@@ -5,6 +5,7 @@ export const signUpAction = async (formData: FormData) => {
   const lastName = formData.get("lastName") as string;
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  const token = formData.get("token") as string;
 
   const { error } = await authClient.signUp.email({
     email,
@@ -14,6 +15,11 @@ export const signUpAction = async (formData: FormData) => {
     lastName,
     role: "user",
     callbackURL: "/",
+    fetchOptions: {
+      headers: {
+        "x-captcha-response": token,
+      },
+    },
   });
 
   return { error: error ?? null };
