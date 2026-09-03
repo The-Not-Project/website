@@ -14,9 +14,9 @@ export default function HomePage() {
         <RadarCard />
       </Suspense>
       <Boroughs />
-      <Suspense fallback={<RecommendationsPlaceholder />}>
+      {/* <Suspense fallback={<RecommendationsPlaceholder />}> */}
         <Recommendations />
-      </Suspense>
+      {/* </Suspense> */}
     </main>
   );
 }
